@@ -1,0 +1,1 @@
+{"name":"Transmilleno.UI","references":["Transmilleno.Core","Transmilleno.Player","Transmilleno.AI","Transmilleno.Transit","Unity.InputSystem","Unity.TextMeshPro","Unity.ugui","Unity.Cinemachine","Unity.AI.Navigation","Unity.RenderPipelines.Core.Runtime","Unity.RenderPipelines.Universal.Runtime"]}
