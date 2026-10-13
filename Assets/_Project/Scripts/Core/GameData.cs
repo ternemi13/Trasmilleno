@@ -18,7 +18,7 @@ namespace Transmilleno
     {
         public static event Action<string> Message; public static event Action<Vector3, float> Noise;
         public static event Action<string> PlayerDied; public static event Action LevelCompleted;
-        public static event Action<float> PlayerHurt;
+        public static event Action<float> PlayerHurt;public static event Action<Vector3> Impact;public static void Hit(Vector3 position)=>Impact?.Invoke(position);
         public static void Notify(string text) => Message?.Invoke(text);
         public static void EmitNoise(Vector3 p, float radius) => Noise?.Invoke(p, radius);
         public static void Die(string reason) => PlayerDied?.Invoke(reason);
@@ -33,7 +33,7 @@ namespace Transmilleno
     }
     public static class Session
     {
-        public static Actor Player; public static bool Running, Trespassing; public static float Alert, Elapsed;
+        public static GameProgressionConfig Config;public static DifficultySettings Difficulty => Config&&Config.difficulties!=null&&Save!=null?Config.difficulties[Mathf.Clamp(Save.difficulty,0,Config.difficulties.Length-1)]:null;public static Actor Player; public static bool Running, Trespassing; public static float Alert, Elapsed;
         public static int Hits, Alerts; public static string Route = "Sin registrar";
         public static LevelDefinition Level; public static SaveData Save;
         public static void RaiseAlert(float value) { if (Alert < 1 && value > 0) Alerts++; Alert = Mathf.Clamp(Alert + value, 0, 3); }

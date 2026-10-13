@@ -29,7 +29,7 @@ namespace Transmilleno
                 WorldArt.Part("Roof red fascia",t,new Vector3(-3.5f,4.12f,z),new Vector3(.12f,.36f,5.9f),red);
                 for(int k=0;k<5;k++)WorldArt.Part("Roof rib",t,new Vector3(0,4.38f,z-2+k),new Vector3(7,.04f,.045f),dark,false);
                 WorldArt.Part("Strip light",t,new Vector3(0,3.91f,z),new Vector3(2,.04f,.16f),cream,false);
-                if(levelNight()){var light=new GameObject("Platform light").AddComponent<Light>();light.transform.SetParent(t);light.transform.localPosition=new Vector3(0,3.6f,z);light.type=LightType.Point;light.range=8;light.intensity=2.8f;light.color=new Color(1,.74f,.46f);}
+                if(levelNight()){var light=new GameObject("Platform light").AddComponent<Light>();light.transform.SetParent(t);light.transform.localPosition=new Vector3(0,3.6f,z);light.type=LightType.Point;light.range=8;light.intensity=12;light.color=new Color(1,.74f,.46f);}
             }
             // Two turnstiles, a medium gate and fences provide independent entry routes.
             WorldArt.Part("Entry walkway",t,new Vector3(-6,.14f,-15),new Vector3(7,.35f,3.5f),concrete);
@@ -51,16 +51,38 @@ namespace Transmilleno
             // Street stall, route map, litter bins and graffiti anchor the station to the city.
             WorldArt.Part("Vendor counter",t,new Vector3(-13,.85f,-6),new Vector3(2,1.3f,1.2f),red);WorldArt.Part("Vendor canopy",t,new Vector3(-13,2.6f,-6),new Vector3(2.5f,.18f,1.8f),yellow);for(int s=-1;s<=1;s+=2)WorldArt.Part("Canopy pole",t,new Vector3(-13+s*.85f,1.7f,-6),new Vector3(.07f,2,.07f),dark,false);WorldArt.Sign("TINTO  /  AREPA",t,new Vector3(-13,1.1f,-6.63f),1.2f,cream.color,180);
             WorldArt.Sign("BOGOTÁ\nSE MUEVE",t,new Vector3(-19.7f,2,-24),4,red.color,-90);
-            var sun=new GameObject("Bogotá sun").AddComponent<Light>();sun.transform.SetParent(t);sun.type=LightType.Directional;sun.transform.rotation=Quaternion.Euler(Definition.night?18:38,-34,0);sun.color=Definition.night?new Color(.38f,.53f,.8f):new Color(1,.84f,.67f);sun.intensity=Definition.night?.45f:1.6f;sun.shadows=LightShadows.Soft;
-            RenderSettings.ambientMode=AmbientMode.Flat;RenderSettings.ambientLight=Definition.night?new Color(.13f,.19f,.3f):new Color(.5f,.57f,.62f);RenderSettings.fog=true;RenderSettings.fogColor=Definition.night?new Color(.035f,.065f,.11f):new Color(.59f,.66f,.69f);RenderSettings.fogMode=FogMode.ExponentialSquared;RenderSettings.fogDensity=Definition.rain?.016f:.008f;
+            var sun=new GameObject("Bogotá sun").AddComponent<Light>();sun.transform.SetParent(t);sun.type=LightType.Directional;sun.transform.rotation=Quaternion.Euler(Definition.night?18:38,-34,0);sun.color=Definition.night?new Color(.38f,.53f,.8f):new Color(1,.84f,.67f);sun.intensity=Definition.night?.65f:1.6f;sun.shadows=LightShadows.Soft;
+            RenderSettings.ambientMode=AmbientMode.Flat;RenderSettings.ambientLight=Definition.night?new Color(.2f,.27f,.37f):new Color(.5f,.57f,.62f);RenderSettings.fog=true;RenderSettings.fogColor=Definition.night?new Color(.035f,.065f,.11f):new Color(.59f,.66f,.69f);RenderSettings.fogMode=FogMode.ExponentialSquared;RenderSettings.fogDensity=Definition.rain?.016f:.008f;
             var volume=new GameObject("Color and lens").AddComponent<Volume>();volume.transform.SetParent(t);volume.isGlobal=true;volume.profile=ScriptableObject.CreateInstance<VolumeProfile>();var tone=volume.profile.Add<Tonemapping>();tone.mode.Override(TonemappingMode.ACES);var bloom=volume.profile.Add<Bloom>();bloom.intensity.Override(.22f);bloom.threshold.Override(1.2f);var vig=volume.profile.Add<Vignette>();vig.intensity.Override(.2f);
-            if(Definition.rain){var rain=new GameObject("Rain").AddComponent<ParticleSystem>();rain.transform.SetParent(t);rain.transform.position=new Vector3(0,14,0);var main=rain.main;main.startLifetime=1.5f;main.startSpeed=14;main.startSize=.035f;main.startColor=new Color(.65f,.78f,.85f,.4f);main.maxParticles=1200;var shape=rain.shape;shape.shapeType=ParticleSystemShapeType.Box;shape.scale=new Vector3(35,1,65);rain.transform.rotation=Quaternion.Euler(90,0,0);var emission=rain.emission;emission.rateOverTime=650;var rr=rain.GetComponent<ParticleSystemRenderer>();rr.sharedMaterial=WorldArt.Material("rain",new Color(.6f,.7f,.8f));rr.renderMode=ParticleSystemRenderMode.Stretch;rr.lengthScale=4;}
-            Surface=rootSurface();Surface.BuildNavMesh();
-            if(!actors)return;
-            for(int i=0;i<Definition.guards+Definition.police;i++){bool police=i>=Definition.guards;var npc=SpawnActor(catalog,police?"police":"guard",new Vector3(i%2==0?0:-10,.4f,-4+i*4));var a=npc.AddComponent<GuardAgent>();a.Police=police;a.Pose=npc.GetComponentInChildren<PoseDriver>();}
+            if(Definition.rain){var rain=new GameObject("Rain").AddComponent<ParticleSystem>();rain.transform.SetParent(t);rain.transform.position=new Vector3(0,14,0);var main=rain.main;main.startLifetime=1.5f;main.startSpeed=14;main.startSize=.035f;main.startColor=new Color(.65f,.78f,.85f,.4f);main.maxParticles=1200;var shape=rain.shape;shape.shapeType=ParticleSystemShapeType.Box;shape.scale=new Vector3(35,1,65);rain.transform.rotation=Quaternion.Euler(90,0,0);var emission=rain.emission;emission.rateOverTime=650;var rr=rain.GetComponent<ParticleSystemRenderer>();rr.sharedMaterial=WorldArt.Material("rain",new Color(.6f,.7f,.8f));rr.renderMode=ParticleSystemRenderMode.Billboard;main.startSize3D=true;main.startSizeX=.018f;main.startSizeY=.32f;main.startSizeZ=.018f;}
+            AddVariant(catalog,concrete,dark,red,cream,glass);Surface=rootSurface();Surface.BuildNavMesh();
+            if(!actors){var display=WorldArt.Model(catalog,"bus",t,new Vector3(5.1f,0,4),Quaternion.identity);if(display)display.AddComponent<MenuTraffic>();return;}
+            for(int i=0;i<Definition.guards+Definition.police;i++){bool police=i>=Definition.guards;var npc=SpawnActor(catalog,police?"police":"guard",new Vector3(i%2==0?0:-10,.4f,-4+i*4));var a=npc.AddComponent<GuardAgent>();a.Police=police;a.Pose=npc.GetComponentInChildren<PoseDriver>();if(a.Pose&&a.Pose.rightForearm){if(police){var pistol=WorldArt.Model(catalog,"pistol",a.Pose.rightForearm,new Vector3(-.15f,0,0),Quaternion.Euler(0,90,0));}else{WorldArt.Part("Baton grip",a.Pose.rightForearm,new Vector3(-.2f,0,0),new Vector3(.05f,.12f,.05f),dark,false,true);WorldArt.Part("Security baton",a.Pose.rightForearm,new Vector3(-.2f,-.2f,0),new Vector3(.042f,.42f,.042f),dark,false,true);}}}
             int crowd=Mathf.RoundToInt(Definition.pedestrians*(Session.Save?.crowd??1));for(int i=0;i<crowd;i++){var npc=SpawnActor(catalog,i%2==0?"pedestrian":"pedestrian2",new Vector3(i%2==0?-12:1,.4f,-14+(i*3)%30));npc.AddComponent<PedestrianAgent>();}
             for(int i=0;i<12;i++){var prop=WorldArt.Model(catalog,i==0?"knife":i%2==0?"stone":"can",t,new Vector3(-10+(i%3)*1.4f,.45f,-12+i*2.4f),Quaternion.identity);if(!prop)continue;var rb=prop.AddComponent<Rigidbody>();rb.mass=.6f;rb.collisionDetectionMode=CollisionDetectionMode.ContinuousDynamic;var col=prop.AddComponent<BoxCollider>();col.size=new Vector3(.28f,.2f,.28f);var pick=prop.AddComponent<Pickable>();pick.knife=i==0;}
             SpawnBus(catalog,false);if(Definition.index>=4)SpawnBus(catalog,true);
+        }
+
+        void AddVariant(AssetCatalog catalog,Material concrete,Material dark,Material red,Material cream,Material glass)
+        {
+            int level=Definition.index;var t=transform;
+            for(int i=0;i<level%4;i++){
+                float z=-7+i*8+(level%2)*2;
+                WorldArt.Part("Information kiosk",t,new Vector3(.3f,.9f,z),new Vector3(1.1f,1.1f,.7f),dark);
+                WorldArt.Part("Route map glass",t,new Vector3(.3f,1.5f,z-.38f),new Vector3(.96f,1.3f,.05f),glass,false);
+                WorldArt.Sign("RUTAS / "+(level+i).ToString("00")+"\nNORTE ↑",t,new Vector3(.3f,1.55f,z-.42f),.8f,Color.white,180);
+            }
+            if(level>=3){float z=10-level*.9f;var booth=new GameObject("Ticket hall");booth.transform.SetParent(t);booth.transform.localPosition=new Vector3(-11,0,z);WorldArt.Part("Ticket office",booth.transform,new Vector3(0,1.2f,0),new Vector3(3,2.4f,2),cream);WorldArt.Part("Window counter",booth.transform,new Vector3(0,1.45f,-1.02f),new Vector3(2,.8f,.06f),glass,false);WorldArt.Part("Red awning",booth.transform,new Vector3(0,2.48f,-.3f),new Vector3(3.5f,.18f,2.7f),red);WorldArt.Sign("TAQUILLA",booth.transform,new Vector3(0,2.08f,-1.07f),1,Color.white,180);}
+            if(level>=5){
+                float z=18+(level%3)*2;
+                for(int i=0;i<18;i++)WorldArt.Part("Footbridge stair",t,new Vector3(-13+i*.42f,(i+1)*.135f,z),new Vector3(.44f,(i+1)*.27f,2.2f),concrete);
+                WorldArt.Part("Elevated pedestrian bridge",t,new Vector3(-2.8f,4.81f,z),new Vector3(13.5f,.25f,2.4f),concrete);
+                for(int side=-1;side<=1;side+=2){WorldArt.Part("Bridge rail",t,new Vector3(-2.8f,5.8f,z+side*1.13f),new Vector3(13.5f,.08f,.08f),dark);for(int x=-9;x<4;x++)WorldArt.Part("Bridge baluster",t,new Vector3(x,5.33f,z+side*1.13f),new Vector3(.065f,1,.065f),dark,false);}
+                for(int x=-7;x<6;x+=10)WorldArt.Part("Bridge structural support",t,new Vector3(x,2.4f,z),new Vector3(.35f,4.8f,.35f),dark);
+                WorldArt.Sign("PASARELA  /  ACCESO NORTE",t,new Vector3(-2.8f,5.25f,z-1.26f),1.1f,Color.white,180);
+            }
+            if(level>=7){for(int i=0;i<level-5;i++){float z=-12+i*4.2f;var barrier=WorldArt.Part("Security chicane",t,new Vector3(i%2==0?-.4f:1.3f,.9f,z),new Vector3(1.7f,1.1f,.22f),red);barrier.AddComponent<Climbable>().route="Barreras interiores";WorldArt.Part("Warning stripe",t,new Vector3(i%2==0?-.4f:1.3f,1.12f,z-.13f),new Vector3(1.5f,.14f,.025f),cream,false);}}
+            for(int i=0;i<3;i++){float z=-25+i*24;WorldArt.Part("Tree planter",t,new Vector3(-16,.45f,z),new Vector3(1.4f,.7f,1.4f),concrete);WorldArt.Part("Tree trunk",t,new Vector3(-16,1.8f,z),new Vector3(.18f,2.6f,.18f),dark,false,true);for(int j=0;j<4;j++){var foliage=WorldArt.Part("Pruned canopy",t,new Vector3(-16+(j%2)*.6f-.3f,3.4f+j*.25f,z+(j/2)*.6f-.3f),new Vector3(1.6f,1.1f,1.5f),WorldArt.Material("leaves",new Color(.22f,.36f,.23f)),false);foliage.transform.Rotate(0,j*35,0);}}
         }
         bool levelNight()=>Definition.night;
         NavMeshSurface rootSurface(){var s=gameObject.AddComponent<NavMeshSurface>();s.collectObjects=CollectObjects.Children;s.useGeometry=NavMeshCollectGeometry.PhysicsColliders;s.layerMask=1<<0;return s;}
@@ -70,7 +92,7 @@ namespace Transmilleno
         }
         void SpawnBus(AssetCatalog catalog,bool reverse)
         {
-            var g=new GameObject(reverse?"Express bus":"B74 · Boarding bus");g.transform.SetParent(transform);g.layer=10;var model=WorldArt.Model(catalog,"bus",g.transform,Vector3.zero,Quaternion.identity);var c=g.AddComponent<BoxCollider>();c.center=new Vector3(0,1.45f,0);c.size=new Vector3(2.8f,2.9f,17.8f);var bus=g.AddComponent<BusController>();bus.Reverse=reverse;bus.Stop=new Vector3(reverse?-6:5.1f,0,4);var door=WorldArt.Part("Animated door",g.transform,new Vector3(-1.45f,1.6f,1.5f),new Vector3(.07f,2,1.4f),WorldArt.Material("glass",Color.gray),false);bus.Door=door.transform;if(!reverse)Bus=bus;
+            var g=new GameObject(reverse?"Express bus":"B74 · Boarding bus");g.transform.SetParent(transform);g.layer=10;var model=WorldArt.Model(catalog,"bus",g.transform,Vector3.zero,Quaternion.identity);var c=g.AddComponent<BoxCollider>();c.center=new Vector3(0,1.45f,0);c.size=new Vector3(2.8f,2.9f,17.8f);var bus=g.AddComponent<BusController>();g.AddComponent<BusAudio>();bus.Reverse=reverse;bus.Stop=new Vector3(reverse?-6:5.1f,0,4);var door=WorldArt.Part("Animated door",g.transform,new Vector3(-1.45f,1.6f,1.5f),new Vector3(.07f,2,1.4f),WorldArt.Material("glass",Color.gray),false);bus.Door=door.transform;if(!reverse)Bus=bus;
         }
     }
 }

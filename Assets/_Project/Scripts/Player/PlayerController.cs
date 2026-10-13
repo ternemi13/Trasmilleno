@@ -8,15 +8,15 @@ namespace Transmilleno
         public enum MoveState { Grounded, Airborne, Vaulting, Fence, Boarded, Dead }
         public MoveState State {get; private set;} public Stamina Stamina {get;} = new Stamina();
         public GameInput Input {get; private set;} public Transform View, Hand; public PoseDriver Pose;
-        public bool HasKnife; public string Prompt {get; private set;} public float Speed {get; private set;}
+        public bool HasKnife;public GameObject KnifeVisual; public string Prompt {get; private set;} public float Speed {get; private set;}
         CharacterController motor; Vector3 velocity; float vertical, groundedAt, jumpAt = -100, attackAt, lastGroundY; int combo; Pickable held; Climbable fence; float fenceTop; Vector3 fenceNormal; readonly Collider[] hits = new Collider[24]; readonly Actor[] victims = new Actor[24];
         void Awake() { motor = GetComponent<CharacterController>(); Input = new GameInput(); }
         void Start() { Session.Player = this; Health = 100; HasKnife = Session.Level && Session.Level.knife; lastGroundY = transform.position.y; }
         void OnDestroy() { Input?.Dispose(); if(Session.Player == this) Session.Player = null; }
         void Update()
         {
-            if (!Session.Running || IsDead || !View) return;
-            Stamina.Tick(Time.deltaTime, Session.Save.difficulty == 0 ? 1.35f : 1);
+            if(KnifeVisual)KnifeVisual.SetActive(HasKnife&&!held);if (!Session.Running || IsDead || !View) return;
+            Stamina.Tick(Time.deltaTime, Session.Difficulty?Session.Difficulty.stamina:1);
             if (State == MoveState.Boarded || State == MoveState.Vaulting) return;
             if (State == MoveState.Fence) { UpdateFence(); return; }
             Vector2 move = Input.Move.ReadValue<Vector2>(); Vector3 forward = Vector3.ProjectOnPlane(View.forward, Vector3.up).normalized; Vector3 right = Vector3.Cross(Vector3.up, forward); Vector3 direction = Vector3.ClampMagnitude(forward * move.y + right * move.x, 1);
@@ -60,7 +60,7 @@ namespace Transmilleno
         {
             if(!fence || Input.Jump.WasPressedThisFrame() || !Stamina.Spend(13 * Time.deltaTime)) { State = MoveState.Airborne; if(Pose)Pose.Climb = 0; vertical = 0; return; }
             Vector2 m = Input.Move.ReadValue<Vector2>(); motor.Move((Vector3.up * m.y + transform.right * m.x) * (1.35f * Time.deltaTime)); if(Pose) {Pose.Climb=1;Pose.Speed=2;}
-            if(transform.position.y > fenceTop - 1.1f && m.y > 0) { if(fence.hasTopClearance && !Physics.Raycast(transform.position + Vector3.up * 1.7f, Vector3.up, .8f,1<<0)) StartCoroutine(Vault(transform.position - fenceNormal * 1.25f + Vector3.up * .6f, fenceTop, "Reja")); else { motor.Move(Vector3.down * .03f); GameEvents.Notify("La cubierta bloquea el paso. Busca otro tramo."); } }
+            if(transform.position.y > fenceTop - 1.1f && m.y > 0) { if(fence.hasTopClearance && !Physics.Raycast(transform.position + Vector3.up * 1.7f, Vector3.up, .8f,1<<0)) StartCoroutine(Vault(new Vector3(transform.position.x-fenceNormal.x*1.25f,fenceTop+.05f,transform.position.z-fenceNormal.z*1.25f), fenceTop, "Reja")); else { motor.Move(Vector3.down * .03f); GameEvents.Notify("La cubierta bloquea el paso. Busca otro tramo."); } }
             if(motor.isGrounded && m.y < 0) {State=MoveState.Grounded;if(Pose)Pose.Climb=0;}
         }
         void Attack(bool knife)
@@ -71,7 +71,7 @@ namespace Transmilleno
         {
             yield return new WaitForSeconds(.12f); if(IsDead)yield break;
             int n=Physics.OverlapSphereNonAlloc(transform.position+Vector3.up+transform.forward*.8f, .9f,hits);int count=0;
-            for(int i=0;i<n;i++) { var a=hits[i].GetComponentInParent<Actor>();if(!a||a==this||a.IsDead)continue; bool duplicate=false;for(int j=0;j<count;j++)if(victims[j]==a)duplicate=true;if(duplicate)continue;victims[count++]=a;a.TakeDamage(new DamageInfo(knife?38:combo==2?22:15,knife?DamageType.Knife:DamageType.Punch,gameObject,transform.forward*2));Session.Hits++; }
+            for(int i=0;i<n;i++) { var a=hits[i].GetComponentInParent<Actor>();if(!a||a==this||a.IsDead)continue; bool duplicate=false;for(int j=0;j<count;j++)if(victims[j]==a)duplicate=true;if(duplicate)continue;victims[count++]=a;a.TakeDamage(new DamageInfo(knife?(Session.Config&&Session.Config.knife?Session.Config.knife.damage:38):(Session.Config&&Session.Config.fists?Session.Config.fists.damage:15)*(combo==2?1.45f:1),knife?DamageType.Knife:DamageType.Punch,gameObject,transform.forward*2));Session.Hits++; }
             Session.RaiseAlert(.4f);
         }
         void PickUp()
@@ -81,7 +81,7 @@ namespace Transmilleno
         }
         public override void TakeDamage(DamageInfo d)
         {
-            if(IsDead || State==MoveState.Boarded)return;float modifier=Session.Save==null?1:Session.Save.difficulty==0?.65f:Session.Save.difficulty==2?1.35f:1; Health=Mathf.Max(0,Health-d.amount*modifier);GameEvents.Hurt(d.amount);if(Health>0)return;State=MoveState.Dead;GameEvents.Die(d.type==DamageType.Bus?"Un bus te atropelló":d.type==DamageType.Fall?"Caída demasiado alta":"Te alcanzó la seguridad");
+            if(IsDead || State==MoveState.Boarded)return;float modifier=Session.Difficulty?Session.Difficulty.damage:1; Health=Mathf.Max(0,Health-d.amount*modifier);GameEvents.Hurt(d.amount);GameEvents.Hit(transform.position+Vector3.up);if(Health>0)return;State=MoveState.Dead;GameEvents.Die(d.type==DamageType.Bus?"Un bus te atropelló":d.type==DamageType.Fall?"Caída demasiado alta":"Te alcanzó la seguridad");
         }
         public void Board(Transform bus) { State=MoveState.Boarded;motor.enabled=false;transform.SetParent(bus,true);GameEvents.Notify("A bordo. Espera a que el bus arranque."); }
     }

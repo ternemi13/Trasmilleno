@@ -1,0 +1,836 @@
+{
+  "entries": [
+    {
+      "key": "\n- CPU: ",
+      "value": "\n- CPU: "
+    },
+    {
+      "key": "\n- Frames: ",
+      "value": "\n- Frames: "
+    },
+    {
+      "key": "\n- GPU: ",
+      "value": "\n- GPU: "
+    },
+    {
+      "key": "\n- Level: ",
+      "value": "\n- Level: "
+    },
+    {
+      "key": "\n- Mean: ",
+      "value": "\n- Mean: "
+    },
+    {
+      "key": "\n- Resolution: ",
+      "value": "\n- Resolution: "
+    },
+    {
+      "key": "\nENTRA A LA ESTACIÓN → SUBE AL BUS",
+      "value": "\nENTRA A LA ESTACIÓN → SUBE AL BUS"
+    },
+    {
+      "key": "\nNORTE ↑",
+      "value": "\nNORTE ↑"
+    },
+    {
+      "key": "   ",
+      "value": "   "
+    },
+    {
+      "key": "     ALERTAS  ",
+      "value": "     ALERTAS  "
+    },
+    {
+      "key": "   BLOQUEADO",
+      "value": "   BLOQUEADO"
+    },
+    {
+      "key": "  /  ",
+      "value": "  /  "
+    },
+    {
+      "key": "  [",
+      "value": "  ["
+    },
+    {
+      "key": " / ",
+      "value": " / "
+    },
+    {
+      "key": " FPS)\n- P95: ",
+      "value": " FPS)\n- P95: "
+    },
+    {
+      "key": " MiB\n\nEditor measurements include editor overhead; they do not certify 1080p target hardware.\n",
+      "value": " MiB\n\nEditor measurements include editor overhead; they do not certify 1080p target hardware.\n"
+    },
+    {
+      "key": " UTC\n\n- Environment: ",
+      "value": " UTC\n\n- Environment: "
+    },
+    {
+      "key": " ms\n- Memory: ",
+      "value": " ms\n- Memory: "
+    },
+    {
+      "key": " ms (",
+      "value": " ms ("
+    },
+    {
+      "key": " × ",
+      "value": " × "
+    },
+    {
+      "key": "# Performance measurement\n\n",
+      "value": "# Performance measurement\n\n"
+    },
+    {
+      "key": "01    →    NORTE",
+      "value": "01    →    NORTE"
+    },
+    {
+      "key": "1280 × 720",
+      "value": "1280 × 720"
+    },
+    {
+      "key": "1920 × 1080",
+      "value": "1920 × 1080"
+    },
+    {
+      "key": "2560 × 1440",
+      "value": "2560 × 1440"
+    },
+    {
+      "key": ": ",
+      "value": ": "
+    },
+    {
+      "key": "A bordo. Espera a que el bus arranque.",
+      "value": "A bordo. Espera a que el bus arranque."
+    },
+    {
+      "key": "A tu manera",
+      "value": "A tu manera"
+    },
+    {
+      "key": "ACCIÓN / SIGILO URBANO     ·     PC",
+      "value": "ACCIÓN / SIGILO URBANO     ·     PC"
+    },
+    {
+      "key": "ACÉRCATE AL BUS Y PULSA E",
+      "value": "ACÉRCATE AL BUS Y PULSA E"
+    },
+    {
+      "key": "Access gate",
+      "value": "Access gate"
+    },
+    {
+      "key": "Ajusta la escena a tu equipo.",
+      "value": "Ajusta la escena a tu equipo."
+    },
+    {
+      "key": "Alcanzaste el bus.",
+      "value": "Alcanzaste el bus."
+    },
+    {
+      "key": "Animated door",
+      "value": "Animated door"
+    },
+    {
+      "key": "B74\nDESTINO: NORTE",
+      "value": "B74\nDESTINO: NORTE"
+    },
+    {
+      "key": "B74  /  PRÓXIMO BUS",
+      "value": "B74  /  PRÓXIMO BUS"
+    },
+    {
+      "key": "B74  PRÓXIMO BUS  ~{0:0}s",
+      "value": "B74  PRÓXIMO BUS  ~{0:0}s"
+    },
+    {
+      "key": "B74  PUERTAS ABIERTAS  {0:0}s",
+      "value": "B74  PUERTAS ABIERTAS  {0:0}s"
+    },
+    {
+      "key": "B74 · Boarding bus",
+      "value": "B74 · Boarding bus"
+    },
+    {
+      "key": "BOGOTÁ\nSE MUEVE",
+      "value": "BOGOTÁ\nSE MUEVE"
+    },
+    {
+      "key": "BOGOTÁ  /  04° 39′ N",
+      "value": "BOGOTÁ  /  04° 39′ N"
+    },
+    {
+      "key": "BOGOTÁ TE ESPERA",
+      "value": "BOGOTÁ TE ESPERA"
+    },
+    {
+      "key": "Barreras interiores",
+      "value": "Barreras interiores"
+    },
+    {
+      "key": "Baton grip",
+      "value": "Baton grip"
+    },
+    {
+      "key": "Bench foot",
+      "value": "Bench foot"
+    },
+    {
+      "key": "Bench slat",
+      "value": "Bench slat"
+    },
+    {
+      "key": "Bench slatted seat",
+      "value": "Bench slatted seat"
+    },
+    {
+      "key": "Bogotá asphalt",
+      "value": "Bogotá asphalt"
+    },
+    {
+      "key": "Bogotá es tuya.",
+      "value": "Bogotá es tuya."
+    },
+    {
+      "key": "Bogotá sun",
+      "value": "Bogotá sun"
+    },
+    {
+      "key": "Bridge baluster",
+      "value": "Bridge baluster"
+    },
+    {
+      "key": "Bridge rail",
+      "value": "Bridge rail"
+    },
+    {
+      "key": "Bridge structural support",
+      "value": "Bridge structural support"
+    },
+    {
+      "key": "Bus en estación · espera la apertura de puertas",
+      "value": "Bus en estación · espera la apertura de puertas"
+    },
+    {
+      "key": "CARGANDO LA CIUDAD...",
+      "value": "CARGANDO LA CIUDAD..."
+    },
+    {
+      "key": "CONFIGURACIÓN",
+      "value": "CONFIGURACIÓN"
+    },
+    {
+      "key": "CONTINUAR   →   ",
+      "value": "CONTINUAR   →   "
+    },
+    {
+      "key": "Camera target",
+      "value": "Camera target"
+    },
+    {
+      "key": "Canopy pole",
+      "value": "Canopy pole"
+    },
+    {
+      "key": "Caída demasiado alta",
+      "value": "Caída demasiado alta"
+    },
+    {
+      "key": "Celador neutralizado",
+      "value": "Celador neutralizado"
+    },
+    {
+      "key": "Chamfered architectural module",
+      "value": "Chamfered architectural module"
+    },
+    {
+      "key": "Cinemachine orbital camera",
+      "value": "Cinemachine orbital camera"
+    },
+    {
+      "key": "City facade",
+      "value": "City facade"
+    },
+    {
+      "key": "Ciudad nocturna · original procedural",
+      "value": "Ciudad nocturna · original procedural"
+    },
+    {
+      "key": "Color and lens",
+      "value": "Color and lens"
+    },
+    {
+      "key": "Completa una estación para desbloquear la siguiente.",
+      "value": "Completa una estación para desbloquear la siguiente."
+    },
+    {
+      "key": "Conservar mi partida",
+      "value": "Conservar mi partida"
+    },
+    {
+      "key": "Corrugated canopy",
+      "value": "Corrugated canopy"
+    },
+    {
+      "key": "Covered fence top",
+      "value": "Covered fence top"
+    },
+    {
+      "key": "Crossbeam lower",
+      "value": "Crossbeam lower"
+    },
+    {
+      "key": "Cruce de vía",
+      "value": "Cruce de vía"
+    },
+    {
+      "key": "Créditos",
+      "value": "Créditos"
+    },
+    {
+      "key": "Densidad de peatones (próximo nivel)",
+      "value": "Densidad de peatones (próximo nivel)"
+    },
+    {
+      "key": "Detalle y rendimiento",
+      "value": "Detalle y rendimiento"
+    },
+    {
+      "key": "Diez estaciones. Tres rutas.\nEncuentra tu forma de llegar.",
+      "value": "Diez estaciones. Tres rutas.\nEncuentra tu forma de llegar."
+    },
+    {
+      "key": "Difícil",
+      "value": "Difícil"
+    },
+    {
+      "key": "Distancia de dibujado",
+      "value": "Distancia de dibujado"
+    },
+    {
+      "key": "E   Recoger objeto",
+      "value": "E   Recoger objeto"
+    },
+    {
+      "key": "E   Subir al bus",
+      "value": "E   Subir al bus"
+    },
+    {
+      "key": "EN MOVIMIENTO",
+      "value": "EN MOVIMIENTO"
+    },
+    {
+      "key": "ESPACIO   Trepar / saltar",
+      "value": "ESPACIO   Trepar / saltar"
+    },
+    {
+      "key": "ESTACIÓN SUPERADA",
+      "value": "ESTACIÓN SUPERADA"
+    },
+    {
+      "key": "Elegir estación",
+      "value": "Elegir estación"
+    },
+    {
+      "key": "Elevated pedestrian bridge",
+      "value": "Elevated pedestrian bridge"
+    },
+    {
+      "key": "En pausa",
+      "value": "En pausa"
+    },
+    {
+      "key": "Encuentra una entrada. Sube al bus cuando abra las puertas.",
+      "value": "Encuentra una entrada. Sube al bus cuando abra las puertas."
+    },
+    {
+      "key": "Entry walkway",
+      "value": "Entry walkway"
+    },
+    {
+      "key": "Escala de render",
+      "value": "Escala de render"
+    },
+    {
+      "key": "Esta vez no llegaste.",
+      "value": "Esta vez no llegaste."
+    },
+    {
+      "key": "Express bus",
+      "value": "Express bus"
+    },
+    {
+      "key": "FIN DEL INTENTO",
+      "value": "FIN DEL INTENTO"
+    },
+    {
+      "key": "Fence panel",
+      "value": "Fence panel"
+    },
+    {
+      "key": "Footbridge stair",
+      "value": "Footbridge stair"
+    },
+    {
+      "key": "GOLPES  ",
+      "value": "GOLPES  "
+    },
+    {
+      "key": "GRÁFICOS",
+      "value": "GRÁFICOS"
+    },
+    {
+      "key": "Gate viewing slit",
+      "value": "Gate viewing slit"
+    },
+    {
+      "key": "Gráficos",
+      "value": "Gráficos"
+    },
+    {
+      "key": "HECHO PARA RECORRERLO",
+      "value": "HECHO PARA RECORRERLO"
+    },
+    {
+      "key": "Hand socket",
+      "value": "Hand socket"
+    },
+    {
+      "key": "IDIOMA   Español (Colombia)",
+      "value": "IDIOMA   Español (Colombia)"
+    },
+    {
+      "key": "Impacto: los guardias investigan el ruido",
+      "value": "Impacto: los guardias investigan el ruido"
+    },
+    {
+      "key": "Information kiosk",
+      "value": "Information kiosk"
+    },
+    {
+      "key": "Invertir eje Y",
+      "value": "Invertir eje Y"
+    },
+    {
+      "key": "LA CIUDAD NO ESPERA.",
+      "value": "LA CIUDAD NO ESPERA."
+    },
+    {
+      "key": "La ciudad puede esperar un momento.",
+      "value": "La ciudad puede esperar un momento."
+    },
+    {
+      "key": "La cubierta bloquea el paso. Busca otro tramo.",
+      "value": "La cubierta bloquea el paso. Busca otro tramo."
+    },
+    {
+      "key": "Lamp arm",
+      "value": "Lamp arm"
+    },
+    {
+      "key": "Lane marking",
+      "value": "Lane marking"
+    },
+    {
+      "key": "Los cambios se guardan automáticamente.",
+      "value": "Los cambios se guardan automáticamente."
+    },
+    {
+      "key": "Low track barrier",
+      "value": "Low track barrier"
+    },
+    {
+      "key": "Límite FPS",
+      "value": "Límite FPS"
+    },
+    {
+      "key": "MODELOS\nMaterial 3D proporcionado por el usuario.\nBus, estaciones, personajes y objetos integrados al catálogo.\n\nDESARROLLO Y ARTE TÉCNICO\nSistemas originales, arquitectura modular y sonido procedural.\nUnity / URP / Cinemachine / Input System / AI Navigation / glTFast\n\nConsulta Docs/CREDITS.md para procedencia y licencias.",
+      "value": "MODELOS\nMaterial 3D proporcionado por el usuario.\nBus, estaciones, personajes y objetos integrados al catálogo.\n\nDESARROLLO Y ARTE TÉCNICO\nSistemas originales, arquitectura modular y sonido procedural.\nUnity / URP / Cinemachine / Input System / AI Navigation / glTFast\n\nConsulta Docs/CREDITS.md para procedencia y licencias."
+    },
+    {
+      "key": "Machined cylinder",
+      "value": "Machined cylinder"
+    },
+    {
+      "key": "Main Camera",
+      "value": "Main Camera"
+    },
+    {
+      "key": "Menú",
+      "value": "Menú"
+    },
+    {
+      "key": "Menú principal",
+      "value": "Menú principal"
+    },
+    {
+      "key": "Más opciones →",
+      "value": "Más opciones →"
+    },
+    {
+      "key": "Música",
+      "value": "Música"
+    },
+    {
+      "key": "NUEVA PARTIDA",
+      "value": "NUEVA PARTIDA"
+    },
+    {
+      "key": "Navaja equipada · clic derecho",
+      "value": "Navaja equipada · clic derecho"
+    },
+    {
+      "key": "No se pudo guardar. Revisa el espacio disponible.",
+      "value": "No se pudo guardar. Revisa el espacio disponible."
+    },
+    {
+      "key": "Nueva partida",
+      "value": "Nueva partida"
+    },
+    {
+      "key": "Objeto recogido · clic izquierdo para lanzar",
+      "value": "Objeto recogido · clic izquierdo para lanzar"
+    },
+    {
+      "key": "Original architecture · supplied by user",
+      "value": "Original architecture · supplied by user"
+    },
+    {
+      "key": "PASARELA  /  ACCESO NORTE",
+      "value": "PASARELA  /  ACCESO NORTE"
+    },
+    {
+      "key": "PRÓXIMA PARADA\n",
+      "value": "PRÓXIMA PARADA\n"
+    },
+    {
+      "key": "PUÑOS",
+      "value": "PUÑOS"
+    },
+    {
+      "key": "PUÑOS  /  BUSCA OBJETOS EN EL SUELO",
+      "value": "PUÑOS  /  BUSCA OBJETOS EN EL SUELO"
+    },
+    {
+      "key": "PUÑOS  /  NAVAJA EQUIPADA",
+      "value": "PUÑOS  /  NAVAJA EQUIPADA"
+    },
+    {
+      "key": "Pavement seam",
+      "value": "Pavement seam"
+    },
+    {
+      "key": "Platform light",
+      "value": "Platform light"
+    },
+    {
+      "key": "Policía neutralizado",
+      "value": "Policía neutralizado"
+    },
+    {
+      "key": "Pruned canopy",
+      "value": "Pruned canopy"
+    },
+    {
+      "key": "Pulsa una tecla · ESC cancela",
+      "value": "Pulsa una tecla · ESC cancela"
+    },
+    {
+      "key": "RECORRIDO COMPLETO",
+      "value": "RECORRIDO COMPLETO"
+    },
+    {
+      "key": "RED DE ESTACIONES",
+      "value": "RED DE ESTACIONES"
+    },
+    {
+      "key": "RUTAS / ",
+      "value": "RUTAS / "
+    },
+    {
+      "key": "Raised platform",
+      "value": "Raised platform"
+    },
+    {
+      "key": "Red awning",
+      "value": "Red awning"
+    },
+    {
+      "key": "Reintentar estación",
+      "value": "Reintentar estación"
+    },
+    {
+      "key": "Resolución",
+      "value": "Resolución"
+    },
+    {
+      "key": "Restaurar ajustes",
+      "value": "Restaurar ajustes"
+    },
+    {
+      "key": "Roof red fascia",
+      "value": "Roof red fascia"
+    },
+    {
+      "key": "Roof rib",
+      "value": "Roof rib"
+    },
+    {
+      "key": "Roof spine",
+      "value": "Roof spine"
+    },
+    {
+      "key": "Route map glass",
+      "value": "Route map glass"
+    },
+    {
+      "key": "Sculpted foliage crown",
+      "value": "Sculpted foliage crown"
+    },
+    {
+      "key": "Se reinician los niveles, estrellas y mejores tiempos. Tus ajustes se conservan.",
+      "value": "Se reinician los niveles, estrellas y mejores tiempos. Tus ajustes se conservan."
+    },
+    {
+      "key": "Security baton",
+      "value": "Security baton"
+    },
+    {
+      "key": "Security chicane",
+      "value": "Security chicane"
+    },
+    {
+      "key": "Sidewalk kerb",
+      "value": "Sidewalk kerb"
+    },
+    {
+      "key": "Sign ",
+      "value": "Sign "
+    },
+    {
+      "key": "Siguiente estación →",
+      "value": "Siguiente estación →"
+    },
+    {
+      "key": "Sin bordes",
+      "value": "Sin bordes"
+    },
+    {
+      "key": "Sin registrar",
+      "value": "Sin registrar"
+    },
+    {
+      "key": "Spatial voice ",
+      "value": "Spatial voice "
+    },
+    {
+      "key": "Stainless cabinet",
+      "value": "Stainless cabinet"
+    },
+    {
+      "key": "Station sign board",
+      "value": "Station sign board"
+    },
+    {
+      "key": "Station · ",
+      "value": "Station · "
+    },
+    {
+      "key": "Steel column",
+      "value": "Steel column"
+    },
+    {
+      "key": "Strip light",
+      "value": "Strip light"
+    },
+    {
+      "key": "Subtítulos",
+      "value": "Subtítulos"
+    },
+    {
+      "key": "Sí",
+      "value": "Sí"
+    },
+    {
+      "key": "Sí, nueva partida",
+      "value": "Sí, nueva partida"
+    },
+    {
+      "key": "TINTO  /  AREPA",
+      "value": "TINTO  /  AREPA"
+    },
+    {
+      "key": "TOMA UN RESPIRO",
+      "value": "TOMA UN RESPIRO"
+    },
+    {
+      "key": "TRANSMILLENO  /  ",
+      "value": "TRANSMILLENO  /  "
+    },
+    {
+      "key": "Tactile paving",
+      "value": "Tactile paving"
+    },
+    {
+      "key": "Te alcanzó la seguridad",
+      "value": "Te alcanzó la seguridad"
+    },
+    {
+      "key": "Ticket hall",
+      "value": "Ticket hall"
+    },
+    {
+      "key": "Ticket office",
+      "value": "Ticket office"
+    },
+    {
+      "key": "Tile joint",
+      "value": "Tile joint"
+    },
+    {
+      "key": "Tree planter",
+      "value": "Tree planter"
+    },
+    {
+      "key": "Tree trunk",
+      "value": "Tree trunk"
+    },
+    {
+      "key": "Tripod arm",
+      "value": "Tripod arm"
+    },
+    {
+      "key": "Tu recorrido",
+      "value": "Tu recorrido"
+    },
+    {
+      "key": "Turnstile · vault route",
+      "value": "Turnstile · vault route"
+    },
+    {
+      "key": "Un bus te atropelló",
+      "value": "Un bus te atropelló"
+    },
+    {
+      "key": "Un juego de acción y sigilo urbano ambientado en una Bogotá de ficción.",
+      "value": "Un juego de acción y sigilo urbano ambientado en una Bogotá de ficción."
+    },
+    {
+      "key": "Unity Editor",
+      "value": "Unity Editor"
+    },
+    {
+      "key": "Universal Render Pipeline/Lit",
+      "value": "Universal Render Pipeline/Lit"
+    },
+    {
+      "key": "Universal Render Pipeline/Unlit",
+      "value": "Universal Render Pipeline/Unlit"
+    },
+    {
+      "key": "Vendor canopy",
+      "value": "Vendor canopy"
+    },
+    {
+      "key": "Vendor counter",
+      "value": "Vendor counter"
+    },
+    {
+      "key": "Ver créditos",
+      "value": "Ver créditos"
+    },
+    {
+      "key": "Vertical bars",
+      "value": "Vertical bars"
+    },
+    {
+      "key": "Volumen maestro",
+      "value": "Volumen maestro"
+    },
+    {
+      "key": "Volver a jugar",
+      "value": "Volver a jugar"
+    },
+    {
+      "key": "WASD   Escalar reja   ·   ESPACIO   Soltarse",
+      "value": "WASD   Escalar reja   ·   ESPACIO   Soltarse"
+    },
+    {
+      "key": "WASD  Mover     SHIFT  Correr     ESPACIO  Saltar / trepar     E  Interactuar     ESC  Pausa",
+      "value": "WASD  Mover     SHIFT  Correr     ESPACIO  Saltar / trepar     E  Interactuar     ESC  Pausa"
+    },
+    {
+      "key": "Warning stripe",
+      "value": "Warning stripe"
+    },
+    {
+      "key": "Window counter",
+      "value": "Window counter"
+    },
+    {
+      "key": "Window frame",
+      "value": "Window frame"
+    },
+    {
+      "key": "Windows player",
+      "value": "Windows player"
+    },
+    {
+      "key": "Ya estás dentro. Busca las puertas del próximo bus.",
+      "value": "Ya estás dentro. Busca las puertas del próximo bus."
+    },
+    {
+      "key": "[Performance] Report saved: ",
+      "value": "[Performance] Report saved: "
+    },
+    {
+      "key": "[Save] ",
+      "value": "[Save] "
+    },
+    {
+      "key": "[Save] Recuperación: ",
+      "value": "[Save] Recuperación: "
+    },
+    {
+      "key": "¡El celador prepara un golpe!",
+      "value": "¡El celador prepara un golpe!"
+    },
+    {
+      "key": "¡Policía apuntando! Busca cobertura.",
+      "value": "¡Policía apuntando! Busca cobertura."
+    },
+    {
+      "key": "¿Empezar desde cero?",
+      "value": "¿Empezar desde cero?"
+    },
+    {
+      "key": "← Menú",
+      "value": "← Menú"
+    },
+    {
+      "key": "← Volver",
+      "value": "← Volver"
+    },
+    {
+      "key": "○ TRANQUILO",
+      "value": "○ TRANQUILO"
+    },
+    {
+      "key": "● BÚSQUEDA",
+      "value": "● BÚSQUEDA"
+    },
+    {
+      "key": "● PERSECUCIÓN",
+      "value": "● PERSECUCIÓN"
+    },
+    {
+      "key": "● SOSPECHA",
+      "value": "● SOSPECHA"
+    }
+  ]
+}
