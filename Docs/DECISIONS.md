@@ -7,7 +7,7 @@
 - El remoto contenía únicamente el .gitignore oficial de Unity. Se integró su historial antes de añadir archivos y se configuró Git LFS.
 - La campaña usa una escena Gameplay y diez LevelDefinition; las variantes se construyen con un kit modular reproducible. Los nombres de estaciones y señales son ambientación de ficción.
 - Ninguna licencia de los modelos suministrados está incluida. Se registra su procedencia como material del usuario sin atribuirles una licencia inventada.
-- Los modelos con pesos de skin conservan esos pesos al normalizar el rig; para modelos estáticos se genera un esqueleto Humanoid con pesos anatómicos aproximados. Las manos usan IK de dos huesos durante el agarre. No se descargaron animaciones ni se usó Mixamo.
+- Los modelos ya skinned conservan su esqueleto, pesos y bindposes originales; la animación procedural respeta sus ejes nativos. Se genera un Avatar Humanoid compatible; para modelos estáticos se genera un esqueleto Humanoid con pesos anatómicos aproximados. Las manos usan IK de dos huesos durante el agarre. No se descargaron animaciones ni se usó Mixamo.
 - El modelo de la Sabana incluía un fondo de presentación de 36 vértices, de altura desproporcionada. Se elimina únicamente del prefab derivado, conservando el archivo fuente y la arquitectura de la estación.
 - La cámara usa Cinemachine para salida y mezcla; la órbita y la colisión se resuelven por código para mantener el mismo comportamiento con mouse y mando.
 - Los efectos y voces de audio usan bancos acotados de objetos reutilizables. Los objetos lanzables vuelven al punto de origen después de doce segundos para evitar acumulación fuera del recorrido.

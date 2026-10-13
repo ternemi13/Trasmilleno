@@ -1,77 +1,77 @@
 <?xml version="1.0" encoding="utf-8"?>
-<test-run id="2" testcasecount="7" result="Passed" total="7" passed="7" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-10-13 04:39:07Z" end-time="2026-10-13 04:39:07Z" duration="0,2327167">
-  <test-suite type="TestSuite" id="1000" name="Transmilleno" fullname="Transmilleno" runstate="Runnable" testcasecount="7" result="Passed" start-time="2026-10-13 04:39:07Z" end-time="2026-10-13 04:39:07Z" duration="0.232717" total="7" passed="7" failed="0" inconclusive="0" skipped="0" asserts="0">
+<test-run id="2" testcasecount="7" result="Passed" total="7" passed="7" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-10-13 05:06:04Z" end-time="2026-10-13 05:06:04Z" duration="0,3419065">
+  <test-suite type="TestSuite" id="1000" name="Transmilleno" fullname="Transmilleno" runstate="Runnable" testcasecount="7" result="Passed" start-time="2026-10-13 05:06:04Z" end-time="2026-10-13 05:06:04Z" duration="0.341907" total="7" passed="7" failed="0" inconclusive="0" skipped="0" asserts="0">
     <properties>
       <property name="platform" value="EditMode" />
     </properties>
-    <test-suite type="Assembly" id="1010" name="Transmilleno.EditTests.dll" fullname="D:/UNITY/Transmilleno/Transmilleno/Library/ScriptAssemblies/Transmilleno.EditTests.dll" runstate="Runnable" testcasecount="7" result="Passed" start-time="2026-10-13 04:39:07Z" end-time="2026-10-13 04:39:07Z" duration="0.226846" total="7" passed="7" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <test-suite type="Assembly" id="1010" name="Transmilleno.EditTests.dll" fullname="D:/UNITY/Transmilleno/Transmilleno/Library/ScriptAssemblies/Transmilleno.EditTests.dll" runstate="Runnable" testcasecount="7" result="Passed" start-time="2026-10-13 05:06:04Z" end-time="2026-10-13 05:06:04Z" duration="0.292954" total="7" passed="7" failed="0" inconclusive="0" skipped="0" asserts="0">
       <properties>
         <property name="_PID" value="20376" />
         <property name="_APPDOMAIN" value="Unity Child Domain" />
         <property name="platform" value="EditMode" />
         <property name="EditorOnly" value="True" />
       </properties>
-      <test-suite type="TestSuite" id="1011" name="Transmilleno" fullname="Transmilleno" runstate="Runnable" testcasecount="7" result="Passed" start-time="2026-10-13 04:39:07Z" end-time="2026-10-13 04:39:07Z" duration="0.127371" total="7" passed="7" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <test-suite type="TestSuite" id="1011" name="Transmilleno" fullname="Transmilleno" runstate="Runnable" testcasecount="7" result="Passed" start-time="2026-10-13 05:06:04Z" end-time="2026-10-13 05:06:04Z" duration="0.292131" total="7" passed="7" failed="0" inconclusive="0" skipped="0" asserts="0">
         <properties />
-        <test-suite type="TestSuite" id="1012" name="Tests" fullname="Transmilleno.Tests" runstate="Runnable" testcasecount="7" result="Passed" start-time="2026-10-13 04:39:07Z" end-time="2026-10-13 04:39:07Z" duration="0.126931" total="7" passed="7" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <test-suite type="TestSuite" id="1012" name="Tests" fullname="Transmilleno.Tests" runstate="Runnable" testcasecount="7" result="Passed" start-time="2026-10-13 05:06:04Z" end-time="2026-10-13 05:06:04Z" duration="0.172691" total="7" passed="7" failed="0" inconclusive="0" skipped="0" asserts="0">
           <properties />
-          <test-suite type="TestFixture" id="1002" name="CoreTests" fullname="Transmilleno.Tests.CoreTests" classname="Transmilleno.Tests.CoreTests" runstate="Runnable" testcasecount="7" result="Passed" start-time="2026-10-13 04:39:07Z" end-time="2026-10-13 04:39:07Z" duration="0.053175" total="7" passed="7" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <test-suite type="TestFixture" id="1002" name="CoreTests" fullname="Transmilleno.Tests.CoreTests" classname="Transmilleno.Tests.CoreTests" runstate="Runnable" testcasecount="7" result="Passed" start-time="2026-10-13 05:06:04Z" end-time="2026-10-13 05:06:04Z" duration="0.170545" total="7" passed="7" failed="0" inconclusive="0" skipped="0" asserts="0">
             <properties />
-            <test-case id="1007" name="CampaignContainsTenProgressiveLevels" fullname="Transmilleno.Tests.CoreTests.CampaignContainsTenProgressiveLevels" methodname="CampaignContainsTenProgressiveLevels" classname="Transmilleno.Tests.CoreTests" runstate="Runnable" seed="245952668" result="Passed" start-time="2026-10-13 04:39:07Z" end-time="2026-10-13 04:39:07Z" duration="0.015572" asserts="0">
+            <test-case id="1007" name="CampaignContainsTenProgressiveLevels" fullname="Transmilleno.Tests.CoreTests.CampaignContainsTenProgressiveLevels" methodname="CampaignContainsTenProgressiveLevels" classname="Transmilleno.Tests.CoreTests" runstate="Runnable" seed="527823097" result="Passed" start-time="2026-10-13 05:06:04Z" end-time="2026-10-13 05:06:04Z" duration="0.015874" asserts="0">
               <properties>
                 <property name="retryIteration" value="0" />
                 <property name="repeatIteration" value="0" />
               </properties>
-              <output><![CDATA[[QA] CampaignContainsTenProgressiveLevels Passed 
+              <output><![CDATA[[QA] CampaignContainsTenProgressiveLevels Passed
 ]]></output>
             </test-case>
-            <test-case id="1008" name="CatalogIncludesAllUserModelRoles" fullname="Transmilleno.Tests.CoreTests.CatalogIncludesAllUserModelRoles" methodname="CatalogIncludesAllUserModelRoles" classname="Transmilleno.Tests.CoreTests" runstate="Runnable" seed="1655887009" result="Passed" start-time="2026-10-13 04:39:07Z" end-time="2026-10-13 04:39:07Z" duration="0.000280" asserts="0">
+            <test-case id="1008" name="CatalogIncludesAllUserModelRoles" fullname="Transmilleno.Tests.CoreTests.CatalogIncludesAllUserModelRoles" methodname="CatalogIncludesAllUserModelRoles" classname="Transmilleno.Tests.CoreTests" runstate="Runnable" seed="127695106" result="Passed" start-time="2026-10-13 05:06:04Z" end-time="2026-10-13 05:06:04Z" duration="0.000526" asserts="0">
               <properties>
                 <property name="retryIteration" value="0" />
                 <property name="repeatIteration" value="0" />
               </properties>
-              <output><![CDATA[[QA] CatalogIncludesAllUserModelRoles Passed 
+              <output><![CDATA[[QA] CatalogIncludesAllUserModelRoles Passed
 ]]></output>
             </test-case>
-            <test-case id="1006" name="CorruptSaveRecoversBackup" fullname="Transmilleno.Tests.CoreTests.CorruptSaveRecoversBackup" methodname="CorruptSaveRecoversBackup" classname="Transmilleno.Tests.CoreTests" runstate="Runnable" seed="1047625465" result="Passed" start-time="2026-10-13 04:39:07Z" end-time="2026-10-13 04:39:07Z" duration="0.012160" asserts="0">
+            <test-case id="1006" name="CorruptSaveRecoversBackup" fullname="Transmilleno.Tests.CoreTests.CorruptSaveRecoversBackup" methodname="CorruptSaveRecoversBackup" classname="Transmilleno.Tests.CoreTests" runstate="Runnable" seed="834078645" result="Passed" start-time="2026-10-13 05:06:04Z" end-time="2026-10-13 05:06:04Z" duration="0.026515" asserts="0">
               <properties>
                 <property name="retryIteration" value="0" />
                 <property name="repeatIteration" value="0" />
               </properties>
               <output><![CDATA[[Save] Recuperación: JSON parse error: Invalid value.
-[QA] CorruptSaveRecoversBackup Passed 
+[QA] CorruptSaveRecoversBackup Passed
 ]]></output>
             </test-case>
-            <test-case id="1009" name="DamagePayloadPreservesTypeAndForce" fullname="Transmilleno.Tests.CoreTests.DamagePayloadPreservesTypeAndForce" methodname="DamagePayloadPreservesTypeAndForce" classname="Transmilleno.Tests.CoreTests" runstate="Runnable" seed="1684964669" result="Passed" start-time="2026-10-13 04:39:07Z" end-time="2026-10-13 04:39:07Z" duration="0.001585" asserts="0">
+            <test-case id="1009" name="DamagePayloadPreservesTypeAndForce" fullname="Transmilleno.Tests.CoreTests.DamagePayloadPreservesTypeAndForce" methodname="DamagePayloadPreservesTypeAndForce" classname="Transmilleno.Tests.CoreTests" runstate="Runnable" seed="1950270634" result="Passed" start-time="2026-10-13 05:06:04Z" end-time="2026-10-13 05:06:04Z" duration="0.002911" asserts="0">
               <properties>
                 <property name="retryIteration" value="0" />
                 <property name="repeatIteration" value="0" />
               </properties>
-              <output><![CDATA[[QA] DamagePayloadPreservesTypeAndForce Passed 
+              <output><![CDATA[[QA] DamagePayloadPreservesTypeAndForce Passed
 ]]></output>
             </test-case>
-            <test-case id="1003" name="ExhaustionRejectsOverspend" fullname="Transmilleno.Tests.CoreTests.ExhaustionRejectsOverspend" methodname="ExhaustionRejectsOverspend" classname="Transmilleno.Tests.CoreTests" runstate="Runnable" seed="1668964343" result="Passed" start-time="2026-10-13 04:39:07Z" end-time="2026-10-13 04:39:07Z" duration="0.000432" asserts="0">
+            <test-case id="1003" name="ExhaustionRejectsOverspend" fullname="Transmilleno.Tests.CoreTests.ExhaustionRejectsOverspend" methodname="ExhaustionRejectsOverspend" classname="Transmilleno.Tests.CoreTests" runstate="Runnable" seed="2131906479" result="Passed" start-time="2026-10-13 05:06:04Z" end-time="2026-10-13 05:06:04Z" duration="0.000730" asserts="0">
               <properties>
                 <property name="retryIteration" value="0" />
                 <property name="repeatIteration" value="0" />
               </properties>
-              <output><![CDATA[[QA] ExhaustionRejectsOverspend Passed 
+              <output><![CDATA[[QA] ExhaustionRejectsOverspend Passed
 ]]></output>
             </test-case>
-            <test-case id="1005" name="SaveRoundTripPreservesProgress" fullname="Transmilleno.Tests.CoreTests.SaveRoundTripPreservesProgress" methodname="SaveRoundTripPreservesProgress" classname="Transmilleno.Tests.CoreTests" runstate="Runnable" seed="1421199154" result="Passed" start-time="2026-10-13 04:39:07Z" end-time="2026-10-13 04:39:07Z" duration="0.006170" asserts="0">
+            <test-case id="1005" name="SaveRoundTripPreservesProgress" fullname="Transmilleno.Tests.CoreTests.SaveRoundTripPreservesProgress" methodname="SaveRoundTripPreservesProgress" classname="Transmilleno.Tests.CoreTests" runstate="Runnable" seed="1134045475" result="Passed" start-time="2026-10-13 05:06:04Z" end-time="2026-10-13 05:06:04Z" duration="0.007319" asserts="0">
               <properties>
                 <property name="retryIteration" value="0" />
                 <property name="repeatIteration" value="0" />
               </properties>
-              <output><![CDATA[[QA] SaveRoundTripPreservesProgress Passed 
+              <output><![CDATA[[QA] SaveRoundTripPreservesProgress Passed
 ]]></output>
             </test-case>
-            <test-case id="1004" name="StaminaWaitsThenRegenerates" fullname="Transmilleno.Tests.CoreTests.StaminaWaitsThenRegenerates" methodname="StaminaWaitsThenRegenerates" classname="Transmilleno.Tests.CoreTests" runstate="Runnable" seed="1003163212" result="Passed" start-time="2026-10-13 04:39:07Z" end-time="2026-10-13 04:39:07Z" duration="0.000456" asserts="0">
+            <test-case id="1004" name="StaminaWaitsThenRegenerates" fullname="Transmilleno.Tests.CoreTests.StaminaWaitsThenRegenerates" methodname="StaminaWaitsThenRegenerates" classname="Transmilleno.Tests.CoreTests" runstate="Runnable" seed="673705652" result="Passed" start-time="2026-10-13 05:06:04Z" end-time="2026-10-13 05:06:04Z" duration="0.000442" asserts="0">
               <properties>
                 <property name="retryIteration" value="0" />
                 <property name="repeatIteration" value="0" />
               </properties>
-              <output><![CDATA[[QA] StaminaWaitsThenRegenerates Passed 
+              <output><![CDATA[[QA] StaminaWaitsThenRegenerates Passed
 Saving results to: Docs/editmode-results.xml
 ]]></output>
             </test-case>

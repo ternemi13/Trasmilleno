@@ -9,50 +9,375 @@ namespace Transmilleno
 {
     public sealed class GameUI : MonoBehaviour
     {
-        public GameApp App; public bool Paused {get;private set;} Canvas canvas; RectTransform root; TMP_FontAsset font;TextMeshProUGUI hp,sp,objective,bus,alert,prompt,message,stats;Image healthFill,staminaFill,hurt;float messageUntil,damageFlash,nextHud; bool hud;CanvasGroup fade; InputActionRebindingExtensions.RebindingOperation rebind; GameInput menuInput;
-        readonly Color cream=new Color(.96f,.93f,.86f),muted=new Color(.58f,.66f,.67f),red=new Color(.86f,.18f,.16f),ink=new Color(.055f,.085f,.095f,.96f);
-        void Awake(){font=Resources.Load<TMP_FontAsset>("GameFont");var g=new GameObject("Interface",typeof(RectTransform),typeof(Canvas),typeof(CanvasScaler),typeof(GraphicRaycaster));g.transform.SetParent(transform,false);canvas=g.GetComponent<Canvas>();canvas.renderMode=RenderMode.ScreenSpaceOverlay;canvas.sortingOrder=100;var scaler=g.GetComponent<CanvasScaler>();scaler.uiScaleMode=CanvasScaler.ScaleMode.ScaleWithScreenSize;scaler.referenceResolution=new Vector2(1600,900);scaler.matchWidthOrHeight=Screen.width/(float)Screen.height>=16f/9?1:0;var es=new GameObject("EventSystem",typeof(EventSystem),typeof(InputSystemUIInputModule));es.transform.SetParent(transform);es.GetComponent<InputSystemUIInputModule>().AssignDefaultActions();menuInput=new GameInput();GameEvents.Message+=ShowMessage;GameEvents.PlayerHurt+=Flash;}
-        void OnDestroy(){GameEvents.Message-=ShowMessage;GameEvents.PlayerHurt-=Flash;rebind?.Dispose();menuInput?.Dispose();}
-        void Flash(float a){damageFlash=.6f;}
-        void ShowMessage(string text){if(message){message.text=Session.Save.subtitles?Localization.Get(text):"";messageUntil=Time.unscaledTime+3;}}
-        void Clear(bool isHud=false){if(root)Destroy(root.gameObject);rebind?.Dispose();rebind=null;hud=isHud;Paused=false;var g=new GameObject("Screen",typeof(RectTransform));root=g.GetComponent<RectTransform>();root.SetParent(canvas.transform,false);root.anchorMin=Vector2.zero;root.anchorMax=Vector2.one;root.offsetMin=root.offsetMax=Vector2.zero;fade=g.AddComponent<CanvasGroup>();fade.alpha=0;if(EventSystem.current)EventSystem.current.SetSelectedGameObject(null);}
-        RectTransform Rect(string name,RectTransform parent,float x,float y,float w,float h){var r=new GameObject(name,typeof(RectTransform)).GetComponent<RectTransform>();r.SetParent(parent,false);r.anchorMin=r.anchorMax=new Vector2(0,1);r.pivot=new Vector2(0,1);r.anchoredPosition=new Vector2(x,-y);r.sizeDelta=new Vector2(w,h);return r;}
-        Image Panel(RectTransform parent,float x,float y,float w,float h,Color color){var r=Rect("Panel",parent,x,y,w,h);if(w==1600&&h==900){r.anchorMin=Vector2.zero;r.anchorMax=Vector2.one;r.offsetMin=r.offsetMax=Vector2.zero;}var i=r.gameObject.AddComponent<Image>();i.color=color;return i;}
-        TextMeshProUGUI Text(string value,float x,float y,float w,float h,float size,Color? color=null,RectTransform parent=null){var r=Rect("Text",parent?parent:root,x,y,w,h);var t=r.gameObject.AddComponent<TextMeshProUGUI>();t.font=font;t.text=Localization.Get(value);t.fontSize=size;t.color=color??cream;t.raycastTarget=false;t.textWrappingMode=TextWrappingModes.Normal;return t;}
-        Button Button(string label,float x,float y,float w,Action action,bool primary=false,float height=52){var image=Panel(root,x,y,w,height,primary?red:new Color(.13f,.19f,.2f,.95f));var b=image.gameObject.AddComponent<Button>();var colors=b.colors;colors.highlightedColor=new Color(1.2f,1.2f,1.2f);colors.pressedColor=new Color(.7f,.7f,.7f);b.colors=colors;var txt=Text(label,18,10,w-36,height-12,21,null,image.rectTransform);txt.alignment=TextAlignmentOptions.MidlineLeft;b.onClick.AddListener(()=>{GameEvents.EmitNoise(Vector3.zero,0);action();});if(EventSystem.current&&!EventSystem.current.currentSelectedGameObject)EventSystem.current.SetSelectedGameObject(b.gameObject);return b;}
-        void Header(string kicker,string title,string desc){Panel(root,0,0,1600,900,new Color(.025f,.05f,.065f,.89f));Panel(root,70,76,44,5,red);Text(kicker,130,63,1200,40,18,muted);Text(title,70,125,1400,100,64);Text(desc,74,237,1280,70,22,muted);}
-        public void Loading(string text){Clear();Panel(root,0,0,1600,900,ink);Text("TRANSMILLENO",75,75,1200,80,56);Text(text,78,550,1300,180,40);Text("CARGANDO LA CIUDAD...",80,800,900,40,18,muted);}
+        public GameApp App; public bool Paused
+        {
+            get; private set;
+        }
+        Canvas canvas; RectTransform root; TMP_FontAsset font; TextMeshProUGUI hp, sp, objective, bus, alert, prompt, message, stats; Image healthFill, staminaFill, hurt; float messageUntil, damageFlash, nextHud; bool hud; CanvasGroup fade; InputActionRebindingExtensions.RebindingOperation rebind; GameInput menuInput;
+        readonly Color cream = new Color(.96f, .93f, .86f), muted = new Color(.58f, .66f, .67f), red = new Color(.86f, .18f, .16f), ink = new Color(.055f, .085f, .095f, .96f);
+        void Awake()
+        {
+            font = Resources.Load<TMP_FontAsset>("GameFont");
+            var g = new GameObject("Interface", typeof(RectTransform), typeof(Canvas), typeof(CanvasScaler), typeof(GraphicRaycaster));
+            g.transform.SetParent(transform, false);
+            canvas = g.GetComponent<Canvas>();
+            canvas.renderMode = RenderMode.ScreenSpaceOverlay;
+            canvas.sortingOrder = 100;
+            var scaler = g.GetComponent<CanvasScaler>();
+            scaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
+            scaler.referenceResolution = new Vector2(1600, 900);
+            scaler.matchWidthOrHeight = Screen.width / (float)Screen.height >= 16f / 9 ? 1 : 0;
+            var es = new GameObject("EventSystem", typeof(EventSystem), typeof(InputSystemUIInputModule));
+            es.transform.SetParent(transform);
+            es.GetComponent<InputSystemUIInputModule>().AssignDefaultActions();
+            menuInput = new GameInput();
+            GameEvents.Message += ShowMessage;
+            GameEvents.PlayerHurt += Flash;
+        }
+        void OnDestroy()
+        {
+            GameEvents.Message -= ShowMessage;
+            GameEvents.PlayerHurt -= Flash;
+            rebind?.Dispose();
+            menuInput?.Dispose();
+        }
+        void Flash(float a)
+        {
+            damageFlash = .6f;
+        }
+        void ShowMessage(string text)
+        {
+            if (message)
+            {
+                message.text = Session.Save.subtitles ? Localization.Get(text) : "";
+                messageUntil = Time.unscaledTime + 3;
+            }
+        }
+        void Clear(bool isHud = false)
+        {
+            if (root)
+                Destroy(root.gameObject);
+            rebind?.Dispose();
+            rebind = null;
+            hud = isHud;
+            Paused = false;
+            var g = new GameObject("Screen", typeof(RectTransform));
+            root = g.GetComponent<RectTransform>();
+            root.SetParent(canvas.transform, false);
+            root.anchorMin = Vector2.zero;
+            root.anchorMax = Vector2.one;
+            root.offsetMin = root.offsetMax = Vector2.zero;
+            fade = g.AddComponent<CanvasGroup>();
+            fade.alpha = 0;
+            if (EventSystem.current)
+                EventSystem.current.SetSelectedGameObject(null);
+        }
+        RectTransform Rect(string name, RectTransform parent, float x, float y, float w, float h)
+        {
+            var r = new GameObject(name, typeof(RectTransform)).GetComponent<RectTransform>();
+            r.SetParent(parent, false);
+            r.anchorMin = r.anchorMax = new Vector2(0, 1);
+            r.pivot = new Vector2(0, 1);
+            r.anchoredPosition = new Vector2(x, -y);
+            r.sizeDelta = new Vector2(w, h);
+            return r;
+        }
+        Image Panel(RectTransform parent, float x, float y, float w, float h, Color color)
+        {
+            var r = Rect("Panel", parent, x, y, w, h);
+            if (w == 1600 && h == 900)
+            {
+                r.anchorMin = Vector2.zero;
+                r.anchorMax = Vector2.one;
+                r.offsetMin = r.offsetMax = Vector2.zero;
+            }
+            var i = r.gameObject.AddComponent<Image>();
+            i.color = color;
+            return i;
+        }
+        TextMeshProUGUI Text(string value, float x, float y, float w, float h, float size, Color? color = null, RectTransform parent = null)
+        {
+            var r = Rect("Text", parent ? parent : root, x, y, w, h);
+            var t = r.gameObject.AddComponent<TextMeshProUGUI>();
+            t.font = font;
+            t.text = Localization.Get(value);
+            t.fontSize = size;
+            t.color = color ?? cream;
+            t.raycastTarget = false;
+            t.textWrappingMode = TextWrappingModes.Normal;
+            return t;
+        }
+        Button Button(string label, float x, float y, float w, Action action, bool primary = false, float height = 52)
+        {
+            var image = Panel(root, x, y, w, height, primary ? red : new Color(.13f, .19f, .2f, .95f));
+            var b = image.gameObject.AddComponent<Button>();
+            var colors = b.colors;
+            colors.highlightedColor = new Color(1.2f, 1.2f, 1.2f);
+            colors.pressedColor = new Color(.7f, .7f, .7f);
+            b.colors = colors;
+            var txt = Text(label, 18, 10, w - 36, height - 12, 21, null, image.rectTransform);
+            txt.alignment = TextAlignmentOptions.MidlineLeft;
+            b.onClick.AddListener(() => { GameEvents.EmitNoise(Vector3.zero, 0); action(); });
+            if (EventSystem.current && !EventSystem.current.currentSelectedGameObject)
+                EventSystem.current.SetSelectedGameObject(b.gameObject);
+            return b;
+        }
+        void Header(string kicker, string title, string desc)
+        {
+            Panel(root, 0, 0, 1600, 900, new Color(.025f, .05f, .065f, .89f));
+            Panel(root, 70, 76, 44, 5, red);
+            Text(kicker, 130, 63, 1200, 40, 18, muted);
+            Text(title, 70, 125, 1400, 100, 64);
+            Text(desc, 74, 237, 1280, 70, 22, muted);
+        }
+        public void Loading(string text)
+        {
+            Clear();
+            Panel(root, 0, 0, 1600, 900, ink);
+            Text("TRANSMILLENO", 75, 75, 1200, 80, 56);
+            Text(text, 78, 550, 1300, 180, 40);
+            Text("CARGANDO LA CIUDAD...", 80, 800, 900, 40, 18, muted);
+        }
         public void MainMenu()
         {
-            Clear();Panel(root,0,0,625,900,new Color(.04f,.065f,.075f,.94f));Panel(root,64,63,45,5,red);Text("BOGOTÁ  /  04° 39′ N",128,49,460,34,17,muted);Text("TRANS\nMILLENO",60,120,620,215,88);Text("LA CIUDAD NO ESPERA.",68,346,530,50,24);Text("Diez estaciones. Tres rutas.\nEncuentra tu forma de llegar.",70,403,500,74,22,muted);
-            Button("CONTINUAR   →   "+Session.Save.current.ToString("00"),70,520,475,()=>App.Play(Session.Save.current),true);Button("Nueva partida",70,583,230,()=>ConfirmNew());Button("Elegir estación",312,583,233,LevelSelect);Button("Ajustes",70,646,230,()=>Settings(false));Button("Créditos",312,646,233,Credits);Button("Salir",70,709,475,()=>Application.Quit());Text("ACCIÓN / SIGILO URBANO     ·     PC",70,838,850,35,16,muted);Text("B74\nDESTINO: NORTE",1100,710,410,110,34);
+            Clear();
+            Panel(root, 0, 0, 625, 900, new Color(.04f, .065f, .075f, .94f));
+            Panel(root, 64, 63, 45, 5, red);
+            Text("BOGOTÁ  /  04° 39′ N", 128, 49, 460, 34, 17, muted);
+            Text("TRANS\nMILLENO", 60, 120, 620, 215, 88);
+            Text("LA CIUDAD NO ESPERA.", 68, 346, 530, 50, 24);
+            Text("Diez estaciones. Tres rutas.\nEncuentra tu forma de llegar.", 70, 403, 500, 74, 22, muted);
+            Button("CONTINUAR   →   " + Session.Save.current.ToString("00"), 70, 520, 475, () => App.Play(Session.Save.current), true);
+            Button("Nueva partida", 70, 583, 230, () => ConfirmNew());
+            Button("Elegir estación", 312, 583, 233, LevelSelect);
+            Button("Ajustes", 70, 646, 230, () => Settings(false));
+            Button("Créditos", 312, 646, 233, Credits);
+            Button("Salir", 70, 709, 475, () => Application.Quit());
+            Text("ACCIÓN / SIGILO URBANO     ·     PC", 70, 838, 850, 35, 16, muted);
+            Text("B74\nDESTINO: NORTE", 1100, 710, 410, 110, 34);
         }
-        void ConfirmNew(){Clear();Header("NUEVA PARTIDA","¿Empezar desde cero?","Se reinician los niveles, estrellas y mejores tiempos. Tus ajustes se conservan.");Button("Sí, nueva partida",75,370,400,App.NewGame,true);Button("Conservar mi partida",75,440,400,MainMenu);}
-        public void LevelSelect(){Clear();Header("RED DE ESTACIONES","Tu recorrido","Completa una estación para desbloquear la siguiente.");for(int i=0;i<App.Config.MaxLevels;i++){int level=i+1;bool unlocked=level<=Session.Save.unlocked;float x=75+(i%2)*725,y=335+(i/2)*93;var b=Button(level.ToString("00")+"  /  "+App.Config.levels[i].station+(unlocked?"   "+Session.Save.stars[i]+"/3":"   BLOQUEADO"),x,y,690,()=>App.Play(level),false,74);b.interactable=unlocked;}Button("← Menú",75,825,300,MainMenu);}
+        void ConfirmNew()
+        {
+            Clear();
+            Header("NUEVA PARTIDA", "¿Empezar desde cero?", "Se reinician los niveles, estrellas y mejores tiempos. Tus ajustes se conservan.");
+            Button("Sí, nueva partida", 75, 370, 400, App.NewGame, true);
+            Button("Conservar mi partida", 75, 440, 400, MainMenu);
+        }
+        public void LevelSelect()
+        {
+            Clear();
+            Header("RED DE ESTACIONES", "Tu recorrido", "Completa una estación para desbloquear la siguiente.");
+            for (int i = 0; i < App.Config.MaxLevels; i++)
+            {
+                int level = i + 1;
+                bool unlocked = level <= Session.Save.unlocked;
+                float x = 75 + (i % 2) * 725, y = 335 + (i / 2) * 93;
+                var b = Button(level.ToString("00") + "  /  " + App.Config.levels[i].station + (unlocked ? "   " + Session.Save.stars[i] + "/3" : "   BLOQUEADO"), x, y, 690, () => App.Play(level), false, 74);
+                b.interactable = unlocked;
+            }
+            Button("← Menú", 75, 825, 300, MainMenu);
+        }
         public void Hud()
         {
-            Clear(true);Panel(root,35,30,340,117,ink);Text("EN MOVIMIENTO",53,40,300,24,15,muted);Panel(root,55,81,245,8,new Color(.25f,.3f,.3f));healthFill=Panel(root,55,81,245,8,red);hp=Text("100",310,68,60,32,20);Panel(root,55,113,245,5,new Color(.25f,.3f,.3f));staminaFill=Panel(root,55,113,245,5,new Color(.84f,.69f,.34f));sp=Text("100",310,99,60,30,18);objective=Text(Session.Level.index.ToString("00")+" / "+Session.Level.station.ToUpperInvariant()+"\nENTRA A LA ESTACIÓN → SUBE AL BUS",425,35,940,95,23);alert=Text("TRANQUILO",1270,40,280,45,23);bus=Text("B74  /  PRÓXIMO BUS",1190,96,370,60,22);Panel(root,480,748,650,68,ink);prompt=Text("",503,763,605,42,24);prompt.alignment=TextAlignmentOptions.Center;message=Text("",310,647,1000,80,26);message.alignment=TextAlignmentOptions.Center;Text("WASD  Mover     SHIFT  Correr     ESPACIO  Saltar / trepar     E  Interactuar     ESC  Pausa",55,848,1480,35,17,muted);Text("+",791,440,30,30,20);stats=Text("PUÑOS",50,169,400,45,18,muted);hurt=Panel(root,0,0,1600,900,new Color(1,0,0,0));hurt.raycastTarget=false;
+            Clear(true);
+            Panel(root, 35, 30, 340, 117, ink);
+            Text("EN MOVIMIENTO", 53, 40, 300, 24, 15, muted);
+            Panel(root, 55, 81, 245, 8, new Color(.25f, .3f, .3f));
+            healthFill = Panel(root, 55, 81, 245, 8, red);
+            hp = Text("100", 310, 68, 60, 32, 20);
+            Panel(root, 55, 113, 245, 5, new Color(.25f, .3f, .3f));
+            staminaFill = Panel(root, 55, 113, 245, 5, new Color(.84f, .69f, .34f));
+            sp = Text("100", 310, 99, 60, 30, 18);
+            objective = Text(Session.Level.index.ToString("00") + " / " + Session.Level.station.ToUpperInvariant() + "\nENTRA A LA ESTACIÓN → SUBE AL BUS", 425, 35, 940, 95, 23);
+            alert = Text("TRANQUILO", 1270, 40, 280, 45, 23);
+            bus = Text("B74  /  PRÓXIMO BUS", 1190, 96, 370, 60, 22);
+            Panel(root, 480, 748, 650, 68, ink);
+            prompt = Text("", 503, 763, 605, 42, 24);
+            prompt.alignment = TextAlignmentOptions.Center;
+            message = Text("", 310, 647, 1000, 80, 26);
+            message.alignment = TextAlignmentOptions.Center;
+            Text("WASD  Mover     SHIFT  Correr     ESPACIO  Saltar / trepar     E  Interactuar     ESC  Pausa", 55, 848, 1480, 35, 17, muted);
+            Text("+", 791, 440, 30, 30, 20);
+            stats = Text("PUÑOS", 50, 169, 400, 45, 18, muted);
+            hurt = Panel(root, 0, 0, 1600, 900, new Color(1, 0, 0, 0));
+            hurt.raycastTarget = false;
         }
-        void Update(){if(fade)fade.alpha=Mathf.MoveTowards(fade.alpha,1,Time.unscaledDeltaTime*7);if(!hud||!App.Player)return;damageFlash=Mathf.Max(0,damageFlash-Time.unscaledDeltaTime);if(hurt)hurt.color=new Color(.65f,.03f,.01f,damageFlash*.26f);if(Time.unscaledTime<nextHud)return;nextHud=Time.unscaledTime+.1f;var p=App.Player;healthFill.rectTransform.sizeDelta=new Vector2(245*p.Health/100,8);staminaFill.rectTransform.sizeDelta=new Vector2(245*p.Stamina.Value/100,5);hp.SetText("{0:0}",p.Health);sp.SetText("{0:0}",p.Stamina.Value);alert.text=Session.Alert>=2?"● PERSECUCIÓN":Session.Alert>=1?"● BÚSQUEDA":Session.Alert>.2f?"● SOSPECHA":"○ TRANQUILO";alert.color=Session.Alert>1?red:cream;prompt.text=Session.Save.hints?p.Prompt:"";if(App.World.Bus){var b=App.World.Bus;bus.SetText(b.State==BusController.BusState.Boarding?"B74  PUERTAS ABIERTAS  {0:0}s":"B74  PRÓXIMO BUS  ~{0:0}s",b.Eta);if(b.State==BusController.BusState.Boarding&&Session.Trespassing)prompt.text="ACÉRCATE AL BUS Y PULSA E";}if(message&&Time.unscaledTime>messageUntil)message.text="";stats.text=p.HasKnife?"PUÑOS  /  NAVAJA EQUIPADA":"PUÑOS  /  BUSCA OBJETOS EN EL SUELO";}
-        public void Pause(){Clear();Paused=true;Header("TOMA UN RESPIRO","En pausa","La ciudad puede esperar un momento.");Button("Volver a jugar",75,355,440,App.Resume,true);Button("Ajustes",75,425,440,()=>Settings(true));Button("Reintentar estación",75,495,440,()=>App.Play(Session.Level.index));Button("Menú principal",75,565,440,App.Menu);}
-        public void Death(string reason){Clear();Header("FIN DEL INTENTO","Esta vez no llegaste.",reason);Button("Reintentar estación",75,380,460,()=>App.Play(Session.Level.index),true);Button("Menú principal",75,450,460,App.Menu);}
-        public void Results(){Clear();bool final=Session.Level.index==App.Config.MaxLevels;Header(final?"RECORRIDO COMPLETO":"ESTACIÓN SUPERADA",final?"Bogotá es tuya.":"Alcanzaste el bus.",Session.Level.station+"  /  "+App.LastStars+" / 3 ESTRELLAS");for(int star=0;star<3;star++){var r=Rect("Star",root,75+star*45,290,36,36);r.gameObject.AddComponent<StarGraphic>().color=star<App.LastStars?new Color(.95f,.7f,.25f):muted;}Text("TIEMPO\n"+TimeSpan.FromSeconds(Session.Elapsed).ToString(@"mm\:ss"),75,340,330,110,34);Text("RUTA\n"+Session.Route,440,340,650,110,34);Text("GOLPES  "+Session.Hits+"     ALERTAS  "+Session.Alerts,75,485,1300,80,23,muted);Button(final?"Ver créditos":"Siguiente estación →",75,600,510,final?(Action)Credits:()=>App.Play(Session.Level.index+1),true);Button("Repetir",75,670,245,()=>App.Play(Session.Level.index));Button("Menú",335,670,250,App.Menu);}
-        public void Credits(){Clear();Header("HECHO PARA RECORRERLO","Transmilleno","Un juego de acción y sigilo urbano ambientado en una Bogotá de ficción.");Text("MODELOS\nMaterial 3D proporcionado por el usuario.\nBus, estaciones, personajes y objetos integrados al catálogo.\n\nDESARROLLO Y ARTE TÉCNICO\nSistemas originales, arquitectura modular y sonido procedural.\nUnity / URP / Cinemachine / Input System / AI Navigation / glTFast\n\nConsulta Docs/CREDITS.md para procedencia y licencias.",75,340,1330,380,26);Button("Menú principal",75,780,450,App.Menu,true);}
-        public void Settings(bool fromPause,int tab=0)
+        void Update()
         {
-            Clear();Header("CONFIGURACIÓN","A tu manera","Los cambios se guardan automáticamente.");string[] tabs={"Audio","Gráficos","Controles","Juego"};for(int i=0;i<4;i++){int k=i;Button(tabs[i],75+i*355,302,330,()=>Settings(fromPause,k),i==tab);}var s=Session.Save;
-            if(tab==0){Slider("Volumen maestro",s.master,0,1,400,v=>s.master=v);Slider("Música",s.music,0,1,480,v=>s.music=v);Slider("Efectos",s.effects,0,1,560,v=>s.effects=v);Slider("Ambiente",s.ambience,0,1,640,v=>s.ambience=v);}
-            if(tab==1){Choice("Calidad",new[]{"Baja","Media","Alta","Ultra"},s.quality,390,v=>s.quality=v);Choice("Resolución",new[]{"1280 × 720","1920 × 1080","2560 × 1440"},s.resolution,460,v=>{s.resolution=v;App.ApplyDisplay();});Choice("Pantalla",new[]{"Sin bordes","Ventana","Completa"},s.windowMode,530,v=>{s.windowMode=v;App.ApplyDisplay();});Choice("VSync",new[]{"No","Sí"},s.vsync?1:0,600,v=>s.vsync=v==1);Slider("Escala de render",s.renderScale,.5f,1,670,v=>s.renderScale=v);Button("Más opciones →",1100,735,390,()=>GraphicsMore(fromPause));}
-            if(tab==2){Slider("Sensibilidad",s.sensitivity,.2f,3,400,v=>s.sensitivity=v);Choice("Invertir eje Y",new[]{"No","Sí"},s.invertY?1:0,475,v=>s.invertY=v==1);var input=App.Player?App.Player.Input:menuInput;string[] names={"Saltar","Correr","Golpear","Navaja","Interactuar","Agacharse"};for(int i=0;i<names.Length;i++){var a=input.Map.FindAction(names[i]);Button(names[i]+"  ["+a.GetBindingDisplayString(0)+"]",75+(i%3)*475,570+(i/3)*70,450,()=>Rebind(a,fromPause));}}
-            if(tab==3){Choice("Dificultad",new[]{"Casual","Normal","Difícil"},s.difficulty,400,v=>s.difficulty=v);Choice("Ayudas",new[]{"No","Sí"},s.hints?1:0,480,v=>s.hints=v==1);Choice("Subtítulos",new[]{"No","Sí"},s.subtitles?1:0,560,v=>s.subtitles=v==1);Text("IDIOMA   Español (Colombia)",75,650,1000,50,24,muted);}
-            Button("← Volver",75,815,320,()=>{if(fromPause)Pause();else MainMenu();});Button("Restaurar ajustes",440,815,330,()=>{var fresh=new SaveData();fresh.unlocked=s.unlocked;fresh.current=s.current;fresh.stars=s.stars;fresh.bestTimes=s.bestTimes;Session.Save=fresh;App.ApplySettings();Settings(fromPause,tab);});
+            if (fade)
+                fade.alpha = Mathf.MoveTowards(fade.alpha, 1, Time.unscaledDeltaTime * 7);
+            if (!hud || !App.Player)
+                return;
+            damageFlash = Mathf.Max(0, damageFlash - Time.unscaledDeltaTime);
+            if (hurt)
+                hurt.color = new Color(.65f, .03f, .01f, damageFlash * .26f);
+            if (Time.unscaledTime < nextHud)
+                return;
+            nextHud = Time.unscaledTime + .1f;
+            var p = App.Player;
+            healthFill.rectTransform.sizeDelta = new Vector2(245 * p.Health / 100, 8);
+            staminaFill.rectTransform.sizeDelta = new Vector2(245 * p.Stamina.Value / 100, 5);
+            hp.SetText("{0:0}", p.Health);
+            sp.SetText("{0:0}", p.Stamina.Value);
+            alert.text = Session.Alert >= 2 ? "● PERSECUCIÓN" : Session.Alert >= 1 ? "● BÚSQUEDA" : Session.Alert > .2f ? "● SOSPECHA" : "○ TRANQUILO";
+            alert.color = Session.Alert > 1 ? red : cream;
+            prompt.text = Session.Save.hints ? p.Prompt : "";
+            if (App.World.Bus)
+            {
+                var b = App.World.Bus;
+                bus.SetText(b.State == BusController.BusState.Boarding ? "B74  PUERTAS ABIERTAS  {0:0}s" : "B74  PRÓXIMO BUS  ~{0:0}s", b.Eta);
+                if (b.State == BusController.BusState.Boarding && Session.Trespassing)
+                    prompt.text = "ACÉRCATE AL BUS Y PULSA E";
+            }
+            if (message && Time.unscaledTime > messageUntil)
+                message.text = "";
+            stats.text = p.HasKnife ? "PUÑOS  /  NAVAJA EQUIPADA" : "PUÑOS  /  BUSCA OBJETOS EN EL SUELO";
         }
-        void GraphicsMore(bool paused){Clear();Header("GRÁFICOS","Detalle y rendimiento","Ajusta la escena a tu equipo.");Slider("Distancia de dibujado",Session.Save.drawDistance,70,250,390,v=>Session.Save.drawDistance=v);Slider("Densidad de peatones (próximo nivel)",Session.Save.crowd,.25f,1.5f,470,v=>Session.Save.crowd=v);Choice("Postprocesado",new[]{"No","Sí"},Session.Save.post?1:0,550,v=>Session.Save.post=v==1);Choice("Límite FPS",new[]{"30","60","120","144"},Session.Save.fps==30?0:Session.Save.fps==60?1:Session.Save.fps==120?2:3,630,v=>Session.Save.fps=new[]{30,60,120,144}[v]);Button("Sombras y efectos →",1030,735,450,()=>GraphicsEffects(paused));Button("← Volver",75,815,320,()=>Settings(paused,1));}
-        void GraphicsEffects(bool paused){Clear();Header("GRÁFICOS","Sombras y efectos","Cada opción se aplica al instante.");var s=Session.Save;Choice("Sombras",new[]{"No","Sí"},s.shadows?1:0,365,v=>s.shadows=v==1);Choice("Bloom",new[]{"No","Sí"},s.bloom?1:0,435,v=>s.bloom=v==1);Choice("Oclusión ambiental",new[]{"No","Sí"},s.ssao?1:0,505,v=>s.ssao=v==1);Choice("Motion blur",new[]{"No","Sí"},s.motionBlur?1:0,575,v=>s.motionBlur=v==1);Choice("Texturas",new[]{"Completa","Mitad","Cuarto"},s.textureQuality,645,v=>s.textureQuality=v);Choice("Antialiasing",new[]{"No","2× MSAA","4× MSAA","8× MSAA"},s.antialiasing==1?0:s.antialiasing==2?1:s.antialiasing==4?2:3,715,v=>s.antialiasing=new[]{1,2,4,8}[v]);Button("← Volver",75,815,320,()=>GraphicsMore(paused));}
-        void Slider(string label,float value,float min,float max,float y,Action<float> set){Text(label,75,y,670,42,23);var track=Panel(root,760,y+12,650,8,new Color(.22f,.3f,.31f));var handle=Panel(track.rectTransform,0,-8,22,24,cream);var slider=track.gameObject.AddComponent<UnityEngine.UI.Slider>();slider.minValue=min;slider.maxValue=max;slider.handleRect=handle.rectTransform;slider.targetGraphic=handle;slider.value=value;slider.onValueChanged.AddListener(v=>{set(v);App.ApplySettings();});}
-        void Choice(string label,string[] options,int selected,float y,Action<int> set){Text(label,75,y+10,650,42,23);Button(label+": "+options[Mathf.Clamp(selected,0,options.Length-1)],760,y,650,()=>{int n=(selected+1)%options.Length;set(n);App.ApplySettings(); // Refresh this control without rebuilding the page.
-                    selected=n;},false); // Listener updates the label via its own button text below.
-            var b=root.GetChild(root.childCount-1).GetComponent<Button>();b.onClick.AddListener(()=>b.GetComponentInChildren<TextMeshProUGUI>().text=label+": "+options[selected]);}
-        void Rebind(InputAction action,bool paused){action.Disable();Text("Pulsa una tecla · ESC cancela",75,735,1300,50,23,red);rebind=action.PerformInteractiveRebinding(0).WithCancelingThrough("<Keyboard>/escape").OnComplete(op=>{Session.Save.bindings=action.actionMap.SaveBindingOverridesAsJson();action.Enable();op.Dispose();rebind=null;SaveSystem.Write(Session.Save);Settings(paused,2);}).OnCancel(op=>{action.Enable();op.Dispose();rebind=null;Settings(paused,2);}).Start();}
+        public void Pause()
+        {
+            Clear();
+            Paused = true;
+            Header("TOMA UN RESPIRO", "En pausa", "La ciudad puede esperar un momento.");
+            Button("Volver a jugar", 75, 355, 440, App.Resume, true);
+            Button("Ajustes", 75, 425, 440, () => Settings(true));
+            Button("Reintentar estación", 75, 495, 440, () => App.Play(Session.Level.index));
+            Button("Menú principal", 75, 565, 440, App.Menu);
+        }
+        public void Death(string reason)
+        {
+            Clear();
+            Header("FIN DEL INTENTO", "Esta vez no llegaste.", reason);
+            Button("Reintentar estación", 75, 380, 460, () => App.Play(Session.Level.index), true);
+            Button("Menú principal", 75, 450, 460, App.Menu);
+        }
+        public void Results()
+        {
+            Clear();
+            bool final = Session.Level.index == App.Config.MaxLevels;
+            Header(final ? "RECORRIDO COMPLETO" : "ESTACIÓN SUPERADA", final ? "Bogotá es tuya." : "Alcanzaste el bus.", Session.Level.station + "  /  " + App.LastStars + " / 3 ESTRELLAS");
+            for (int star = 0; star < 3; star++)
+            {
+                var r = Rect("Star", root, 75 + star * 45, 290, 36, 36);
+                r.gameObject.AddComponent<StarGraphic>().color = star < App.LastStars ? new Color(.95f, .7f, .25f) : muted;
+            }
+            Text("TIEMPO\n" + TimeSpan.FromSeconds(Session.Elapsed).ToString(@"mm\:ss"), 75, 340, 330, 110, 34);
+            Text("RUTA\n" + Session.Route, 440, 340, 650, 110, 34);
+            Text("GOLPES  " + Session.Hits + "     ALERTAS  " + Session.Alerts, 75, 485, 1300, 80, 23, muted);
+            Button(final ? "Ver créditos" : "Siguiente estación →", 75, 600, 510, final ? (Action)Credits : () => App.Play(Session.Level.index + 1), true);
+            Button("Repetir", 75, 670, 245, () => App.Play(Session.Level.index));
+            Button("Menú", 335, 670, 250, App.Menu);
+        }
+        public void Credits()
+        {
+            Clear();
+            Header("HECHO PARA RECORRERLO", "Transmilleno", "Un juego de acción y sigilo urbano ambientado en una Bogotá de ficción.");
+            Text("MODELOS\nMaterial 3D proporcionado por el usuario.\nBus, estaciones, personajes y objetos integrados al catálogo.\n\nDESARROLLO Y ARTE TÉCNICO\nSistemas originales, arquitectura modular y sonido procedural.\nUnity / URP / Cinemachine / Input System / AI Navigation / glTFast\n\nConsulta Docs/CREDITS.md para procedencia y licencias.", 75, 340, 1330, 380, 26);
+            Button("Menú principal", 75, 780, 450, App.Menu, true);
+        }
+        public void Settings(bool fromPause, int tab = 0)
+        {
+            Clear();
+            Header("CONFIGURACIÓN", "A tu manera", "Los cambios se guardan automáticamente.");
+            string[] tabs = { "Audio", "Gráficos", "Controles", "Juego" };
+            for (int i = 0; i < 4; i++)
+            {
+                int k = i;
+                Button(tabs[i], 75 + i * 355, 302, 330, () => Settings(fromPause, k), i == tab);
+            }
+            var s = Session.Save;
+            if (tab == 0)
+            {
+                Slider("Volumen maestro", s.master, 0, 1, 400, v => s.master = v);
+                Slider("Música", s.music, 0, 1, 480, v => s.music = v);
+                Slider("Efectos", s.effects, 0, 1, 560, v => s.effects = v);
+                Slider("Ambiente", s.ambience, 0, 1, 640, v => s.ambience = v);
+            }
+            if (tab == 1)
+            {
+                Choice("Calidad", new[] { "Baja", "Media", "Alta", "Ultra" }, s.quality, 390, v => s.quality = v);
+                Choice("Resolución", new[] { "1280 × 720", "1920 × 1080", "2560 × 1440" }, s.resolution, 460, v => { s.resolution = v; App.ApplyDisplay(); });
+                Choice("Pantalla", new[] { "Sin bordes", "Ventana", "Completa" }, s.windowMode, 530, v => { s.windowMode = v; App.ApplyDisplay(); });
+                Choice("VSync", new[] { "No", "Sí" }, s.vsync ? 1 : 0, 600, v => s.vsync = v == 1);
+                Slider("Escala de render", s.renderScale, .5f, 1, 670, v => s.renderScale = v);
+                Button("Más opciones →", 1100, 735, 390, () => GraphicsMore(fromPause));
+            }
+            if (tab == 2)
+            {
+                Slider("Sensibilidad", s.sensitivity, .2f, 3, 400, v => s.sensitivity = v);
+                Choice("Invertir eje Y", new[] { "No", "Sí" }, s.invertY ? 1 : 0, 475, v => s.invertY = v == 1);
+                var input = App.Player ? App.Player.Input : menuInput;
+                string[] names = { "Saltar", "Correr", "Golpear", "Navaja", "Interactuar", "Agacharse" };
+                for (int i = 0; i < names.Length; i++)
+                {
+                    var a = input.Map.FindAction(names[i]);
+                    Button(names[i] + "  [" + a.GetBindingDisplayString(0) + "]", 75 + (i % 3) * 475, 570 + (i / 3) * 70, 450, () => Rebind(a, fromPause));
+                }
+            }
+            if (tab == 3)
+            {
+                Choice("Dificultad", new[] { "Casual", "Normal", "Difícil" }, s.difficulty, 400, v => s.difficulty = v);
+                Choice("Ayudas", new[] { "No", "Sí" }, s.hints ? 1 : 0, 480, v => s.hints = v == 1);
+                Choice("Subtítulos", new[] { "No", "Sí" }, s.subtitles ? 1 : 0, 560, v => s.subtitles = v == 1);
+                Text("IDIOMA   Español (Colombia)", 75, 650, 1000, 50, 24, muted);
+            }
+            Button("← Volver", 75, 815, 320, () => { if (fromPause) Pause(); else MainMenu(); });
+            Button("Restaurar ajustes", 440, 815, 330, () => { var fresh = new SaveData(); fresh.unlocked = s.unlocked; fresh.current = s.current; fresh.stars = s.stars; fresh.bestTimes = s.bestTimes; Session.Save = fresh; App.ApplySettings(); Settings(fromPause, tab); });
+        }
+        void GraphicsMore(bool paused)
+        {
+            Clear();
+            Header("GRÁFICOS", "Detalle y rendimiento", "Ajusta la escena a tu equipo.");
+            Slider("Distancia de dibujado", Session.Save.drawDistance, 70, 250, 390, v => Session.Save.drawDistance = v);
+            Slider("Densidad de peatones (próximo nivel)", Session.Save.crowd, .25f, 1.5f, 470, v => Session.Save.crowd = v);
+            Choice("Postprocesado", new[] { "No", "Sí" }, Session.Save.post ? 1 : 0, 550, v => Session.Save.post = v == 1);
+            Choice("Límite FPS", new[] { "30", "60", "120", "144" }, Session.Save.fps == 30 ? 0 : Session.Save.fps == 60 ? 1 : Session.Save.fps == 120 ? 2 : 3, 630, v => Session.Save.fps = new[] { 30, 60, 120, 144 }[v]);
+            Button("Sombras y efectos →", 1030, 735, 450, () => GraphicsEffects(paused));
+            Button("← Volver", 75, 815, 320, () => Settings(paused, 1));
+        }
+        void GraphicsEffects(bool paused)
+        {
+            Clear();
+            Header("GRÁFICOS", "Sombras y efectos", "Cada opción se aplica al instante.");
+            var s = Session.Save;
+            Choice("Sombras", new[] { "No", "Sí" }, s.shadows ? 1 : 0, 365, v => s.shadows = v == 1);
+            Choice("Bloom", new[] { "No", "Sí" }, s.bloom ? 1 : 0, 435, v => s.bloom = v == 1);
+            Choice("Oclusión ambiental", new[] { "No", "Sí" }, s.ssao ? 1 : 0, 505, v => s.ssao = v == 1);
+            Choice("Motion blur", new[] { "No", "Sí" }, s.motionBlur ? 1 : 0, 575, v => s.motionBlur = v == 1);
+            Choice("Texturas", new[] { "Completa", "Mitad", "Cuarto" }, s.textureQuality, 645, v => s.textureQuality = v);
+            Choice("Antialiasing", new[] { "No", "2× MSAA", "4× MSAA", "8× MSAA" }, s.antialiasing == 1 ? 0 : s.antialiasing == 2 ? 1 : s.antialiasing == 4 ? 2 : 3, 715, v => s.antialiasing = new[] { 1, 2, 4, 8 }[v]);
+            Button("← Volver", 75, 815, 320, () => GraphicsMore(paused));
+        }
+        void Slider(string label, float value, float min, float max, float y, Action<float> set)
+        {
+            Text(label, 75, y, 670, 42, 23);
+            var track = Panel(root, 760, y + 12, 650, 8, new Color(.22f, .3f, .31f));
+            var handle = Panel(track.rectTransform, 0, -8, 22, 24, cream);
+            var slider = track.gameObject.AddComponent<UnityEngine.UI.Slider>();
+            slider.minValue = min;
+            slider.maxValue = max;
+            slider.handleRect = handle.rectTransform;
+            slider.targetGraphic = handle;
+            slider.value = value;
+            slider.onValueChanged.AddListener(v => { set(v); App.ApplySettings(); });
+        }
+        void Choice(string label, string[] options, int selected, float y, Action<int> set)
+        {
+            Text(label, 75, y + 10, 650, 42, 23);
+            Button(label + ": " + options[Mathf.Clamp(selected, 0, options.Length - 1)], 760, y, 650, () =>
+            {
+                int n = (selected + 1) % options.Length;
+                set(n);
+                App.ApplySettings(); // Refresh this control without rebuilding the page.
+                selected = n;
+            }, false); // Listener updates the label via its own button text below.
+            var b = root.GetChild(root.childCount - 1).GetComponent<Button>();
+            b.onClick.AddListener(() => b.GetComponentInChildren<TextMeshProUGUI>().text = label + ": " + options[selected]);
+        }
+        void Rebind(InputAction action, bool paused)
+        {
+            action.Disable();
+            Text("Pulsa una tecla · ESC cancela", 75, 735, 1300, 50, 23, red);
+            rebind = action.PerformInteractiveRebinding(0).WithCancelingThrough("<Keyboard>/escape").OnComplete(op => { Session.Save.bindings = action.actionMap.SaveBindingOverridesAsJson(); action.Enable(); op.Dispose(); rebind = null; SaveSystem.Write(Session.Save); Settings(paused, 2); }).OnCancel(op => { action.Enable(); op.Dispose(); rebind = null; Settings(paused, 2); }).Start();
+        }
     }
 }

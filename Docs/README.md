@@ -13,6 +13,8 @@ Juego de acción y sigilo urbano para Windows. Proyecto: https://github.com/tern
 
 El código, los assets derivados y la configuración se generan también mediante **Tools → Transmilleno → Build Everything**. Esta operación reconstruye escenas propias, catálogo, avatares y configuración; no elimina los modelos originales. No ejecutar durante Play Mode.
 
+Para jugar sin el editor, abrir `Builds/Windows/Transmilleno.exe`. Mantener junto al ejecutable las DLL y la carpeta `Transmilleno_Data`; el ejecutable no funciona aislado. La carpeta de símbolos `Transmilleno_BackUpThisFolder_ButDontShipItWithYourGame` no forma parte de la distribución.
+
 ## Controles
 
 | Acción | Control |
@@ -46,7 +48,7 @@ Los archivos originales permanecen en `Assets/Modelos`. Los COLLADA de los ZIP d
 - Build: Tools → Transmilleno → Build Windows, genera `Builds/Windows/Transmilleno.exe`.
 - Las mediciones de rendimiento se escriben después de 1200 frames de juego, tras cinco segundos de calentamiento.
 
-El ejecutable acepta `--smoke-test` para verificar automáticamente las diez transiciones de la campaña y `--benchmark` para medir la estación 10. Ambos modos generan informes en `Application.persistentDataPath`; el smoke test restaura el progreso original al terminar. En el editor, la prueba de campaña puede iniciarse añadiendo `CampaignSmoke` al GameApp y asignando su referencia App.
+El ejecutable acepta `--smoke-test` para verificar automáticamente las diez transiciones de la campaña y `--benchmark` para medir la estación 10. En estos modos de QA se renderiza explícitamente a 1920 × 1080 y se lee la GPU cada frame, para poder verificar gráficos incluso en procesos ocultos. Esa lectura añade coste al benchmark y no se activa al jugar normalmente. Ambos modos generan informes en `Application.persistentDataPath`; el smoke test restaura el progreso original al terminar. En el editor, la prueba de campaña puede iniciarse añadiendo `CampaignSmoke` al GameApp y asignando su referencia App.
 
 Guardado versionado en `Application.persistentDataPath/progress-v1.json`, con respaldo `.bak` y sustitución atómica. Ajustes y progreso se conservan entre sesiones. Los tests usan archivos temporales independientes.
 
@@ -55,5 +57,7 @@ Guardado versionado en `Application.persistentDataPath/progress-v1.json`, con re
 Git LFS gestiona modelos, imágenes y audio. `Library`, `Temp`, `Logs`, `Builds` y archivos de solución generados no se versionan. Los commits de desarrollo usan identidad local `Codex <codex@users.noreply.github.com>` porque no había identidad configurada. No se modificó la configuración global.
 
 Para publicar futuros commits: `git push origin main`. No se necesitan tokens dentro de los archivos del juego.
+
+Consulta `QA-FINAL.md` para el alcance real de la validación y las diferencias pendientes respecto al spec.
 
 Consulta `ARCHITECTURE.md`, `ART_BIBLE.md`, `DECISIONS.md`, `CREDITS.md` y los informes de QA para los detalles y límites comprobados.

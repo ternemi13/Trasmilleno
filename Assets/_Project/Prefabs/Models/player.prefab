@@ -394,6 +394,7 @@ MonoBehaviour:
   Attack: 0
   Climb: 0
   Holding: 0
+  OriginalRig: 0
 --- !u!205 &5959292583261790630
 LODGroup:
   m_ObjectHideFlags: 0
