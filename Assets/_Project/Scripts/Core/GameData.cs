@@ -18,7 +18,7 @@ namespace Transmilleno
     {
         public static event Action<string> Message; public static event Action<Vector3, float> Noise;
         public static event Action<string> PlayerDied; public static event Action LevelCompleted;
-        public static event Action<float> PlayerHurt;public static event Action<Vector3> Impact;public static void Hit(Vector3 position)=>Impact?.Invoke(position);
+        public static event Action<float> PlayerHurt;public static event Action<Vector3,bool> BusDoors;public static void Doors(Vector3 position,bool open)=>BusDoors?.Invoke(position,open);public static event Action<Vector3> Impact;public static void Hit(Vector3 position)=>Impact?.Invoke(position);
         public static void Notify(string text) => Message?.Invoke(text);
         public static void EmitNoise(Vector3 p, float radius) => Noise?.Invoke(p, radius);
         public static void Die(string reason) => PlayerDied?.Invoke(reason);

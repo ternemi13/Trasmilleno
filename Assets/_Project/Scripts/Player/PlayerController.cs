@@ -43,7 +43,7 @@ namespace Transmilleno
         {
             if (!Physics.SphereCast(transform.position + Vector3.up * .7f, .17f, transform.forward, out var h, 1.1f, 1 << 0, QueryTriggerInteraction.Ignore)) return false;
             var c = h.collider.GetComponentInParent<Climbable>(); if (!c || Stamina.Value < 18) return false;
-            float top = h.collider.bounds.max.y; float height = top - transform.position.y;
+            if(Pose){Pose.UseGrip=true;Pose.LeftGrip=h.point+transform.right*.27f;Pose.RightGrip=h.point-transform.right*.27f;}float top = h.collider.bounds.max.y; float height = top - transform.position.y;
             if (c.fence && height > 1.25f) { fence = c; fenceTop = top; fenceNormal = h.normal; State = MoveState.Fence; velocity = Vector3.zero; vertical = 0; transform.rotation = Quaternion.LookRotation(-h.normal); GameEvents.Notify("WASD   Escalar reja   ·   ESPACIO   Soltarse"); return true; }
             if (height > 2.5f || height < .45f || !c.hasTopClearance) return false;
             Vector3 dest = transform.position + transform.forward * (h.collider.bounds.size.z < 1.5f ? 1.65f : 1.2f); dest.y = top + .05f;
@@ -52,14 +52,14 @@ namespace Transmilleno
         }
         IEnumerator Vault(Vector3 destination, float top, string route)
         {
-            State = MoveState.Vaulting; motor.enabled = false; var start = transform.position; float t = 0; if(Pose)Pose.Climb = 1;
+            State = MoveState.Vaulting; motor.enabled = false; var start = transform.position; float t = 0; if(Pose){Pose.Climb=1;Pose.LeftGrip=new Vector3(Pose.LeftGrip.x,top,Pose.LeftGrip.z);Pose.RightGrip=new Vector3(Pose.RightGrip.x,top,Pose.RightGrip.z);}
             while(t < 1) { t += Time.deltaTime / .72f; var p = Vector3.Lerp(start, destination, Mathf.SmoothStep(0,1,t)); p.y = Mathf.Lerp(start.y,destination.y,t) + Mathf.Sin(t * Mathf.PI) * .65f; transform.position = p; yield return null; }
             transform.position = destination; motor.enabled = true; vertical = -2; if(Pose)Pose.Climb = 0; State = MoveState.Airborne; Session.Route = route; GameEvents.EmitNoise(transform.position, 6);
         }
         void UpdateFence()
         {
             if(!fence || Input.Jump.WasPressedThisFrame() || !Stamina.Spend(13 * Time.deltaTime)) { State = MoveState.Airborne; if(Pose)Pose.Climb = 0; vertical = 0; return; }
-            Vector2 m = Input.Move.ReadValue<Vector2>(); motor.Move((Vector3.up * m.y + transform.right * m.x) * (1.35f * Time.deltaTime)); if(Pose) {Pose.Climb=1;Pose.Speed=2;}
+            Vector2 m = Input.Move.ReadValue<Vector2>(); motor.Move((Vector3.up * m.y + transform.right * m.x) * (1.35f * Time.deltaTime)); if(Pose) {Pose.Climb=1;Pose.Speed=2;var grip=transform.position+Vector3.up*1.65f+transform.forward*.25f;Pose.LeftGrip=grip+transform.right*.27f;Pose.RightGrip=grip-transform.right*.27f;}
             if(transform.position.y > fenceTop - 1.1f && m.y > 0) { if(fence.hasTopClearance && !Physics.Raycast(transform.position + Vector3.up * 1.7f, Vector3.up, .8f,1<<0)) StartCoroutine(Vault(new Vector3(transform.position.x-fenceNormal.x*1.25f,fenceTop+.05f,transform.position.z-fenceNormal.z*1.25f), fenceTop, "Reja")); else { motor.Move(Vector3.down * .03f); GameEvents.Notify("La cubierta bloquea el paso. Busca otro tramo."); } }
             if(motor.isGrounded && m.y < 0) {State=MoveState.Grounded;if(Pose)Pose.Climb=0;}
         }

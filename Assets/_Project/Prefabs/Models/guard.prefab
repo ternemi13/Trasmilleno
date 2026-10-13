@@ -117,6 +117,11 @@ MonoBehaviour:
   rightLeg: {fileID: 6468812021084306868}
   leftShin: {fileID: 3142652418104768704}
   rightShin: {fileID: 3430819127268656011}
+  leftHand: {fileID: 1627175575453962507}
+  rightHand: {fileID: 3254760147231999057}
+  LeftGrip: {x: 0, y: 0, z: 0}
+  RightGrip: {x: 0, y: 0, z: 0}
+  UseGrip: 0
   Speed: 0
   Attack: 0
   Climb: 0

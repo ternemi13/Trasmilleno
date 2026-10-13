@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Casual
   m_EditorClassIdentifier: Transmilleno.Core::Transmilleno.DifficultySettings
   damage: 0.65
-  perception: 1
-  stamina: 1
+  perception: 0.75
+  stamina: 1.35
   busInterval: 1

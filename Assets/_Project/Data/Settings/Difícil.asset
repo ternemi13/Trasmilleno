@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: "Dif\xEDcil"
   m_EditorClassIdentifier: Transmilleno.Core::Transmilleno.DifficultySettings
   damage: 1.35
-  perception: 1
-  stamina: 1
+  perception: 1.2
+  stamina: 0.85
   busInterval: 1

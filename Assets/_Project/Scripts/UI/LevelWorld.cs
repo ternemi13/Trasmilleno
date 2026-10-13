@@ -7,7 +7,7 @@ namespace Transmilleno
 {
     public sealed class LevelWorld : MonoBehaviour
     {
-        public NavMeshSurface Surface; public BusController Bus; public LevelDefinition Definition;
+        public NavMeshSurface Surface;public Volume Effects; public BusController Bus; public LevelDefinition Definition;
         public static LevelWorld Create(LevelDefinition level,AssetCatalog catalog,bool actors)
         {
             var root=new GameObject("Station · "+level.station);var world=root.AddComponent<LevelWorld>();world.Definition=level;world.Build(catalog,actors);return world;
@@ -53,7 +53,7 @@ namespace Transmilleno
             WorldArt.Sign("BOGOTÁ\nSE MUEVE",t,new Vector3(-19.7f,2,-24),4,red.color,-90);
             var sun=new GameObject("Bogotá sun").AddComponent<Light>();sun.transform.SetParent(t);sun.type=LightType.Directional;sun.transform.rotation=Quaternion.Euler(Definition.night?18:38,-34,0);sun.color=Definition.night?new Color(.38f,.53f,.8f):new Color(1,.84f,.67f);sun.intensity=Definition.night?.65f:1.6f;sun.shadows=LightShadows.Soft;
             RenderSettings.ambientMode=AmbientMode.Flat;RenderSettings.ambientLight=Definition.night?new Color(.2f,.27f,.37f):new Color(.5f,.57f,.62f);RenderSettings.fog=true;RenderSettings.fogColor=Definition.night?new Color(.035f,.065f,.11f):new Color(.59f,.66f,.69f);RenderSettings.fogMode=FogMode.ExponentialSquared;RenderSettings.fogDensity=Definition.rain?.016f:.008f;
-            var volume=new GameObject("Color and lens").AddComponent<Volume>();volume.transform.SetParent(t);volume.isGlobal=true;volume.profile=ScriptableObject.CreateInstance<VolumeProfile>();var tone=volume.profile.Add<Tonemapping>();tone.mode.Override(TonemappingMode.ACES);var bloom=volume.profile.Add<Bloom>();bloom.intensity.Override(.22f);bloom.threshold.Override(1.2f);var vig=volume.profile.Add<Vignette>();vig.intensity.Override(.2f);
+            var volume=new GameObject("Color and lens").AddComponent<Volume>();volume.transform.SetParent(t);Effects=volume;volume.isGlobal=true;volume.profile=ScriptableObject.CreateInstance<VolumeProfile>();var tone=volume.profile.Add<Tonemapping>();tone.mode.Override(TonemappingMode.ACES);var bloom=volume.profile.Add<Bloom>();bloom.intensity.Override(.22f);bloom.threshold.Override(1.2f);bloom.active=Session.Save?.bloom??true;var motion=volume.profile.Add<MotionBlur>();motion.intensity.Override(.25f);motion.active=Session.Save?.motionBlur??false;var vig=volume.profile.Add<Vignette>();vig.intensity.Override(.2f);
             if(Definition.rain){var rain=new GameObject("Rain").AddComponent<ParticleSystem>();rain.transform.SetParent(t);rain.transform.position=new Vector3(0,14,0);var main=rain.main;main.startLifetime=1.5f;main.startSpeed=14;main.startSize=.035f;main.startColor=new Color(.65f,.78f,.85f,.4f);main.maxParticles=1200;var shape=rain.shape;shape.shapeType=ParticleSystemShapeType.Box;shape.scale=new Vector3(35,1,65);rain.transform.rotation=Quaternion.Euler(90,0,0);var emission=rain.emission;emission.rateOverTime=650;var rr=rain.GetComponent<ParticleSystemRenderer>();rr.sharedMaterial=WorldArt.Material("rain",new Color(.6f,.7f,.8f));rr.renderMode=ParticleSystemRenderMode.Billboard;main.startSize3D=true;main.startSizeX=.018f;main.startSizeY=.32f;main.startSizeZ=.018f;}
             AddVariant(catalog,concrete,dark,red,cream,glass);Surface=rootSurface();Surface.BuildNavMesh();
             if(!actors){var display=WorldArt.Model(catalog,"bus",t,new Vector3(5.1f,0,4),Quaternion.identity);if(display)display.AddComponent<MenuTraffic>();return;}
@@ -84,6 +84,8 @@ namespace Transmilleno
             if(level>=7){for(int i=0;i<level-5;i++){float z=-12+i*4.2f;var barrier=WorldArt.Part("Security chicane",t,new Vector3(i%2==0?-.4f:1.3f,.9f,z),new Vector3(1.7f,1.1f,.22f),red);barrier.AddComponent<Climbable>().route="Barreras interiores";WorldArt.Part("Warning stripe",t,new Vector3(i%2==0?-.4f:1.3f,1.12f,z-.13f),new Vector3(1.5f,.14f,.025f),cream,false);}}
             for(int i=0;i<3;i++){float z=-25+i*24;WorldArt.Part("Tree planter",t,new Vector3(-16,.45f,z),new Vector3(1.4f,.7f,1.4f),concrete);WorldArt.Part("Tree trunk",t,new Vector3(-16,1.8f,z),new Vector3(.18f,2.6f,.18f),dark,false,true);for(int j=0;j<4;j++){var foliage=WorldArt.Part("Pruned canopy",t,new Vector3(-16+(j%2)*.6f-.3f,3.4f+j*.25f,z+(j/2)*.6f-.3f),new Vector3(1.6f,1.1f,1.5f),WorldArt.Material("leaves",new Color(.22f,.36f,.23f)),false);foliage.transform.Rotate(0,j*35,0);}}
         }
+        bool reinforcement;
+        public void Reinforce(AssetCatalog catalog){if(reinforcement)return;reinforcement=true;var npc=SpawnActor(catalog,"police",new Vector3(-11,.4f,15));var guard=npc.AddComponent<GuardAgent>();guard.Police=true;guard.Pose=npc.GetComponentInChildren<PoseDriver>();GameEvents.Notify("Llegaron refuerzos de policía");}
         bool levelNight()=>Definition.night;
         NavMeshSurface rootSurface(){var s=gameObject.AddComponent<NavMeshSurface>();s.collectObjects=CollectObjects.Children;s.useGeometry=NavMeshCollectGeometry.PhysicsColliders;s.layerMask=1<<0;return s;}
         GameObject SpawnActor(AssetCatalog catalog,string key,Vector3 p)

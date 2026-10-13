@@ -119,7 +119,7 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &686653289
+--- !u!1 &1653622078
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -127,8 +127,8 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 686653291}
-  - component: {fileID: 686653290}
+  - component: {fileID: 1653622080}
+  - component: {fileID: 1653622079}
   m_Layer: 0
   m_Name: "Transmilleno \xB7 Game services"
   m_TagString: Untagged
@@ -136,26 +136,26 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &686653290
+--- !u!114 &1653622079
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 686653289}
+  m_GameObject: {fileID: 1653622078}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 326776d6147d8ad469eae7a0b86539e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Transmilleno.UI::Transmilleno.GameApp
   config: {fileID: 11400000, guid: cd1ec53f61b98194585832410ebb558f, type: 2}
---- !u!4 &686653291
+--- !u!4 &1653622080
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 686653289}
+  m_GameObject: {fileID: 1653622078}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
@@ -168,4 +168,4 @@ Transform:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
-  - {fileID: 686653291}
+  - {fileID: 1653622080}

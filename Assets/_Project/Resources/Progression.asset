@@ -23,4 +23,13 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 80a8c19e06569134cb94e02ee5a1c6ca, type: 2}
   - {fileID: 11400000, guid: a62949f9eefc7544aaeb1c14328482c6, type: 2}
   - {fileID: 11400000, guid: 83e5768190c733e48bf5ee07efade31f, type: 2}
+  fists: {fileID: 11400000, guid: 5c518a189f5fc264bb6f72b81930f74a, type: 2}
+  knife: {fileID: 11400000, guid: 63a12546397807b4aa24a5650d995ee4, type: 2}
+  throwable: {fileID: 11400000, guid: 8507d90dff166134386ded3418d90ded, type: 2}
+  guard: {fileID: 11400000, guid: 6c4ec3f75a4dc5742b5582cf0d88c20a, type: 2}
+  police: {fileID: 11400000, guid: 77ca318efee861f4ca7229a5dd35d73a, type: 2}
+  difficulties:
+  - {fileID: 11400000, guid: 3ccb2b00ae52a8847b503809fc2fb74a, type: 2}
+  - {fileID: 11400000, guid: 515bdfa5206eb334ca77b0fc838bf8ea, type: 2}
+  - {fileID: 11400000, guid: 57601021a20b00f479ac5c5fbcc7ce52, type: 2}
   catalog: {fileID: 11400000, guid: 92dde658057386647b12b20150e8ea46, type: 2}

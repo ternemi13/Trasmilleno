@@ -7,4 +7,12 @@
 - El remoto contenía únicamente el .gitignore oficial de Unity. Se integró su historial antes de añadir archivos y se configuró Git LFS.
 - La campaña usa una escena Gameplay y diez LevelDefinition; las variantes se construyen con un kit modular reproducible. Los nombres de estaciones y señales son ambientación de ficción.
 - Ninguna licencia de los modelos suministrados está incluida. Se registra su procedencia como material del usuario sin atribuirles una licencia inventada.
+- Los modelos con pesos de skin conservan esos pesos al normalizar el rig; para modelos estáticos se genera un esqueleto Humanoid con pesos anatómicos aproximados. Las manos usan IK de dos huesos durante el agarre. No se descargaron animaciones ni se usó Mixamo.
+- El modelo de la Sabana incluía un fondo de presentación de 36 vértices, de altura desproporcionada. Se elimina únicamente del prefab derivado, conservando el archivo fuente y la arquitectura de la estación.
+- La cámara usa Cinemachine para salida y mezcla; la órbita y la colisión se resuelven por código para mantener el mismo comportamiento con mouse y mando.
+- Los efectos y voces de audio usan bancos acotados de objetos reutilizables. Los objetos lanzables vuelven al punto de origen después de doce segundos para evitar acumulación fuera del recorrido.
+- El audio usa mezcla por grupos de AudioSource con cuatro controles persistentes. La creación automática de un AudioMixer con parámetros expuestos no se completó mediante la API pública disponible; esta parte del spec queda como diferencia explícita, no como función verificada.
+- Los diez niveles combinan estaciones originales con módulos de circulación: kioscos, taquillas, pasarelas elevadas y barreras. El recorrido principal permite comprobar las tres entradas en todas las variantes; no se generaron diez ciudades independientes.
+- La prueba automatizada de campaña coloca al personaje en la zona de embarque para aislar carga, buses, victoria y persistencia. No sustituye un recorrido humano que evalúe dificultad, sigilo y todas las animaciones.
+- Las pruebas de rendimiento del editor no certifican por sí solas 1080p; se incluye un modo `--benchmark` del ejecutable para medir la estación 10.
 

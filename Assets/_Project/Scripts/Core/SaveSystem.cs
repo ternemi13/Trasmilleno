@@ -8,7 +8,7 @@ namespace Transmilleno
         public int version = 1, unlocked = 1, current = 1; public int[] stars = new int[10]; public float[] bestTimes = new float[10];
         public float master = .8f, music = .4f, effects = .8f, ambience = .5f, sensitivity = 1, shoulder=.45f;
         public int quality = 1, difficulty = 1, fps = 60, resolution = 1, windowMode; public bool invertY, vsync = true, hints = true, subtitles = true, post = true;
-        public float renderScale = 1, drawDistance = 160, crowd = 1; public string bindings = "", language = "es-CO";
+        public bool shadows=true,bloom=true,ssao=true,motionBlur;public int textureQuality,antialiasing=2;public float renderScale = 1, drawDistance = 160, crowd = 1; public string bindings = "", language = "es-CO";
     }
     public static class SaveSystem
     {
