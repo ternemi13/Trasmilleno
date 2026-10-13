@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f051c1b9dfa68d45b4c243d601f5d1f, type: 3}
+  m_Name: Level_08
+  m_EditorClassIdentifier: Transmilleno.Core::Transmilleno.LevelDefinition
+  index: 8
+  station: Ricaurte
+  subtitle: La ciudad no duerme
+  guards: 4
+  police: 2
+  pedestrians: 13
+  busInterval: 21
+  stopDuration: 11.8
+  perception: 13.2
+  night: 1
+  rain: 0
+  knife: 1
+  layout: 3
+  spawn: {x: -10, y: 0.2, z: -17}
+  routes:
+  - {x: -4.4, y: 0.4, z: -15}
+  - {x: -3.25, y: 0.4, z: -6}
+  - {x: 3.2, y: 0.4, z: -9}

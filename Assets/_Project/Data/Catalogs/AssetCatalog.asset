@@ -1,0 +1,63 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee72ddb14a57f0243879fbb6b890ef33, type: 3}
+  m_Name: AssetCatalog
+  m_EditorClassIdentifier: Transmilleno.Core::Transmilleno.AssetCatalog
+  entries:
+  - key: player
+    model: {fileID: 1827064310093684724, guid: 091cc6fbde918ac428cc1415692bcd5c, type: 3}
+    height: 1.75
+    rotation: {x: 0, y: 0, z: 0}
+  - key: guard
+    model: {fileID: 337231724555113345, guid: e8b13031bbcd5d74dab16928af078909, type: 3}
+    height: 1.78
+    rotation: {x: 0, y: 0, z: 0}
+  - key: police
+    model: {fileID: 1048222472461272993, guid: 5e6d42e1c880d7947a197418c002a457, type: 3}
+    height: 1.83
+    rotation: {x: 0, y: 0, z: 0}
+  - key: pedestrian
+    model: {fileID: 2449700814445165620, guid: 5b282ce67cac3734e93df7535b0f9fe9, type: 3}
+    height: 1.73
+    rotation: {x: 0, y: 0, z: 0}
+  - key: pedestrian2
+    model: {fileID: 5705873606678861185, guid: 357992a4453c5b540970f47374644d04, type: 3}
+    height: 1.81
+    rotation: {x: 0, y: 0, z: 0}
+  - key: bus
+    model: {fileID: 6745092860568378725, guid: c8cede7413f80fe46a95d7b998a20608, type: 3}
+    height: 18
+    rotation: {x: 0, y: 0, z: 0}
+  - key: station
+    model: {fileID: 981567256311295695, guid: 1b0ca53339c8dcd45816fc5a3f2f1379, type: 3}
+    height: 80
+    rotation: {x: 0, y: 0, z: 0}
+  - key: stationSabana
+    model: {fileID: 4502990557481568747, guid: fe45fa235f6aebe4e9e28d735b81032e, type: 3}
+    height: 48
+    rotation: {x: 0, y: 0, z: 0}
+  - key: knife
+    model: {fileID: 7168548958924370245, guid: 400d456d227f45f47b28ee69438534da, type: 3}
+    height: 0.28
+    rotation: {x: 0, y: 0, z: 0}
+  - key: stone
+    model: {fileID: 7313187234471435954, guid: b0309bf92914c284cb4034b1598cbf18, type: 3}
+    height: 0.22
+    rotation: {x: 0, y: 0, z: 0}
+  - key: can
+    model: {fileID: 2595151307335963379, guid: 5bda858eb5b6fa54799f409b4804cdc2, type: 3}
+    height: 0.18
+    rotation: {x: 0, y: 0, z: 0}
+  - key: pistol
+    model: {fileID: 2448567506747732120, guid: e75192ad0068a4646baa3e6110a34f13, type: 3}
+    height: 0.27
+    rotation: {x: 0, y: 0, z: 0}

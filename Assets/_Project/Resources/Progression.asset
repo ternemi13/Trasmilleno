@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3272f93afe409b64eacdda1cba7913f5, type: 3}
+  m_Name: Progression
+  m_EditorClassIdentifier: Transmilleno.Core::Transmilleno.GameProgressionConfig
+  levels:
+  - {fileID: 11400000, guid: ca2d83d5e1cb9c042b7866916fbde0d5, type: 2}
+  - {fileID: 11400000, guid: b7708f103abea864f88052ce6d5e7400, type: 2}
+  - {fileID: 11400000, guid: 5c0e0e4293d176e4db853b5562685f1c, type: 2}
+  - {fileID: 11400000, guid: b4e912c787ed7de48be4ee0ca80bdda3, type: 2}
+  - {fileID: 11400000, guid: 5c5bac9734f763e42876cbf6b8925bdb, type: 2}
+  - {fileID: 11400000, guid: 593f498f05c6ace4d939296d5742699d, type: 2}
+  - {fileID: 11400000, guid: 6a8ac950165d93f45b9ad2122bea0fbb, type: 2}
+  - {fileID: 11400000, guid: 80a8c19e06569134cb94e02ee5a1c6ca, type: 2}
+  - {fileID: 11400000, guid: a62949f9eefc7544aaeb1c14328482c6, type: 2}
+  - {fileID: 11400000, guid: 83e5768190c733e48bf5ee07efade31f, type: 2}
+  catalog: {fileID: 11400000, guid: 92dde658057386647b12b20150e8ea46, type: 2}
