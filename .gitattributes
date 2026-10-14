@@ -14,3 +14,4 @@
 *.ogg filter=lfs diff=lfs merge=lfs -text
 *.dae filter=lfs diff=lfs merge=lfs -text
 Assets/_Project/Art/Animations/*_skin_*.asset filter=lfs diff=lfs merge=lfs -text
+Assets/_Project/Art/Optimized/*.asset filter=lfs diff=lfs merge=lfs -text

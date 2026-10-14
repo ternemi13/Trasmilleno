@@ -44,8 +44,7 @@ namespace Transmilleno
             gameObject.AddComponent<GameAudio>();
             gameObject.AddComponent<ImpactPool>();
             gameObject.AddComponent<PerformanceProbe>();
-            GameEvents.PlayerDied += OnDeath;
-            GameEvents.LevelCompleted += OnComplete;
+
         }
         IEnumerator Start()
         {
@@ -65,8 +64,21 @@ namespace Transmilleno
             }
             else if (System.Array.IndexOf(System.Environment.GetCommandLineArgs(), "--benchmark") >= 0)
             {
+                QualitySettings.vSyncCount = 0;
+                Application.targetFrameRate = -1;
                 Play(10);
+                gameObject.AddComponent<BenchmarkTour>().App = this;
             }
+        }
+        void OnEnable()
+        {
+            GameEvents.PlayerDied += OnDeath;
+            GameEvents.LevelCompleted += OnComplete;
+        }
+        void OnDisable()
+        {
+            GameEvents.PlayerDied -= OnDeath;
+            GameEvents.LevelCompleted -= OnComplete;
         }
         void OnDestroy()
         {
@@ -96,7 +108,7 @@ namespace Transmilleno
             if (InMenu && cameraMain)
             {
                 float a = Time.unscaledTime * .018f;
-                cameraMain.transform.position = new Vector3(-17 + Mathf.Sin(a) * 2, 9, -23 + Mathf.Cos(a) * 2);
+                cameraMain.transform.position = new Vector3(-11 + Mathf.Sin(a) * 1.2f, 8, -23 + Mathf.Cos(a) * 2);
                 cameraMain.transform.LookAt(new Vector3(0, 1, 0));
             }
         }
@@ -154,11 +166,9 @@ namespace Transmilleno
             var visual = WorldArt.Model(config.catalog, "player", p.transform, Vector3.zero, Quaternion.identity);
             Player = p.AddComponent<PlayerController>();
             Player.Pose = visual ? visual.GetComponentInChildren<PoseDriver>() : null;
-            var hand = new GameObject("Hand socket");
-            hand.transform.SetParent(Player.Pose && Player.Pose.rightForearm ? Player.Pose.rightForearm : p.transform, false);
-            hand.transform.localPosition = Player.Pose ? new Vector3(-.22f, 0, 0) : new Vector3(.4f, 1.2f, .35f);
-            Player.Hand = hand.transform;
-            Player.KnifeVisual = WorldArt.Model(config.catalog, "knife", Player.Hand, Vector3.zero, Quaternion.Euler(0, 0, 90));
+            Player.Pose.Initialize();
+            Player.Hand = Player.Pose.WeaponSocket;
+            Player.KnifeVisual = WorldArt.Model(config.catalog, "knife", Player.Hand, new Vector3(0, -.008f, .105f), Quaternion.Euler(0, -90, 0));
             CreateCamera();
             var vc = new GameObject("Cinemachine orbital camera").AddComponent<CinemachineCamera>();
             vc.transform.position = p.transform.position + new Vector3(0, 2, -4);
@@ -213,7 +223,7 @@ namespace Transmilleno
         void OnComplete()
         {
             Session.Running = false;
-            Time.timeScale = 0;
+            Time.timeScale = 1;
             Unlock();
             int i = Session.Level.index - 1;
             LastStars = Session.Hits == 0 && Session.Alerts <= 1 ? 3 : Session.Hits < 5 ? 2 : 1;

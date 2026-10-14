@@ -13,6 +13,7 @@ namespace Transmilleno
         {
             get; private set;
         }
+        EventSystem eventSystem; InputSystemUIInputModule uiModule;
         Canvas canvas; RectTransform root; TMP_FontAsset font; TextMeshProUGUI hp, sp, objective, bus, alert, prompt, message, stats; Image healthFill, staminaFill, hurt; float messageUntil, damageFlash, nextHud; bool hud; CanvasGroup fade; InputActionRebindingExtensions.RebindingOperation rebind; GameInput menuInput;
         readonly Color cream = new Color(.96f, .93f, .86f), muted = new Color(.58f, .66f, .67f), red = new Color(.86f, .18f, .16f), ink = new Color(.055f, .085f, .095f, .96f);
         void Awake()
@@ -29,7 +30,10 @@ namespace Transmilleno
             scaler.matchWidthOrHeight = Screen.width / (float)Screen.height >= 16f / 9 ? 1 : 0;
             var es = new GameObject("EventSystem", typeof(EventSystem), typeof(InputSystemUIInputModule));
             es.transform.SetParent(transform);
-            es.GetComponent<InputSystemUIInputModule>().AssignDefaultActions();
+            eventSystem = es.GetComponent<EventSystem>();
+            uiModule = es.GetComponent<InputSystemUIInputModule>();
+            uiModule.AssignDefaultActions();
+            uiModule.cursorLockBehavior = InputSystemUIInputModule.CursorLockBehavior.ScreenCenter;
             menuInput = new GameInput();
             GameEvents.Message += ShowMessage;
             GameEvents.PlayerHurt += Flash;
@@ -56,7 +60,19 @@ namespace Transmilleno
         void Clear(bool isHud = false)
         {
             if (root)
+            {
+                root.gameObject.SetActive(false);
                 Destroy(root.gameObject);
+            }
+            if (!isHud)
+            {
+                Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
+                uiModule.enabled = true;
+                uiModule.actionsAsset.Enable();
+                eventSystem.enabled = true;
+                eventSystem.SetSelectedGameObject(null);
+            }
             rebind?.Dispose();
             rebind = null;
             hud = isHud;
@@ -117,7 +133,7 @@ namespace Transmilleno
             b.colors = colors;
             var txt = Text(label, 18, 10, w - 36, height - 12, 21, null, image.rectTransform);
             txt.alignment = TextAlignmentOptions.MidlineLeft;
-            b.onClick.AddListener(() => { GameEvents.EmitNoise(Vector3.zero, 0); action(); });
+            b.onClick.AddListener(() => action());
             if (EventSystem.current && !EventSystem.current.currentSelectedGameObject)
                 EventSystem.current.SetSelectedGameObject(b.gameObject);
             return b;
@@ -204,6 +220,11 @@ namespace Transmilleno
         }
         void Update()
         {
+            if (!hud && Cursor.lockState != CursorLockMode.None)
+            {
+                Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
+            }
             if (fade)
                 fade.alpha = Mathf.MoveTowards(fade.alpha, 1, Time.unscaledDeltaTime * 7);
             if (!hud || !App.Player)
@@ -222,7 +243,7 @@ namespace Transmilleno
             alert.text = Session.Alert >= 2 ? "● PERSECUCIÓN" : Session.Alert >= 1 ? "● BÚSQUEDA" : Session.Alert > .2f ? "● SOSPECHA" : "○ TRANQUILO";
             alert.color = Session.Alert > 1 ? red : cream;
             prompt.text = Session.Save.hints ? p.Prompt : "";
-            if (App.World.Bus)
+            if (App.World && App.World.Bus)
             {
                 var b = App.World.Bus;
                 bus.SetText(b.State == BusController.BusState.Boarding ? "B74  PUERTAS ABIERTAS  {0:0}s" : "B74  PRÓXIMO BUS  ~{0:0}s", b.Eta);
@@ -258,7 +279,9 @@ namespace Transmilleno
             for (int star = 0; star < 3; star++)
             {
                 var r = Rect("Star", root, 75 + star * 45, 290, 36, 36);
-                r.gameObject.AddComponent<StarGraphic>().color = star < App.LastStars ? new Color(.95f, .7f, .25f) : muted;
+                var graphic = r.gameObject.AddComponent<StarGraphic>();
+                graphic.raycastTarget = false;
+                graphic.color = star < App.LastStars ? new Color(.95f, .7f, .25f) : muted;
             }
             Text("TIEMPO\n" + TimeSpan.FromSeconds(Session.Elapsed).ToString(@"mm\:ss"), 75, 340, 330, 110, 34);
             Text("RUTA\n" + Session.Route, 440, 340, 650, 110, 34);

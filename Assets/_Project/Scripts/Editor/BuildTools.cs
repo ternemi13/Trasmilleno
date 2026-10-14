@@ -46,8 +46,8 @@ namespace Transmilleno.Editor
                 level.rain = i == 8 || i == 9;
                 level.knife = i >= 3;
                 level.layout = i % 4;
-                level.spawn = new Vector3(-10, .2f, -18 + i % 3);
-                level.routes = new[] { new Vector3(-4.4f, .4f, -15), new Vector3(-3.25f, .4f, -6), new Vector3(3.2f, .4f, -9) };
+                level.spawn = StationLayout.Spawn;
+                level.routes = new[] { new Vector3(.35f, StationLayout.Floor, .15f), new Vector3(-2.18f, .2f, 40), new Vector3(2.18f, .2f, 40) };
                 config.levels[i] = level;
                 EditorUtility.SetDirty(level);
             }

@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 namespace Transmilleno
 {
+    [RequireComponent(typeof(CanvasRenderer))]
     public sealed class StarGraphic : Graphic
     {
         protected override void OnPopulateMesh(VertexHelper vh)

@@ -13,7 +13,7 @@ namespace Transmilleno
         {
             get; private set;
         }
-        public bool Police; public PoseDriver Pose;
+        public bool Police; public PoseDriver Pose; public Transform Muzzle;
         NavMeshAgent agent; Vector3 home, lastSeen; float nextThink, suspicion, lostAt, strikeAt, stunUntil, bleedUntil, nextBleed; bool windup; LineRenderer tracer; float tracerUntil;
         void Awake()
         {
@@ -46,7 +46,10 @@ namespace Transmilleno
             if (!Session.Running || IsDead)
                 return;
             if (Pose)
+            {
                 Pose.Speed = agent.velocity.magnitude;
+                Pose.Aiming = Police && (State == GuardState.Attack || windup);
+            }
             if (tracer && Time.time > tracerUntil)
                 tracer.enabled = false;
             if (Time.time < bleedUntil && Time.time > nextBleed)
@@ -117,7 +120,7 @@ namespace Transmilleno
                         windup = true;
                         strikeAt = Time.time + (Police ? .8f : .65f);
                         if (Pose)
-                            Pose.Attack = .45f;
+                            Pose.Aiming = Police;
                         GameEvents.Notify(Police ? "¡Policía apuntando! Busca cobertura." : "¡El celador prepara un golpe!");
                     }
                     else if (windup && Time.time > strikeAt)
@@ -125,11 +128,11 @@ namespace Transmilleno
                         windup = false;
                         strikeAt = Time.time + 1.1f;
                         if (Pose)
-                            Pose.Attack = 1;
+                            Pose.Strike(false);
                         if (Police)
                         {
                             tracer.enabled = true;
-                            tracer.SetPosition(0, transform.position + Vector3.up * 1.3f);
+                            tracer.SetPosition(0, Muzzle ? Muzzle.position + Muzzle.forward * .25f : transform.position + Vector3.up * 1.3f);
                             tracer.SetPosition(1, player.transform.position + Vector3.up);
                             tracerUntil = Time.time + .1f;
                         }

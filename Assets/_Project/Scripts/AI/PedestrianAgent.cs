@@ -29,6 +29,8 @@ namespace Transmilleno
         {
             if (!Session.Running || IsDead || !agent || !agent.isOnNavMesh || onBus)
                 return;
+            if (pose)
+                pose.Speed = agent.velocity.magnitude;
             if (approaching)
             {
                 if (Vector3.Distance(transform.position, door) < 1.7f)
@@ -75,7 +77,7 @@ namespace Transmilleno
                 agent.SetDestination(home);
                 return;
             }
-            if (Mathf.Abs(transform.position.x) < 3 && Vector3.Distance(transform.position, point) < 9)
+            if (StationLayout.Inside(transform.position) && Vector3.Distance(transform.position, point) < 9)
             {
                 door = point;
                 approaching = true;

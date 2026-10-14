@@ -90,14 +90,14 @@ namespace Transmilleno.Editor
                 var cam = new GameObject("Overview").AddComponent<Camera>();
                 cam.backgroundColor = RenderSettings.fogColor;
                 cam.clearFlags = CameraClearFlags.SolidColor;
-                cam.transform.position = new Vector3(-17, 12, -24);
+                cam.transform.position = new Vector3(-11, 10, -24);
                 cam.transform.LookAt(new Vector3(0, 0, 2));
                 Capture(cam, "Docs/Captures/level-" + level.index.ToString("00") + ".png", 1280, 800);
                 int reachable = 0;
                 foreach (var route in level.routes)
                 {
-                    Vector3 landing = route.x < 0 ? new Vector3(-2.2f, .4f, route.z) : new Vector3(2.3f, .4f, route.z);
-                    if (NavMesh.SamplePosition(landing, out var a, 2, NavMesh.AllAreas) && NavMesh.SamplePosition(new Vector3(2, .4f, 5.5f), out var b, 2, NavMesh.AllAreas))
+                    Vector3 landing = Mathf.Abs(route.x) < 1 ? new Vector3(.6f, StationLayout.Floor, 1.5f) : new Vector3(Mathf.Sign(route.x) * 1.4f, StationLayout.Floor, route.z);
+                    if (NavMesh.SamplePosition(landing, out var a, 2, NavMesh.AllAreas) && NavMesh.SamplePosition(StationLayout.Boarding(false), out var b, 2, NavMesh.AllAreas))
                     {
                         var path = new NavMeshPath();
                         if (NavMesh.CalculatePath(a.position, b.position, NavMesh.AllAreas, path) && path.status == NavMeshPathStatus.PathComplete)

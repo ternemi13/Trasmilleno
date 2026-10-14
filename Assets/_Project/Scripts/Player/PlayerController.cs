@@ -19,6 +19,7 @@ namespace Transmilleno
             get; private set;
         }
         public Transform View, Hand; public PoseDriver Pose;
+        public bool VerificationInvulnerable;
         public bool HasKnife; public GameObject KnifeVisual; public string Prompt
         {
             get; private set;
@@ -108,6 +109,7 @@ namespace Transmilleno
                 Pose.Speed = Speed;
                 Pose.Climb = 0;
                 Pose.Holding = held;
+                Pose.Armed = HasKnife;
             }
             if (Input.Punch.WasPressedThisFrame())
             {
@@ -136,7 +138,7 @@ namespace Transmilleno
                 }
             if (transform.position.y < -12)
                 TakeDamage(new DamageInfo(999, DamageType.Fall, gameObject));
-            if (transform.position.x > -3.2f && transform.position.x < 3.2f && Mathf.Abs(transform.position.z) < 20 && !Session.Trespassing)
+            if (StationLayout.Inside(transform.position) && !Session.Trespassing)
             {
                 Session.Trespassing = true;
                 if (Session.Route == "Sin registrar")
@@ -173,14 +175,22 @@ namespace Transmilleno
             }
             if (height > 2.5f || height < .45f || !c.hasTopClearance)
                 return false;
-            Vector3 dest = transform.position + transform.forward * (h.collider.bounds.size.z < 1.5f ? 1.65f : 1.2f);
-            dest.y = top + .05f;
+            float depth = Vector3.Dot(h.collider.bounds.size, new Vector3(Mathf.Abs(transform.forward.x), 0, Mathf.Abs(transform.forward.z)));
+            Vector3 dest = h.point + transform.forward * (depth + .7f);
+            dest = Landing(dest, top);
             if (Physics.CheckCapsule(dest + Vector3.up * .4f, dest + Vector3.up * 1.5f, .25f, 1 << 0, QueryTriggerInteraction.Ignore))
                 return false;
             if (!Stamina.Spend(18))
                 return false;
             StartCoroutine(Vault(dest, top, c.route));
             return true;
+        }
+        Vector3 Landing(Vector3 target, float top)
+        {
+            target.y = top + .08f;
+            if (Physics.Raycast(target + Vector3.up * .12f, Vector3.down, out var hit, 4, 1 << 0, QueryTriggerInteraction.Ignore))
+                target.y = hit.point.y + .045f;
+            return target;
         }
         IEnumerator Vault(Vector3 destination, float top, string route)
         {
@@ -198,7 +208,7 @@ namespace Transmilleno
             {
                 t += Time.deltaTime / .72f;
                 var p = Vector3.Lerp(start, destination, Mathf.SmoothStep(0, 1, t));
-                p.y = Mathf.Lerp(start.y, destination.y, t) + Mathf.Sin(t * Mathf.PI) * .65f;
+                p.y = Mathf.Lerp(start.y, destination.y, t) + Mathf.Sin(t * Mathf.PI) * Mathf.Max(.5f, top - Mathf.Min(start.y, destination.y) + .1f);
                 transform.position = p;
                 yield return null;
             }
@@ -234,7 +244,7 @@ namespace Transmilleno
             if (transform.position.y > fenceTop - 1.1f && m.y > 0)
             {
                 if (fence.hasTopClearance && !Physics.Raycast(transform.position + Vector3.up * 1.7f, Vector3.up, .8f, 1 << 0))
-                    StartCoroutine(Vault(new Vector3(transform.position.x - fenceNormal.x * 1.25f, fenceTop + .05f, transform.position.z - fenceNormal.z * 1.25f), fenceTop, "Reja"));
+                    StartCoroutine(Vault(Landing(new Vector3(transform.position.x - fenceNormal.x * 1.25f, fenceTop + .05f, transform.position.z - fenceNormal.z * 1.25f), fenceTop), fenceTop, "Reja original Calle 45"));
                 else
                 {
                     motor.Move(Vector3.down * .03f);
@@ -255,13 +265,13 @@ namespace Transmilleno
             combo = (combo + 1) % 3;
             attackAt = Time.time + (Stamina.Value < 10 ? .75f : .38f);
             if (Pose)
-                Pose.Attack = 1;
+                Pose.Strike(knife, combo);
             StartCoroutine(Strike(knife));
             GameEvents.EmitNoise(transform.position, 15);
         }
         IEnumerator Strike(bool knife)
         {
-            yield return new WaitForSeconds(.12f);
+            yield return new WaitForSeconds(.24f);
             if (IsDead)
                 yield break;
             int n = Physics.OverlapSphereNonAlloc(transform.position + Vector3.up + transform.forward * .8f, .9f, hits);
@@ -310,7 +320,7 @@ namespace Transmilleno
         }
         public override void TakeDamage(DamageInfo d)
         {
-            if (IsDead || State == MoveState.Boarded)
+            if (VerificationInvulnerable || IsDead || State == MoveState.Boarded)
                 return;
             float modifier = Session.Difficulty ? Session.Difficulty.damage : 1;
             Health = Mathf.Max(0, Health - d.amount * modifier);

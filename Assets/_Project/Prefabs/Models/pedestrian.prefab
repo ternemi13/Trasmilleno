@@ -76,20 +76,25 @@ MonoBehaviour:
   rightArm: {fileID: 6686683865685922357}
   leftForearm: {fileID: 1139044868745524537}
   rightForearm: {fileID: 8467418330982059963}
+  leftHand: {fileID: 3346166967659857462}
+  rightHand: {fileID: 4539154485156956339}
   leftLeg: {fileID: 1826731717025177320}
   rightLeg: {fileID: 6722956730901261141}
   leftShin: {fileID: 6124277548808106868}
   rightShin: {fileID: 1631884333766186163}
-  leftHand: {fileID: 3346166967659857462}
-  rightHand: {fileID: 4539154485156956339}
+  leftFoot: {fileID: 0}
+  rightFoot: {fileID: 0}
   LeftGrip: {x: 0, y: 0, z: 0}
   RightGrip: {x: 0, y: 0, z: 0}
   UseGrip: 0
+  Holding: 0
+  OriginalRig: 1
+  Armed: 0
+  Firearm: 0
+  Aiming: 0
   Speed: 0
   Attack: 0
   Climb: 0
-  Holding: 0
-  OriginalRig: 1
 --- !u!205 &6950332316978149961
 LODGroup:
   m_ObjectHideFlags: 0

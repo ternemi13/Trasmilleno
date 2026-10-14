@@ -14,7 +14,7 @@ namespace Transmilleno
             get; private set;
         }
         public float Eta => State == BusState.Boarding ? timer : State == BusState.Waiting ? timer + 8 : 8;
-        public bool Reverse; public Transform Door; public float Speed
+        public bool Reverse; public Transform Door; public Transform[] PlatformDoors; public Vector3 BoardingPoint; public Vector3 BoardPoint => BoardingPoint == Vector3.zero ? Stop + new Vector3(-2.7f, .4f, 1.5f) : BoardingPoint; public float Speed
         {
             get; private set;
         }
@@ -27,12 +27,13 @@ namespace Transmilleno
         {
             route = gameObject.AddComponent<SplineContainer>();
             var spline = new Spline();
-            spline.Add(new BezierKnot(new float3(Stop.x, 0, -65)));
-            spline.Add(new BezierKnot(new float3(Stop.x, 0, 65)));
+            spline.Add(new BezierKnot(new float3(Stop.x, 0, Reverse ? 75 : -60)));
+            spline.Add(new BezierKnot(new float3(Stop.x, 0, Reverse ? -60 : 75)));
             spline.SetTangentMode(TangentMode.Linear);
             route.Spline = spline; // Spline is evaluated in local coordinates explicitly below.
             timer = Reverse ? 9 : 4;
-            transform.position = new Vector3(Stop.x, 0, -65);
+            transform.position = new Vector3(Stop.x, 0, Reverse ? 75 : -60);
+            transform.rotation = Quaternion.Euler(0, Reverse ? 180 : 0, 0);
             prior = transform.position;
             State = BusState.Waiting;
         }
@@ -54,7 +55,7 @@ namespace Transmilleno
                 case BusState.Arriving:
                 case BusState.Braking:
                     progress += Time.deltaTime * (State == BusState.Braking ? .035f : .075f);
-                    float stopT = (Stop.z + 65) / 130;
+                    float stopT = Reverse ? (75 - Stop.z) / 135 : (Stop.z + 60) / 135;
                     if (progress >= stopT)
                     {
                         progress = stopT;
@@ -73,8 +74,7 @@ namespace Transmilleno
                     {
                         State = BusState.Boarding;
                         timer = Session.Level.stopDuration;
-                        if (!Reverse)
-                            GameEvents.Doors(Stop + new Vector3(-2.7f, .4f, 1.5f), true);
+                        GameEvents.Doors(BoardPoint, true);
                         GameEvents.EmitNoise(transform.position, 5);
                     }
                     break;
@@ -84,8 +84,7 @@ namespace Transmilleno
                     {
                         State = BusState.Closing;
                         timer = 1.5f;
-                        if (!Reverse)
-                            GameEvents.Doors(Stop, false);
+                        GameEvents.Doors(BoardPoint, false);
                     }
                     break;
                 case BusState.Closing:
@@ -109,10 +108,18 @@ namespace Transmilleno
                     {
                         State = BusState.Waiting;
                         timer = Session.Level.busInterval;
-                        transform.position = new Vector3(Stop.x, 0, -65);
+                        transform.position = new Vector3(Stop.x, 0, Reverse ? 75 : -60);
                     }
                     break;
             }
+            if (PlatformDoors != null)
+                for (int d = 0; d < PlatformDoors.Length; d++)
+                    if (PlatformDoors[d])
+                    {
+                        bool open = State == BusState.Opening || State == BusState.Boarding;
+                        var panel = PlatformDoors[d];
+                        panel.localPosition = Vector3.MoveTowards(panel.localPosition, new Vector3(0, 0, open ? (panel.name.EndsWith("A") ? -1.05f : 1.05f) : 0), Time.deltaTime * 1.6f);
+                    }
             Speed = Vector3.Distance(prior, transform.position) / Mathf.Max(.001f, Time.deltaTime);
             if (Speed > 2 && State != BusState.Waiting)
             {
@@ -131,12 +138,12 @@ namespace Transmilleno
         }
         public bool TryBoard()
         {
-            if (State != BusState.Boarding || Boarded || Reverse || !Session.Trespassing)
+            if (State != BusState.Boarding || Boarded || !Session.Trespassing)
                 return false;
             var p = Session.Player as PlayerController;
             if (!p || p.IsDead)
                 return false;
-            Vector3 door = Stop + new Vector3(-2.7f, .4f, 1.5f);
+            Vector3 door = BoardPoint;
             if (Vector3.Distance(p.transform.position, door) > 2.05f)
                 return false;
             if (!p.Input.Interact.WasPressedThisFrame())
@@ -146,7 +153,7 @@ namespace Transmilleno
             }
             Boarded = true;
             p.Board(transform);
-            p.transform.localPosition = new Vector3(0, .4f, 1.5f);
+            p.transform.localPosition = new Vector3(0, StationLayout.Floor, 1.5f);
             return true;
         }
     }

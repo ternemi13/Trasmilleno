@@ -35,6 +35,55 @@ namespace Transmilleno.Editor
                 return 1;
             return 0;
         }
+        // Loose trouser cuffs can cross x=0. Follow the connected leg surface instead
+        // of binding those inner vertices to the opposite leg.
+        static bool[] LowerLegSides(Mesh mesh, float height)
+        {
+            var vertices = mesh.vertices;
+            var parent = new int[vertices.Length];
+            for (int i = 0; i < parent.Length; i++)
+                parent[i] = i;
+            int Find(int i)
+            {
+                while (parent[i] != i)
+                {
+                    parent[i] = parent[parent[i]];
+                    i = parent[i];
+                }
+                return i;
+            }
+            void Join(int a, int b)
+            {
+                if (vertices[a].y < height * .38f && vertices[b].y < height * .38f)
+                    parent[Find(a)] = Find(b);
+            }
+            var welded = new Dictionary<Vector3Int, int>();
+            for (int i = 0; i < vertices.Length; i++)
+            {
+                if (vertices[i].y >= height * .38f)
+                    continue;
+                var v = vertices[i];
+                var key = new Vector3Int(Mathf.RoundToInt(v.x * 10000), Mathf.RoundToInt(v.y * 10000), Mathf.RoundToInt(v.z * 10000));
+                if (welded.TryGetValue(key, out var other))
+                    Join(i, other);
+                else
+                    welded[key] = i;
+            }
+            var triangles = mesh.triangles;
+            for (int i = 0; i < triangles.Length; i += 3)
+            {
+                Join(triangles[i], triangles[i + 1]);
+                Join(triangles[i + 1], triangles[i + 2]);
+                Join(triangles[i + 2], triangles[i]);
+            }
+            var sum = new float[vertices.Length];
+            for (int i = 0; i < vertices.Length; i++)
+                sum[Find(i)] += vertices[i].x;
+            var side = new bool[vertices.Length];
+            for (int i = 0; i < side.Length; i++)
+                side[i] = sum[Find(i)] > 0;
+            return side;
+        }
         static bool PreserveOriginal(GameObject root, string key)
         {
             string[] aliases = { "Hips", "Spine", "Spine2", "Neck", "Head", "LeftArm", "LeftForeArm", "LeftHand", "RightArm", "RightForeArm", "RightHand", "LeftUpLeg", "LeftLeg", "LeftFoot", "RightUpLeg", "RightLeg", "RightFoot", "LeftToeBase", "RightToeBase" };
@@ -196,10 +245,11 @@ namespace Transmilleno.Editor
                 var m = item.Item1;
                 var weights = new BoneWeight[m.vertexCount];
                 var vs = m.vertices;
+                var legSides = LowerLegSides(m, h);
                 for (int i = 0; i < vs.Length; i++)
                 {
                     Vector3 p = vs[i] / h;
-                    bool left = p.x > 0;
+                    bool left = p.y < .38f ? legSides[i] : p.x > 0;
                     int primary = 0, second = 1;
                     float blend = 0;
                     if (p.y > .88f)
@@ -231,27 +281,33 @@ namespace Transmilleno.Editor
                         primary = left ? 11 : 14;
                         second = left ? 12 : 15;
                         blend = 1 - Mathf.InverseLerp(.24f, .34f, p.y);
-                        if (p.y < .1f)
+                        if (p.y < .12f)
                         {
-                            primary = left ? 13 : 16;
-                            blend = 0;
+                            primary = left ? 12 : 15;
+                            second = left ? 13 : 16;
+                            blend = 1 - Mathf.InverseLerp(.065f, .12f, p.y);
                         }
                     }
                     weights[i] = new BoneWeight { boneIndex0 = primary, weight0 = 1 - blend, boneIndex1 = second, weight1 = blend };
                 }
                 m.boneWeights = item.Item3 != null && item.Item3.Length == m.vertexCount ? item.Item3 : weights;
                 m.bindposes = binds;
+                if (key == "player")
+                {
+                    var delta = new Vector3[m.vertexCount];
+                    for (int v = 0; v < vs.Length; v++)
+                    {
+                        float extension = -vs[v].x - h * .414f;
+                        if (extension <= 0 || vs[v].y < h * .73f || vs[v].y > h * .86f)
+                            continue;
+                        float angle = Mathf.Clamp01(extension / .12f) * 2.25f;
+                        delta[v] = new Vector3(extension - Mathf.Sin(angle) * .041f, -Mathf.Sin(angle) * .012f, (1 - Mathf.Cos(angle)) * .035f);
+                    }
+                    m.AddBlendShapeFrame("RightHandGrip", 100, delta, new Vector3[delta.Length], new Vector3[delta.Length]);
+                }
                 string path = "Assets/_Project/Art/Animations/" + key + "_skin_" + mi + ".asset";
                 m.name = System.IO.Path.GetFileNameWithoutExtension(path);
-                var existing = AssetDatabase.LoadAssetAtPath<Mesh>(path);
-                if (existing)
-                {
-                    EditorUtility.CopySerialized(m, existing);
-                    Object.DestroyImmediate(m);
-                    m = existing;
-                }
-                else
-                    AssetDatabase.CreateAsset(m, path);
+                m = GeometryOptimizer.SaveMesh(path, m);
                 var g = new GameObject("Rigged geometry " + mi++);
                 g.transform.SetParent(root.transform, false);
                 var skin = g.AddComponent<SkinnedMeshRenderer>();
@@ -284,6 +340,7 @@ namespace Transmilleno.Editor
                 AssetDatabase.CreateAsset(avatar, avpath);
             var animator = root.AddComponent<Animator>();
             animator.avatar = avatar;
+            animator.enabled = false;
             animator.applyRootMotion = false;
             animator.cullingMode = AnimatorCullingMode.CullUpdateTransforms;
             var pose = root.AddComponent<PoseDriver>();

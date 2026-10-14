@@ -348,7 +348,7 @@ Animator:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1827064310093684724}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Avatar: {fileID: 9000000, guid: c853918c76637bd45948e8ce10e4d321, type: 2}
   m_Controller: {fileID: 0}
   m_CullingMode: 1
@@ -381,20 +381,25 @@ MonoBehaviour:
   rightArm: {fileID: 3796983581884391952}
   leftForearm: {fileID: 2089757817999649680}
   rightForearm: {fileID: 4091901090932546167}
+  leftHand: {fileID: 2810476664554095801}
+  rightHand: {fileID: 5982815289048956987}
   leftLeg: {fileID: 4000511083361332913}
   rightLeg: {fileID: 5639304658102073818}
   leftShin: {fileID: 2415786669846580682}
   rightShin: {fileID: 6309432774871209836}
-  leftHand: {fileID: 2810476664554095801}
-  rightHand: {fileID: 5982815289048956987}
+  leftFoot: {fileID: 0}
+  rightFoot: {fileID: 0}
   LeftGrip: {x: 0, y: 0, z: 0}
   RightGrip: {x: 0, y: 0, z: 0}
   UseGrip: 0
+  Holding: 0
+  OriginalRig: 0
+  Armed: 0
+  Firearm: 0
+  Aiming: 0
   Speed: 0
   Attack: 0
   Climb: 0
-  Holding: 0
-  OriginalRig: 0
 --- !u!205 &5959292583261790630
 LODGroup:
   m_ObjectHideFlags: 0

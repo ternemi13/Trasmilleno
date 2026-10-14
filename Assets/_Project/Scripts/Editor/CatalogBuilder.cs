@@ -18,7 +18,7 @@ namespace Transmilleno.Editor
             Directory.CreateDirectory(Root + "Prefabs/Models");
             AssetDatabase.Refresh();
             var cat = BuildTools.Asset<AssetCatalog>(Root + "Data/Catalogs/AssetCatalog.asset");
-            var defs = new[] { new Definition("player", "Player", "Assets/Modelos/personaje principal.glb", 1.75f, true), new Definition("guard", "Guards", "Assets/Modelos/security_guard__rigged_3d_model.glb", 1.78f, true), new Definition("police", "Guards", "Assets/Modelos/security_guard__rigged_3d_model.glb", 1.83f, true), new Definition("pedestrian", "Pedestrians", "Assets/Modelos/tyler_the_creator.glb", 1.73f, true), new Definition("pedestrian2", "Pedestrians", "Assets/Modelos/noyz_narcos_skull_hoodie_stance.glb", 1.81f, true), new Definition("bus", "TransMilenio", Root + "Art/Models/TransMilenio/Original/model.dae", 18, false, true), new Definition("station", "Station", Root + "Art/Models/Station/Calle45/model.dae", 80, false, true), new Definition("stationSabana", "Station", Root + "Art/Models/Station/Sabana/model.dae", 48, false, true), new Definition("knife", "Props", "Assets/Modelos/cuchillo.glb", .28f), new Definition("stone", "Props", "Assets/Modelos/piedra.glb", .22f), new Definition("can", "Props", "Assets/Modelos/pepsi_lata_resized_with_lights_included.glb", .18f), new Definition("pistol", "Props", "Assets/Modelos/pistola.glb", .27f) };
+            var defs = new[] { new Definition("player", "Player", "Assets/Modelos/personaje principal.glb", 1.75f, true), new Definition("guard", "Guards", "Assets/Modelos/security_guard__rigged_3d_model.glb", 1.78f, true), new Definition("police", "Guards", "Assets/Modelos/security_guard__rigged_3d_model.glb", 1.83f, true), new Definition("pedestrian", "Pedestrians", "Assets/Modelos/tyler_the_creator.glb", 1.73f, true), new Definition("pedestrian2", "Pedestrians", "Assets/Modelos/noyz_narcos_skull_hoodie_stance.glb", 1.81f, true), new Definition("bus", "TransMilenio", Root + "Art/Models/TransMilenio/Original/model.dae", 18, false, true), new Definition("station", "Station", Root + "Art/Models/Station/Calle45/model.dae", 80, false, true), new Definition("stationSabana", "Station", Root + "Art/Models/Station/Sabana/model.dae", 48, false, true), new Definition("knife", "Props", "Assets/Modelos/cuchillo.glb", .28f), new Definition("stone", "Props", "Assets/Modelos/piedra.glb", .22f), new Definition("can", "Props", "Assets/Modelos/pepsi_lata_resized_with_lights_included.glb", .18f), new Definition("pistol", "Props", "Assets/Modelos/pistola.glb", .34f) };
             var list = new List<CatalogEntry>();
             foreach (var d in defs)
             {
@@ -85,6 +85,16 @@ namespace Transmilleno.Editor
                         mats[j] = Convert(mats[j], d.key);
                     r.sharedMaterials = mats;
                 }
+                if (d.key == "station")
+                {
+                    model.transform.localScale *= 2.7f;
+                    model.transform.localPosition *= 2.7f;
+                    var q = Quaternion.Euler(0, -9.3f, 0);
+                    model.transform.localPosition = q * model.transform.localPosition + Vector3.forward * 87;
+                    model.transform.localRotation = q * model.transform.localRotation;
+                }
+                if (d.key == "station" || d.key == "bus" || d.key == "pistol")
+                    GeometryOptimizer.Build(root, d.key);
                 if (d.rig)
                 {
                     RigBuilder.Rig(root, d.key);
