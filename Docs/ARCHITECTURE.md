@@ -27,3 +27,9 @@ La geometría adicional usa mallas biseladas y piezas cilíndricas, materiales c
 ## Verificación
 
 Los tests de lógica comprueban agotamiento, recuperación, persistencia y corrupción, campaña y catálogo. Los de PlayMode comprueban vault, daño letal y requisitos de embarque. La validación de rutas comprueba continuidad NavMesh desde el aterrizaje de cada acceso hasta la parada; por sí sola no demuestra que la animación de cada acceso sea ejecutable. Las capturas y pruebas de interacción complementan esa comprobación.
+
+## Correcciones de estación e interacción
+
+StationLayout concentra las coordenadas métricas de entrada, límites del andén y puertas. GeometryOptimizer agrupa mallas por material y tramo de 20 metros, manteniendo hojas de puerta independientes. LevelWorld añade colisiones medidas sobre la estación original y usa sus mallas de piso para rampas. Los buses comparten ciclo de servicio, con trayectorias y orientación invertidas; ambos permiten embarcar.
+
+GameUI desactiva inmediatamente la pantalla anterior al reconstruirla. StarGraphic requiere CanvasRenderer y no recibe raycasts. CampaignSmoke prueba la navegación de resultados mediante eventos reales de mouse.

@@ -1,24 +1,27 @@
-# Validación de la entrega — 13 de octubre de 2026
+# Validación de las correcciones — 13 de octubre de 2026 (Bogotá)
 
 ## Resultado comprobado
 
 - Windows x64 IL2CPP: compilación Succeeded, cero errores (BUILD-RESULT.txt).
-- EditMode: 7/7; PlayMode: 3/3. Informes XML con fecha UTC 2026-10-13 05:06.
-- Ejecutable: carga de los diez niveles, espera del bus, puertas abiertas, embarque, salida, resultados, guardado y final: PASS (WINDOWS-SMOKE.md).
-- NavMesh: tres conexiones desde zonas de aterrizaje hasta embarque por cada nivel (ROUTE-VALIDATION.md).
-- Modelos suministrados integrados; revisión visual de materiales, escala y rigs. Los rigs skinned originales conservan huesos, pesos y bindposes. Los modelos estáticos usan rig generado.
-- Capturas reales del ejecutable a 1920 × 1080: Captures/windows-gameplay.png y Captures/windows-finale.png.
-- Rendimiento en RTX 4060 Ti / Ryzen 7 8700F: promedio 59,3 FPS; P95 18,11 ms; 700 MiB asignados por Unity. Ver PERFORMANCE.md para condiciones y límites.
+- EditMode: 9/9; PlayMode: 6/6. Informes XML con fecha UTC 2026-10-14, correspondiente a la noche local del 13 de octubre.
+- Ejecutable: diez niveles completos y nueve clics de mouse en Siguiente, con comprobación de raycast, guardado y final: PASS (WINDOWS-SMOKE.md). La automatización utiliza dispositivos virtuales aislados para no depender del foco de una ventana oculta y restaura la partida guardada.
+- Escalada: pruebas sobre la reja de acceso original y salto de los torniquetes; el personaje termina del otro lado. Ambos buses tienen hojas de puerta originales y la parada sur se comprueba con su dirección invertida.
+- NavMesh: tres conexiones desde zonas de aterrizaje hasta embarque por cada uno de los diez niveles (ROUTE-VALIDATION.md).
+- Calle 45 original es la única estación jugable; escala uniforme medida, entrada y rampas originales. Seguridad creciente en los diez niveles.
+- Locomoción: IK, transición de velocidad, apoyo alternado, torso y pelvis. Revisadas cuatro fases de carrera, preparación/golpe/recuperación y agarres de navaja y pistola. Pruebas de regresión de buffers de malla y pesos cruzados entre piernas.
+- Capturas finales: Captures/level-01.png a level-10.png, stride-0.png a stride-3.png, pose-final-1.png y pose-final-2.png; ventanas de Windows en windows-gameplay.png y windows-finale.png.
 
-## Límites y diferencias respecto al spec
+- Rendimiento Windows: 73,3 FPS de promedio; P95 14,55 ms; P99 14,98 ms; fotograma más lento 16,38 ms (61,0 FPS). 3600 muestras, 1080p, calidad media, RTX 4060 Ti / Ryzen 7 8700F. Memoria Unity: 480 MiB.
 
-- La prueba de campaña sitúa al jugador en embarque: no certifica balance de dificultad ni un recorrido humano completo de las tres entradas. La comprobación NavMesh no prueba las pulsaciones de escalada.
-- El audio usa grupos de AudioSource y controles persistentes; no se generó un AudioMixer con parámetros expuestos. La sesión de QA no dispuso de salida física de audio (FMOD usó salida emulada), por lo que no se certifica escucha ni mezcla subjetiva.
-- El benchmark incluye una lectura síncrona de la GPU y sólo mide la vista inicial del nivel 10 en esta máquina. No certifica todavía 60 FPS estables en todo el recorrido ni en el hardware mínimo.
-- El player informó shaders eliminados de Depth of Field y Panini; son efectos no utilizados por el diseño actual. No se detectaron excepciones de gameplay en los logs del smoke test o benchmark.
-- La campaña utiliza diez variantes de un kit modular, con noche, lluvia, kioscos, taquillas y pasarelas. No son diez reproducciones geográficas completas de Bogotá.
-- La validación automática y las capturas no equivalen a certificación de publicación: quedan la revisión humana de balance, accesibilidad, animaciones, audio y licencias de los modelos aportados.
+## Alcance de la validación
+
+- La campaña automatizada coloca al jugador en embarque: certifica carga, interacción, botones, salida y progreso; no sustituye una evaluación humana del balance de todos los recorridos.
+- El benchmark recorre la zona jugable del nivel 10 entre z=6 y z=31, con lluvia, persecución, ataques y ambos buses activos. Lee la GPU de forma síncrona a 1080p; ese coste adicional sólo existe en QA. Ver PERFORMANCE-WINDOWS.md para valores de esta máquina y ruta; no es una garantía para todos los equipos.
+- Los rigs originales conservan sus huesos y pesos. Los personajes que llegaron como geometría estática usan skinning e IK generados; no se incorporaron animaciones capturadas.
+- El audio sigue usando grupos de AudioSource con controles persistentes; el AudioMixer con parámetros expuestos del spec inicial sigue siendo una diferencia documentada. La salida emulada de audio en QA no certifica mezcla subjetiva.
+- El giro de guardias ignora vectores de longitud cero al coincidir con el jugador; la campaña final revisa que no reaparezca el aviso Look rotation.
+- Los avisos de compilación de shaders de paquetes no utilizados no son errores de compilación. Los logs del smoke y benchmark se revisan por excepciones de gameplay.
 
 ## Entrega local
 
-Abrir Builds/Windows/Transmilleno.exe. Conservar sus DLL y Transmilleno_Data. Builds/Transmilleno-Windows-x64.zip contiene los archivos necesarios y excluye símbolos internos y logs. Builds se excluye de Git; el código fuente, assets, configuración e informes sí se versionan.
+Abrir Builds/Windows/Transmilleno.exe. Conservar sus DLL y Transmilleno_Data. Builds/Transmilleno-Windows-x64.zip incluye la distribución y LEEME.md, sin símbolos internos ni logs. El código, assets, configuración e informes se versionan; Builds queda fuera de Git.

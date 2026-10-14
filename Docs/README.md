@@ -9,7 +9,7 @@ Juego de acción y sigilo urbano para Windows. Proyecto: https://github.com/tern
 3. Dentro del clon: `git lfs install` y `git lfs pull`.
 4. Abrir la carpeta en Unity Hub y esperar a que termine la resolución de paquetes.
 5. Abrir `Assets/_Project/Scenes/Boot.unity` y pulsar Play.
-6. Menú → Nueva partida o Continuar. En cada estación entra al andén por una de las rutas, acércate a las puertas del bus parado y pulsa E. La victoria se confirma cuando el bus arranca.
+6. Menú → Nueva partida o Continuar. En cada nivel entra al andén de Calle 45 por una de las rutas, acércate a las puertas del bus parado y pulsa E. La victoria se confirma cuando el bus arranca.
 
 El código, los assets derivados y la configuración se generan también mediante **Tools → Transmilleno → Build Everything**. Esta operación reconstruye escenas propias, catálogo, avatares y configuración; no elimina los modelos originales. No ejecutar durante Play Mode.
 
@@ -32,6 +32,8 @@ Para jugar sin el editor, abrir `Builds/Windows/Transmilleno.exe`. Mantener junt
 
 La estamina se regenera tras un segundo sin consumo. No hay regeneración automática de vida. Los buses en movimiento causan daño letal. Las rejas cubiertas impiden el paso por arriba. Pelear aumenta la alerta; esconderse la reduce.
 
+Los diez niveles mantienen la estación gris Calle 45 original, a escala humana, con entrada por el letrero y los torniquetes. Los buses paran en ambos costados y la seguridad aumenta entre niveles.
+
 ## Assets
 
 Los archivos originales permanecen en `Assets/Modelos`. Los COLLADA de los ZIP del usuario se extrajeron en `Assets/_Project/Art/Models`. El catálogo procesa doce roles y genera prefabs con escala métrica, materiales compatibles y avatares. Los modelos nuevos se pueden poner en las carpetas Player, Pedestrians, Guards, TransMilenio, Station y Props. Los archivos directos de la categoría tienen prioridad sobre el original; los subdirectorios conservan las fuentes suministradas.
@@ -46,7 +48,7 @@ Los archivos originales permanecen en `Assets/Modelos`. Los COLLADA de los ZIP d
 - Validación de referencias: Validate Project.
 - Capturas y rutas NavMesh: QA → Capture and Validate Levels.
 - Build: Tools → Transmilleno → Build Windows, genera `Builds/Windows/Transmilleno.exe`.
-- Las mediciones de rendimiento se escriben después de 1200 frames de juego, tras cinco segundos de calentamiento.
+- Las mediciones de rendimiento se escriben después de 3600 frames de juego, tras cinco segundos de calentamiento.
 
 El ejecutable acepta `--smoke-test` para verificar automáticamente las diez transiciones de la campaña y `--benchmark` para medir la estación 10. En estos modos de QA se renderiza explícitamente a 1920 × 1080 y se lee la GPU cada frame, para poder verificar gráficos incluso en procesos ocultos. Esa lectura añade coste al benchmark y no se activa al jugar normalmente. Ambos modos generan informes en `Application.persistentDataPath`; el smoke test restaura el progreso original al terminar. En el editor, la prueba de campaña puede iniciarse añadiendo `CampaignSmoke` al GameApp y asignando su referencia App.
 

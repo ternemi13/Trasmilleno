@@ -4,7 +4,7 @@
 
 - Environment: Unity Editor
 - GPU: NVIDIA GeForce RTX 4060 Ti
-- CPU: AMD Ryzen 7 8700F 8-Core Processor 
+- CPU: AMD Ryzen 7 8700F 8-Core Processor
 - Resolution: 1469 × 719
 - Level: 1
 - Frames: 1200

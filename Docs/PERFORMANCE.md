@@ -1,19 +1,20 @@
 # Performance measurement
 
-2026-10-13 05:07:33Z UTC
+2026-10-14 02:52:07Z UTC
 
 - Environment: Windows player
 - GPU: NVIDIA GeForce RTX 4060 Ti
-- CPU: AMD Ryzen 7 8700F 8-Core Processor 
+- CPU: AMD Ryzen 7 8700F 8-Core Processor
 - Resolution: 1920 × 1080
 - Level: 10
-- Frames: 1200
-- Mean: 16,87 ms (59,3 FPS)
-- P95: 18,11 ms
-- Memory: 700 MiB
+- Frames: 3600
+- Mean: 13,64 ms (73,3 FPS)
+- P95: 14,55 ms
+- Slowest frame: 16,38 ms (61,0 FPS)
+- P99: 14,98 ms
+- Frames over 16.67 ms: 0 / 3600
+- Memory: 480 MiB
 
 Editor samples include editor overhead. Hidden Windows QA renders the full scene and UI at 1920 x 1080 into a RenderTexture and performs a synchronous GPU readback each frame; this adds capture overhead. Measurements certify only this machine and route.
 
-## Alcance
-
-Calidad Media (perfil por defecto). Cámara en el punto inicial de Portal Norte, con población, buses y lluvia activos. No representa un recorrido de combate completo ni una prueba en todas las GPU de gama media. El promedio próximo a 60 FPS no demuestra 60 FPS estables: P95 18,11 ms. La lectura síncrona GPU de la herramienta añade coste.
+Final correction build: Medium quality, render scale 1.0, 2x MSAA, shadow distance 30 m. Continuous level-10 tour from z=6 to z=31 and back, rain, guards, attacks and both buses active. This finite sample measures this hardware and route.
