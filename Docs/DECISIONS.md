@@ -23,3 +23,5 @@
 - Actualización de mallas derivadas por buffers explícitos en GeometryOptimizer.SaveMesh, sin CopySerialized sobre Mesh: se reprodujo corrupción de vértices/índices al regenerar. Los pesos de perneras estáticas respetan componentes conectados bajo rodilla, evitando estiramientos entre pies cuando el pantalón cruza el eje central.
 
 - Calidad media concentra sombras en 30 m; los personajes fuera de cámara omiten resolución de poses hasta volver a ser visibles. La medición final tras optimizar dio 73,3 FPS promedio y 61,0 FPS mínimo en 3600 frames, con la geometría final conservada.
+
+- Cámara con orientación independiente del desplazamiento: zoom de rueda acotado a 1,8–8 m, FOV constante y retícula centrada por anclas. El barrido de atropello usa carrocería completa; el cuerpo articulado se construye sólo al morir por bus y se muestra durante 2,6 segundos antes del reintento. Embarcar o morir detiene la regeneración de estamina.

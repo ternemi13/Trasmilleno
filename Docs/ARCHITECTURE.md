@@ -33,3 +33,5 @@ Los tests de lógica comprueban agotamiento, recuperación, persistencia y corru
 StationLayout concentra las coordenadas métricas de entrada, límites del andén y puertas. GeometryOptimizer agrupa mallas por material y tramo de 20 metros, manteniendo hojas de puerta independientes. LevelWorld añade colisiones medidas sobre la estación original y usa sus mallas de piso para rampas. Los buses comparten ciclo de servicio, con trayectorias y orientación invertidas; ambos permiten embarcar.
 
 GameUI desactiva inmediatamente la pantalla anterior al reconstruirla. StarGraphic requiere CanvasRenderer y no recibe raycasts. CampaignSmoke prueba la navegación de resultados mediante eventos reales de mouse.
+
+OrbitCamera recibe una acción Zoom del Input System y mantiene orientación/FOV independientes de la posición suavizada. La colisión retrae la distancia elegida, sin cambiarla. PlayerRagdoll construye el cuerpo físico sólo al morir por bus; GameApp permite 2,6 segundos de simulación antes de congelar la escena y presentar el reintento. El barrido de BusController cubre carrocería completa y recorrido entre frames.

@@ -1,56 +1,110 @@
 <?xml version="1.0" encoding="utf-8"?>
-<test-run id="2" testcasecount="6" result="Passed" total="6" passed="6" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-10-14 02:32:45Z" end-time="2026-10-14 02:33:28Z" duration="43,0070937">
-  <test-suite type="TestSuite" id="1041" name="Transmilleno" fullname="Transmilleno" runstate="Runnable" testcasecount="6" result="Passed" start-time="2026-10-14 02:32:45Z" end-time="2026-10-14 02:33:28Z" duration="43.007094" total="6" passed="6" failed="0" inconclusive="0" skipped="0" asserts="0">
+<test-run id="2" testcasecount="11" result="Passed" total="11" passed="11" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-10-14 03:34:46Z" end-time="2026-10-14 03:35:44Z" duration="58,5913067">
+  <test-suite type="TestSuite" id="1021" name="Transmilleno" fullname="Transmilleno" runstate="Runnable" testcasecount="11" result="Passed" start-time="2026-10-14 03:34:46Z" end-time="2026-10-14 03:35:44Z" duration="58.591307" total="11" passed="11" failed="0" inconclusive="0" skipped="0" asserts="0">
     <properties>
       <property name="platform" value="PlayMode" />
     </properties>
-    <test-suite type="Assembly" id="1050" name="Transmilleno.PlayTests.dll" fullname="D:/UNITY/Transmilleno/Transmilleno/Library/ScriptAssemblies/Transmilleno.PlayTests.dll" runstate="Runnable" testcasecount="6" result="Passed" start-time="2026-10-14 02:32:45Z" end-time="2026-10-14 02:33:28Z" duration="43.005010" total="6" passed="6" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <test-suite type="Assembly" id="1036" name="Transmilleno.PlayTests.dll" fullname="D:/UNITY/Transmilleno/Transmilleno/Library/ScriptAssemblies/Transmilleno.PlayTests.dll" runstate="Runnable" testcasecount="11" result="Passed" start-time="2026-10-14 03:34:46Z" end-time="2026-10-14 03:35:44Z" duration="58.583702" total="11" passed="11" failed="0" inconclusive="0" skipped="0" asserts="0">
       <properties>
         <property name="_PID" value="12028" />
         <property name="_APPDOMAIN" value="Unity Child Domain" />
         <property name="platform" value="PlayMode" />
         <property name="EditorOnly" value="False" />
       </properties>
-      <test-suite type="TestSuite" id="1051" name="Transmilleno" fullname="Transmilleno" runstate="Runnable" testcasecount="6" result="Passed" start-time="2026-10-14 02:32:45Z" end-time="2026-10-14 02:33:28Z" duration="43.003060" total="6" passed="6" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <test-suite type="TestSuite" id="1037" name="Transmilleno" fullname="Transmilleno" runstate="Runnable" testcasecount="11" result="Passed" start-time="2026-10-14 03:34:46Z" end-time="2026-10-14 03:35:44Z" duration="58.582151" total="11" passed="11" failed="0" inconclusive="0" skipped="0" asserts="0">
         <properties />
-        <test-suite type="TestSuite" id="1052" name="Tests" fullname="Transmilleno.Tests" runstate="Runnable" testcasecount="6" result="Passed" start-time="2026-10-14 02:32:45Z" end-time="2026-10-14 02:33:28Z" duration="42.998484" total="6" passed="6" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <test-suite type="TestSuite" id="1038" name="Tests" fullname="Transmilleno.Tests" runstate="Runnable" testcasecount="11" result="Passed" start-time="2026-10-14 03:34:46Z" end-time="2026-10-14 03:35:44Z" duration="58.580980" total="11" passed="11" failed="0" inconclusive="0" skipped="0" asserts="0">
           <properties />
-          <test-suite type="TestFixture" id="1042" name="GameplayTests" fullname="Transmilleno.Tests.GameplayTests" classname="Transmilleno.Tests.GameplayTests" runstate="Runnable" testcasecount="3" result="Passed" start-time="2026-10-14 02:32:45Z" end-time="2026-10-14 02:33:05Z" duration="19.969060" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <test-suite type="TestFixture" id="1022" name="CameraImpactTests" fullname="Transmilleno.Tests.CameraImpactTests" classname="Transmilleno.Tests.CameraImpactTests" runstate="Runnable" testcasecount="5" result="Passed" start-time="2026-10-14 03:34:46Z" end-time="2026-10-14 03:35:01Z" duration="15.582250" total="5" passed="5" failed="0" inconclusive="0" skipped="0" asserts="0">
             <properties />
-            <test-case id="1045" name="BoardingRequiresOpenDoorsAndPaidZoneAccess" fullname="Transmilleno.Tests.GameplayTests.BoardingRequiresOpenDoorsAndPaidZoneAccess" methodname="BoardingRequiresOpenDoorsAndPaidZoneAccess" classname="Transmilleno.Tests.GameplayTests" runstate="Runnable" seed="72145747" result="Passed" start-time="2026-10-14 02:32:45Z" end-time="2026-10-14 02:33:00Z" duration="15.062635" asserts="0">
+            <test-case id="1024" name="FrontSurfaceContactKillsAndLaunchesWithoutRestoringStamina" fullname="Transmilleno.Tests.CameraImpactTests.FrontSurfaceContactKillsAndLaunchesWithoutRestoringStamina" methodname="FrontSurfaceContactKillsAndLaunchesWithoutRestoringStamina" classname="Transmilleno.Tests.CameraImpactTests" runstate="Runnable" seed="1387290539" result="Passed" start-time="2026-10-14 03:34:46Z" end-time="2026-10-14 03:34:50Z" duration="4.351879" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[[QA] FrontSurfaceContactKillsAndLaunchesWithoutRestoringStamina Passed 
+]]></output>
+            </test-case>
+            <test-case id="1027" name="OriginalPlayerMeshHasAnArticulatedImpactBody" fullname="Transmilleno.Tests.CameraImpactTests.OriginalPlayerMeshHasAnArticulatedImpactBody" methodname="OriginalPlayerMeshHasAnArticulatedImpactBody" classname="Transmilleno.Tests.CameraImpactTests" runstate="Runnable" seed="1682481718" result="Passed" start-time="2026-10-14 03:34:50Z" end-time="2026-10-14 03:34:51Z" duration="0.442327" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[[QA] OriginalPlayerMeshHasAnArticulatedImpactBody Passed 
+]]></output>
+            </test-case>
+            <test-case id="1026" name="ParkedBusDoesNotRefillStaminaAndBoardingFreezesIt" fullname="Transmilleno.Tests.CameraImpactTests.ParkedBusDoesNotRefillStaminaAndBoardingFreezesIt" methodname="ParkedBusDoesNotRefillStaminaAndBoardingFreezesIt" classname="Transmilleno.Tests.CameraImpactTests" runstate="Runnable" seed="927433990" result="Passed" start-time="2026-10-14 03:34:51Z" end-time="2026-10-14 03:34:52Z" duration="1.718396" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[[QA] ParkedBusDoesNotRefillStaminaAndBoardingFreezesIt Passed 
+]]></output>
+            </test-case>
+            <test-case id="1025" name="SideContactInReverseDirectionIsLethal" fullname="Transmilleno.Tests.CameraImpactTests.SideContactInReverseDirectionIsLethal" methodname="SideContactInReverseDirectionIsLethal" classname="Transmilleno.Tests.CameraImpactTests" runstate="Runnable" seed="505491973" result="Passed" start-time="2026-10-14 03:34:52Z" end-time="2026-10-14 03:35:01Z" duration="9.020250" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[[QA] SideContactInReverseDirectionIsLethal Passed 
+]]></output>
+            </test-case>
+            <test-case id="1023" name="WheelZoomClampsAndKeepsOrientationStable" fullname="Transmilleno.Tests.CameraImpactTests.WheelZoomClampsAndKeepsOrientationStable" methodname="WheelZoomClampsAndKeepsOrientationStable" classname="Transmilleno.Tests.CameraImpactTests" runstate="Runnable" seed="1318571956" result="Passed" start-time="2026-10-14 03:35:01Z" end-time="2026-10-14 03:35:01Z" duration="0.033081" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[[QA] WheelZoomClampsAndKeepsOrientationStable Passed 
+]]></output>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1028" name="GameplayTests" fullname="Transmilleno.Tests.GameplayTests" classname="Transmilleno.Tests.GameplayTests" runstate="Runnable" testcasecount="3" result="Passed" start-time="2026-10-14 03:35:01Z" end-time="2026-10-14 03:35:21Z" duration="19.949172" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1031" name="BoardingRequiresOpenDoorsAndPaidZoneAccess" fullname="Transmilleno.Tests.GameplayTests.BoardingRequiresOpenDoorsAndPaidZoneAccess" methodname="BoardingRequiresOpenDoorsAndPaidZoneAccess" classname="Transmilleno.Tests.GameplayTests" runstate="Runnable" seed="1494614543" result="Passed" start-time="2026-10-14 03:35:01Z" end-time="2026-10-14 03:35:17Z" duration="15.062151" asserts="0">
               <properties>
                 <property name="_JOINTYPE" value="UnityCombinatorial" />
                 <property name="retryIteration" value="0" />
                 <property name="repeatIteration" value="0" />
               </properties>
               <output><![CDATA[[QA] BoardingRequiresOpenDoorsAndPaidZoneAccess Passed 
-[QA] BoardingRequiresOpenDoorsAndPaidZoneAccess Passed 
 ]]></output>
             </test-case>
-            <test-case id="1044" name="BusImpactIsLethal" fullname="Transmilleno.Tests.GameplayTests.BusImpactIsLethal" methodname="BusImpactIsLethal" classname="Transmilleno.Tests.GameplayTests" runstate="Runnable" seed="208202547" result="Passed" start-time="2026-10-14 02:33:00Z" end-time="2026-10-14 02:33:04Z" duration="4.036456" asserts="0">
+            <test-case id="1030" name="BusImpactIsLethal" fullname="Transmilleno.Tests.GameplayTests.BusImpactIsLethal" methodname="BusImpactIsLethal" classname="Transmilleno.Tests.GameplayTests" runstate="Runnable" seed="1412284752" result="Passed" start-time="2026-10-14 03:35:17Z" end-time="2026-10-14 03:35:21Z" duration="4.014667" asserts="0">
               <properties>
                 <property name="_JOINTYPE" value="UnityCombinatorial" />
                 <property name="retryIteration" value="0" />
                 <property name="repeatIteration" value="0" />
               </properties>
               <output><![CDATA[[QA] BusImpactIsLethal Passed 
-[QA] BusImpactIsLethal Passed 
 ]]></output>
             </test-case>
-            <test-case id="1043" name="PlayerVaultsMarkedObstacle" fullname="Transmilleno.Tests.GameplayTests.PlayerVaultsMarkedObstacle" methodname="PlayerVaultsMarkedObstacle" classname="Transmilleno.Tests.GameplayTests" runstate="Runnable" seed="96155726" result="Passed" start-time="2026-10-14 02:33:04Z" end-time="2026-10-14 02:33:05Z" duration="0.865364" asserts="0">
+            <test-case id="1029" name="PlayerVaultsMarkedObstacle" fullname="Transmilleno.Tests.GameplayTests.PlayerVaultsMarkedObstacle" methodname="PlayerVaultsMarkedObstacle" classname="Transmilleno.Tests.GameplayTests" runstate="Runnable" seed="1662573988" result="Passed" start-time="2026-10-14 03:35:21Z" end-time="2026-10-14 03:35:21Z" duration="0.866622" asserts="0">
               <properties>
                 <property name="_JOINTYPE" value="UnityCombinatorial" />
                 <property name="retryIteration" value="0" />
                 <property name="repeatIteration" value="0" />
               </properties>
               <output><![CDATA[[QA] PlayerVaultsMarkedObstacle Passed 
-[QA] PlayerVaultsMarkedObstacle Passed 
 ]]></output>
             </test-case>
           </test-suite>
-          <test-suite type="TestFixture" id="1046" name="StationRegressionTests" fullname="Transmilleno.Tests.StationRegressionTests" classname="Transmilleno.Tests.StationRegressionTests" runstate="Runnable" testcasecount="3" result="Passed" start-time="2026-10-14 02:33:05Z" end-time="2026-10-14 02:33:28Z" duration="23.027875" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <test-suite type="TestFixture" id="1032" name="StationRegressionTests" fullname="Transmilleno.Tests.StationRegressionTests" classname="Transmilleno.Tests.StationRegressionTests" runstate="Runnable" testcasecount="3" result="Passed" start-time="2026-10-14 03:35:21Z" end-time="2026-10-14 03:35:44Z" duration="23.047077" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
             <properties />
-            <test-case id="1049" name="BothDirectionsUseTheOriginalPlatformDoors" fullname="Transmilleno.Tests.StationRegressionTests.BothDirectionsUseTheOriginalPlatformDoors" methodname="BothDirectionsUseTheOriginalPlatformDoors" classname="Transmilleno.Tests.StationRegressionTests" runstate="Runnable" seed="1891330213" result="Passed" start-time="2026-10-14 02:33:05Z" end-time="2026-10-14 02:33:23Z" duration="17.982709" asserts="0">
+            <test-case id="1035" name="BothDirectionsUseTheOriginalPlatformDoors" fullname="Transmilleno.Tests.StationRegressionTests.BothDirectionsUseTheOriginalPlatformDoors" methodname="BothDirectionsUseTheOriginalPlatformDoors" classname="Transmilleno.Tests.StationRegressionTests" runstate="Runnable" seed="1053426166" result="Passed" start-time="2026-10-14 03:35:21Z" end-time="2026-10-14 03:35:39Z" duration="18.005820" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[[QA] BothDirectionsUseTheOriginalPlatformDoors Passed 
+]]></output>
+            </test-case>
+            <test-case id="1034" name="OriginalAccessFenceSupportsClimbing" fullname="Transmilleno.Tests.StationRegressionTests.OriginalAccessFenceSupportsClimbing" methodname="OriginalAccessFenceSupportsClimbing" classname="Transmilleno.Tests.StationRegressionTests" runstate="Runnable" seed="240716308" result="Passed" start-time="2026-10-14 03:35:39Z" end-time="2026-10-14 03:35:44Z" duration="4.092113" asserts="0">
               <properties>
                 <property name="_JOINTYPE" value="UnityCombinatorial" />
                 <property name="retryIteration" value="0" />
@@ -58,14 +112,8 @@
               </properties>
               <output><![CDATA[[McpToolRegistry] Executing tool 'Unity_GetConsoleLogs'
 tool=Unity_GetConsoleLogs params={
-  "maxEntries": 6,
-  "logTypes": "Log,Error",
-  "includeStackTrace": false
-}
-[McpToolRegistry] Executing tool 'Unity_GetConsoleLogs'
-tool=Unity_GetConsoleLogs params={
-  "maxEntries": 6,
-  "logTypes": "Log,Error",
+  "logTypes": "Error",
+  "maxEntries": 3,
   "includeStackTrace": false
 }
 [McpToolRegistry] Tool 'Unity_GetConsoleLogs' completed successfully
@@ -74,53 +122,16 @@ tool=Unity_GetConsoleLogs result={
   "message": "Tool 'GetConsoleLogs' executed successfully",
   "data": {
    ...
-[McpToolRegistry] Tool 'Unity_GetConsoleLogs' completed successfully
-tool=Unity_GetConsoleLogs result={
-  "success": true,
-  "message": "Tool 'GetConsoleLogs' executed successfully",
-  "data": {
-   ...
-[McpToolRegistry] Executing tool 'Unity_RunCommand'
-tool=Unity_RunCommand params={
-  "Code": "using UnityEditor;using UnityEngine;internal class CommandScript:IRunCommand{public vo...
-[McpToolRegistry] Executing tool 'Unity_RunCommand'
-tool=Unity_RunCommand params={
-  "Code": "using UnityEditor;using UnityEngine;internal class CommandScript:IRunCommand{public vo...
-[McpToolRegistry] Tool 'Unity_RunCommand' completed successfully
-tool=Unity_RunCommand result={
-  "success": true,
-  "message": "Command executed successfully.",
-  "data": {
-    "isCompilati...
-[McpToolRegistry] Tool 'Unity_RunCommand' completed successfully
-tool=Unity_RunCommand result={
-  "success": true,
-  "message": "Command executed successfully.",
-  "data": {
-    "isCompilati...
-[QA] BothDirectionsUseTheOriginalPlatformDoors Passed 
-[QA] BothDirectionsUseTheOriginalPlatformDoors Passed 
-]]></output>
-            </test-case>
-            <test-case id="1048" name="OriginalAccessFenceSupportsClimbing" fullname="Transmilleno.Tests.StationRegressionTests.OriginalAccessFenceSupportsClimbing" methodname="OriginalAccessFenceSupportsClimbing" classname="Transmilleno.Tests.StationRegressionTests" runstate="Runnable" seed="849809562" result="Passed" start-time="2026-10-14 02:33:23Z" end-time="2026-10-14 02:33:27Z" duration="4.087879" asserts="0">
-              <properties>
-                <property name="_JOINTYPE" value="UnityCombinatorial" />
-                <property name="retryIteration" value="0" />
-                <property name="repeatIteration" value="0" />
-              </properties>
-              <output><![CDATA[[QA] OriginalAccessFenceSupportsClimbing Passed 
 [QA] OriginalAccessFenceSupportsClimbing Passed 
 ]]></output>
             </test-case>
-            <test-case id="1047" name="OriginalTurnstilesAreVaultable" fullname="Transmilleno.Tests.StationRegressionTests.OriginalTurnstilesAreVaultable" methodname="OriginalTurnstilesAreVaultable" classname="Transmilleno.Tests.StationRegressionTests" runstate="Runnable" seed="1770727791" result="Passed" start-time="2026-10-14 02:33:27Z" end-time="2026-10-14 02:33:28Z" duration="0.953087" asserts="0">
+            <test-case id="1033" name="OriginalTurnstilesAreVaultable" fullname="Transmilleno.Tests.StationRegressionTests.OriginalTurnstilesAreVaultable" methodname="OriginalTurnstilesAreVaultable" classname="Transmilleno.Tests.StationRegressionTests" runstate="Runnable" seed="1762957267" result="Passed" start-time="2026-10-14 03:35:44Z" end-time="2026-10-14 03:35:44Z" duration="0.943767" asserts="0">
               <properties>
                 <property name="_JOINTYPE" value="UnityCombinatorial" />
                 <property name="retryIteration" value="0" />
                 <property name="repeatIteration" value="0" />
               </properties>
               <output><![CDATA[[QA] OriginalTurnstilesAreVaultable Passed 
-[QA] OriginalTurnstilesAreVaultable Passed 
-Saving results to: Docs/playmode-results.xml
 Saving results to: Docs/playmode-results.xml
 ]]></output>
             </test-case>

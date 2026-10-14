@@ -21,6 +21,7 @@ Para jugar sin el editor, abrir `Builds/Windows/Transmilleno.exe`. Mantener junt
 |---|---|
 | Movimiento | WASD / stick izquierdo |
 | Cámara | Mouse / stick derecho |
+| Acercar / alejar cámara | Rueda del mouse |
 | Correr | Shift / L3 |
 | Saltar, vault, enganchar reja | Espacio / botón sur |
 | Desplazarse por la reja | WASD; Espacio para soltarse |
@@ -30,7 +31,7 @@ Para jugar sin el editor, abrir `Builds/Windows/Transmilleno.exe`. Mantener junt
 | Movimiento lento | C / botón este |
 | Pausa | Esc / Start |
 
-La estamina se regenera tras un segundo sin consumo. No hay regeneración automática de vida. Los buses en movimiento causan daño letal. Las rejas cubiertas impiden el paso por arriba. Pelear aumenta la alerta; esconderse la reduce.
+La estamina se regenera tras un segundo sin consumo. No hay regeneración automática de vida. Los buses en movimiento causan daño letal y lanzan el cuerpo con física; la pantalla de reintento aparece después de 2,6 segundos. La estamina se mantiene fija al estar a bordo o muerto. Las rejas cubiertas impiden el paso por arriba. Pelear aumenta la alerta; esconderse la reduce.
 
 Los diez niveles mantienen la estación gris Calle 45 original, a escala humana, con entrada por el letrero y los torniquetes. Los buses paran en ambos costados y la seguridad aumenta entre niveles.
 
