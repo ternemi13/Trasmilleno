@@ -256,7 +256,7 @@ namespace Transmilleno
             if (UnityEngine.Rendering.GraphicsSettings.currentRenderPipeline is UniversalRenderPipelineAsset urp)
             {
                 urp.renderScale = s.renderScale;
-                urp.shadowDistance = s.shadows ? (s.quality == 0 ? 25 : s.quality == 1 ? 45 : 80) : 0;
+                urp.shadowDistance = s.shadows ? (s.quality == 0 ? 25 : s.quality == 1 ? 30 : 80) : 0;
                 urp.msaaSampleCount = s.antialiasing;
             }
             var renderer = Resources.Load<UniversalRendererData>("QualityRenderer");

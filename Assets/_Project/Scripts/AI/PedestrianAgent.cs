@@ -43,8 +43,6 @@ namespace Transmilleno
                 }
                 return;
             }
-            if (pose)
-                pose.Speed = agent.velocity.magnitude;
             if (Time.time < next)
                 return;
             next = Time.time + .6f;

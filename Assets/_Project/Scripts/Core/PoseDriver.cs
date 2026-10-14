@@ -75,6 +75,16 @@ namespace Transmilleno
             Initialize();
             if (bones == null)
                 return;
+            bool visible = false;
+            for (int i = 0; i < skins.Length; i++)
+                visible |= skins[i].enabled && (skins[i].isVisible || skins[i].updateWhenOffscreen);
+            if (!visible)
+            {
+                previousPosition = transform.position;
+                previousYaw = transform.eulerAngles.y;
+                strikeTime += Time.deltaTime;
+                return;
+            }
             float dt = Time.deltaTime;
             if (Attack > .05f)
             {

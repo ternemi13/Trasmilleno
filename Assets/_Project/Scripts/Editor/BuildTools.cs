@@ -192,7 +192,7 @@ namespace Transmilleno.Editor
                     pipeline = AssetDatabase.LoadAssetAtPath<UnityEngine.Rendering.Universal.UniversalRenderPipelineAsset>(path);
                 }
                 pipeline.renderScale = i == 0 ? .75f : 1;
-                pipeline.shadowDistance = i == 0 ? 0 : i == 1 ? 45 : 80;
+                pipeline.shadowDistance = i == 0 ? 0 : i == 1 ? 30 : 80;
                 pipeline.msaaSampleCount = i < 2 ? 2 : 4;
                 var pipelineSerialized = new SerializedObject(pipeline);
                 pipelineSerialized.FindProperty("m_RendererDataList").GetArrayElementAtIndex(0).objectReferenceValue = renderer;
