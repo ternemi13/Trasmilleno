@@ -113,7 +113,9 @@ namespace Transmilleno
                 if (distance < reach && los)
                 {
                     agent.isStopped = true;
-                    transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(Vector3.ProjectOnPlane(delta, Vector3.up)), .45f);
+                    Vector3 facing = Vector3.ProjectOnPlane(delta, Vector3.up);
+                    if (facing.sqrMagnitude > .0001f)
+                        transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(facing), .45f);
                     State = GuardState.Attack;
                     if (!windup && Time.time > strikeAt)
                     {
