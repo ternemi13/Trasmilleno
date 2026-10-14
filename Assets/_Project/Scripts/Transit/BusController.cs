@@ -22,7 +22,7 @@ namespace Transmilleno
         {
             get; private set;
         }
-        float timer, progress; SplineContainer route; Vector3 prior; readonly Collider[] contacts = new Collider[12];
+        float timer, progress; SplineContainer route; Vector3 prior; readonly Collider[] contacts = new Collider[48];
         void Start()
         {
             route = gameObject.AddComponent<SplineContainer>();
@@ -121,17 +121,24 @@ namespace Transmilleno
                         panel.localPosition = Vector3.MoveTowards(panel.localPosition, new Vector3(0, 0, open ? (panel.name.EndsWith("A") ? -1.05f : 1.05f) : 0), Time.deltaTime * 1.6f);
                     }
             Speed = Vector3.Distance(prior, transform.position) / Mathf.Max(.001f, Time.deltaTime);
-            if (Speed > 2 && State != BusState.Waiting)
+            if (Speed > .5f && State != BusState.Waiting)
             {
-                int n = Physics.OverlapBoxNonAlloc(transform.position + Vector3.up * 1.4f, new Vector3(1.35f, 1.4f, 8.3f), contacts, Quaternion.identity, (1 << 8) | (1 << 9));
+                // Sweep the full 17.8 m body between frames. The old 16.6 m box missed
+                // front/side contact when the CharacterController stopped at the body surface.
+                Vector3 travel = transform.position - prior;
+                Vector3 extent = new Vector3(1.48f, 1.50f, 8.98f);
+                extent += new Vector3(Mathf.Abs(travel.x), Mathf.Abs(travel.y), Mathf.Abs(travel.z)) * .5f;
+                int n = Physics.OverlapBoxNonAlloc((prior + transform.position) * .5f + Vector3.up * 1.45f, extent, contacts, Quaternion.identity, (1 << 8) | (1 << 9), QueryTriggerInteraction.Ignore);
+                Vector3 launch = travel.normalized * Mathf.Clamp(Speed * .9f, 7, 16) + Vector3.up * 6.5f;
                 for (int i = 0; i < n; i++)
                 {
                     var a = contacts[i].GetComponentInParent<Actor>();
-                    if (a)
-                        a.TakeDamage(new DamageInfo(999, DamageType.Bus, gameObject));
+                    if (a && !a.IsDead)
+                        a.TakeDamage(new DamageInfo(999, DamageType.Bus, gameObject, launch));
                 }
             }
         }
+
         void Move(float t)
         {
             transform.position = (Vector3)route.Spline.EvaluatePosition(Mathf.Clamp01(t));

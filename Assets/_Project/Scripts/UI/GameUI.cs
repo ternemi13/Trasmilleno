@@ -212,8 +212,21 @@ namespace Transmilleno
             prompt.alignment = TextAlignmentOptions.Center;
             message = Text("", 310, 647, 1000, 80, 26);
             message.alignment = TextAlignmentOptions.Center;
-            Text("WASD  Mover     SHIFT  Correr     ESPACIO  Saltar / trepar     E  Interactuar     ESC  Pausa", 55, 848, 1480, 35, 17, muted);
-            Text("+", 791, 440, 30, 30, 20);
+            Text("WASD  Mover   SHIFT  Correr   ESPACIO  Saltar / trepar   E  Interactuar   RUEDA  Zoom   ESC  Pausa", 55, 848, 1480, 35, 17, muted);
+            var reticle = Rect("Reticle", root, 0, 0, 24, 24);
+            reticle.anchorMin = reticle.anchorMax = reticle.pivot = new Vector2(.5f, .5f);
+            reticle.anchoredPosition = Vector2.zero;
+            void Mark(float x, float y, float w, float h, Color color)
+            {
+                var mark = Panel(reticle, x, y, w, h, color);
+                mark.raycastTarget = false;
+            }
+            Mark(8, 8, 8, 8, new Color(0, 0, 0, .8f));
+            Mark(10, 10, 4, 4, cream);
+            Mark(0, 10, 5, 4, Color.black); Mark(19, 10, 5, 4, Color.black);
+            Mark(10, 0, 4, 5, Color.black); Mark(10, 19, 4, 5, Color.black);
+            Mark(1, 11, 3, 2, cream); Mark(20, 11, 3, 2, cream);
+            Mark(11, 1, 2, 3, cream); Mark(11, 20, 2, 3, cream);
             stats = Text("PUÑOS", 50, 169, 400, 45, 18, muted);
             hurt = Panel(root, 0, 0, 1600, 900, new Color(1, 0, 0, 0));
             hurt.raycastTarget = false;

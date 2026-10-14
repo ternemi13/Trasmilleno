@@ -1,1 +1,1 @@
-{"name":"Transmilleno.PlayTests","references":["Transmilleno.Core","Transmilleno.Player","Transmilleno.Transit","Unity.InputSystem","Transmilleno.UI","Transmilleno.AI","Unity.AI.Navigation"],"optionalUnityReferences":["TestAssemblies"]}
+{"name": "Transmilleno.PlayTests", "references": ["Transmilleno.Core", "Transmilleno.Player", "Transmilleno.Transit", "Unity.InputSystem", "Transmilleno.UI", "Transmilleno.AI", "Unity.AI.Navigation", "Unity.Cinemachine"], "optionalUnityReferences": ["TestAssemblies"]}

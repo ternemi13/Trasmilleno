@@ -5,7 +5,7 @@ namespace Transmilleno
     public sealed class GameInput : System.IDisposable
     {
         public readonly InputActionMap Map = new InputActionMap("Juego");
-        public InputAction Move, Look, Jump, Sprint, Punch, Knife, Interact, Pause, Crouch;
+        public InputAction Move, Look, Zoom, Jump, Sprint, Punch, Knife, Interact, Pause, Crouch;
         public GameInput()
         {
             Move = Map.AddAction("Mover", InputActionType.Value);
@@ -14,6 +14,7 @@ namespace Transmilleno
             Look = Map.AddAction("Camara", InputActionType.Value);
             Look.AddBinding("<Mouse>/delta");
             Look.AddBinding("<Gamepad>/rightStick");
+            Zoom = Map.AddAction("Zoom", InputActionType.Value, "<Mouse>/scroll/y");
             Jump = Add("Saltar", "<Keyboard>/space", "<Gamepad>/buttonSouth");
             Sprint = Add("Correr", "<Keyboard>/leftShift", "<Gamepad>/leftStickPress");
             Punch = Add("Golpear", "<Mouse>/leftButton", "<Gamepad>/buttonWest");

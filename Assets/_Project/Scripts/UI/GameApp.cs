@@ -216,6 +216,20 @@ namespace Transmilleno
         void OnDeath(string reason)
         {
             Session.Running = false;
+            if (Player && Player.Ragdoll)
+                StartCoroutine(ShowImpactThenDeath(reason));
+            else
+                ShowDeath(reason);
+        }
+        IEnumerator ShowImpactThenDeath(string reason)
+        {
+            Time.timeScale = 1;
+            GameEvents.Notify("¡Atropellado!");
+            yield return new WaitForSecondsRealtime(2.6f);
+            ShowDeath(reason);
+        }
+        void ShowDeath(string reason)
+        {
             Time.timeScale = 0;
             Unlock();
             UI.Death(reason);

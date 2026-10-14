@@ -19,6 +19,7 @@ namespace Transmilleno
             get; private set;
         }
         public Transform View, Hand; public PoseDriver Pose;
+        public PlayerRagdoll Ragdoll { get; private set; }
         public bool VerificationInvulnerable;
         public bool HasKnife; public GameObject KnifeVisual; public string Prompt
         {
@@ -50,12 +51,12 @@ namespace Transmilleno
         void Update()
         {
             if (KnifeVisual)
-                KnifeVisual.SetActive(HasKnife && !held);
+                KnifeVisual.SetActive(HasKnife && !held && !IsDead);
             if (!Session.Running || IsDead || !View)
                 return;
-            Stamina.Tick(Time.deltaTime, Session.Difficulty ? Session.Difficulty.stamina : 1);
             if (State == MoveState.Boarded || State == MoveState.Vaulting)
                 return;
+            Stamina.Tick(Time.deltaTime, Session.Difficulty ? Session.Difficulty.stamina : 1);
             if (State == MoveState.Fence)
             {
                 UpdateFence();
@@ -329,6 +330,13 @@ namespace Transmilleno
             if (Health > 0)
                 return;
             State = MoveState.Dead;
+            StopAllCoroutines();
+            Speed = 0;
+            if (d.type == DamageType.Bus)
+            {
+                Ragdoll = gameObject.AddComponent<PlayerRagdoll>();
+                Ragdoll.Launch(this, d);
+            }
             GameEvents.Die(d.type == DamageType.Bus ? "Un bus te atropelló" : d.type == DamageType.Fall ? "Caída demasiado alta" : "Te alcanzó la seguridad");
         }
         public void Board(Transform bus)
